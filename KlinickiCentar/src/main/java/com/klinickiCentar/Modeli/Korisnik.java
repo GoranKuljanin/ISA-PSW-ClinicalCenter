@@ -2,6 +2,7 @@ package com.klinickiCentar.Modeli;
 
 public class Korisnik {
 	
+	private String idKorisnika;
 	private String imeKorisnika;
 	private String prezimeKorisnika;
 	private String emailKorisnika;
@@ -11,6 +12,12 @@ public class Korisnik {
 	private String drzavaKorisnika;
 	private String brojTelefona;
 	
+	public String getIdKorisnika() {
+		return idKorisnika;
+	}
+	public void setIdKorisnika(String idKorisnika) {
+		this.idKorisnika = idKorisnika;
+	}
 	public String getImeKorisnika() {
 		return imeKorisnika;
 	}
