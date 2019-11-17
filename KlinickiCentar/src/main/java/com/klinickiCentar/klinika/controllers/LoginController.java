@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +27,12 @@ public class LoginController {
 		List<User> users = userService.findByUsernameAndPassword(username, password);
 		
 		return new ResponseEntity<>(users, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/register")
+	public ResponseEntity<User> register(@RequestBody User user){
+		User u = userService.saveUser(user);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

@@ -22,4 +22,9 @@ public class UserService {
 	public List<User> findByUsernameAndPassword(String username, String password){
 		return userRepository.findByUsernameAndPasswordAllIgnoringCase(username, password);
 	}
+	
+	public User saveUser(User user) {
+		User u = userRepository.save(user);
+		return u;
+	}
 }

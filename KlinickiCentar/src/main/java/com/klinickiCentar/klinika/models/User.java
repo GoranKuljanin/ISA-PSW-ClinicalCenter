@@ -39,6 +39,9 @@ public class User {
 	@Column(name = "phonenumber", nullable = false)
 	private String phoneNumber;
 	
+	private Uloga uloga;
+	
+	
 	public User() {
 		
 	}
@@ -113,6 +116,14 @@ public class User {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public Uloga getUloga() {
+		return uloga;
+	}
+
+	public void setUloga(Uloga uloga) {
+		this.uloga = uloga;
 	}
 	
 }
