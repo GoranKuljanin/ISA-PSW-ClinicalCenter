@@ -23,16 +23,19 @@ export class LoginComponent implements OnInit {
     const username = target.querySelector('#username').value;
     const password = target.querySelector('#password').value;
 
+                        //(username, password)   //U login.service.ts je zakomentarisana metoda getData(params)
     let res = this.service.getData(username, password);
-    res.subscribe((data)=>{
-      if(data == "admin"){
-        alert('Ulogovali ste kao Administrator!');
-        this.route.navigateByUrl('/adminClinicCentre');
+    // res.subscribe((data)=>{
+    //   if(data == "admin"){
+    //     alert('Ulogovali ste kao Administrator!');
+    //     this.route.navigateByUrl('/adminClinicCentre');
         
-      }else{
-        alert('Niste Administator!');
-      }
-    })
+    //   }else{
+    //     alert('Niste Administator!');
+    //   }
+    // })
+    //this.service.getData();
+
   }
 
 }

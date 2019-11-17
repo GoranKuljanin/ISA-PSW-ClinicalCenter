@@ -1,0 +1,1 @@
+insert into users (username, password, lastname, email, adress, city, country, phonenumber) values ('Goran', 'asd', 'Kuljanin', 'goku', 'DJ', 'BN', 'RS', 'qwe');
