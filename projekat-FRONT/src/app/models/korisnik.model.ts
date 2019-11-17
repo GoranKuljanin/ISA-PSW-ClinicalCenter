@@ -8,7 +8,4 @@ export class Korisnik {
     // lozinkaKorisnik:string;
     // prezimeKorisnik:string;
     // brojKorisnik:string;
-    constructor(adresaKorisnik: string, drzavaKorisnik: string){
-
-    }
 }
