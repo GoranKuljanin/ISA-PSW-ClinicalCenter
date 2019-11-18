@@ -23,16 +23,26 @@ public class LoginController {
 	private UserService userService;
 	
 	@GetMapping(value = "/login")
-	public ResponseEntity<List<User>> login(@RequestParam String username, @RequestParam String password){
-		List<User> users = userService.findByUsernameAndPassword(username, password);
+	public ResponseEntity<User> login(@RequestParam String email, @RequestParam String password){
+		User user = userService.findByEmailAndPassword(email, password);
 		
-		return new ResponseEntity<>(users, HttpStatus.OK);
+		if( user == null ) {
+			return new ResponseEntity<>(user, HttpStatus.OK);		//Vraca user=null
+		}															//Proveriti kako da obradjuje neke
+																	//Http zahteve, npr Status.Error
+		
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/register")
 	public ResponseEntity<User> register(@RequestBody User user){
 		User u = userService.saveUser(user);
 		
-		return new ResponseEntity<>(HttpStatus.OK);
+		if( u == null ) {
+			System.out.println(u);
+			return new ResponseEntity<>(u, HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 }

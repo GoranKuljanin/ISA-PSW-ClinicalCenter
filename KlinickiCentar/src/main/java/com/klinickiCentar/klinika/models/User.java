@@ -1,10 +1,14 @@
 package com.klinickiCentar.klinika.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +19,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "username", unique = true, nullable = false)
+	@Column(name = "username", nullable = false)
 	private String username;
 	
 	@Column(name = "password", nullable = false)
@@ -24,7 +28,7 @@ public class User {
 	@Column(name = "lastname", nullable = false)
 	private String lastname;
 	
-	@Column(name = "email", nullable = false)
+	@Column(name = "email", unique = true, nullable = false)
 	private String email;
 	
 	@Column(name = "adress", nullable = false)
@@ -39,7 +43,13 @@ public class User {
 	@Column(name = "phonenumber", nullable = false)
 	private String phoneNumber;
 	
-	private Uloga uloga;
+	@Column(name = "uloga", nullable = false)
+	private String uloga;
+	
+	//POJMA NEMAM STA OVO ZNACI
+	@OneToOne( mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "pacijent_id")
+	private Pacijent pacijent;
 	
 	
 	public User() {
@@ -118,12 +128,20 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Uloga getUloga() {
+	public String getUloga() {
 		return uloga;
 	}
 
-	public void setUloga(Uloga uloga) {
+	public void setUloga(String uloga) {
 		this.uloga = uloga;
+	}
+
+	public Pacijent getPacijent() {
+		return pacijent;
+	}
+
+	public void setPacijent(Pacijent pacijent) {
+		this.pacijent = pacijent;
 	}
 	
 }

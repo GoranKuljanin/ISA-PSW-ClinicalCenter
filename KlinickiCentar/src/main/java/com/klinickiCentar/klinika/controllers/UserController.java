@@ -21,7 +21,7 @@ public class UserController {
 	
 	
 	//@GetMapping(value = "/allUsers", produces = MediaType.APPLICATION_JSON_VALUE)
-	@GetMapping("/getAll")
+	@GetMapping("/getAllUsers")
 	public ResponseEntity<List<User>> getAll(){
 		List<User> users = userService.findAll();
 		

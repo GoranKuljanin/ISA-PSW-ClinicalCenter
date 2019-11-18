@@ -1,5 +1,6 @@
+import { User } from './../models/user.model';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -7,53 +8,28 @@ import { Injectable } from '@angular/core';
 })
 export class LoginService {
 
-  model: User ={
-    username : '',
-    password : '',
-    email : '',
-    lastname : '',
-    adress : '',
-    city : '',
-    country : '',
-    phone : '',
-    isPacijent: '0'
-  };
-
   constructor(private http: HttpClient) { }
 
-  //OVO RADI!!!   Dobavlja 
-  getData(username, password){
+  // public getData(email, password){
+  //   let header = new HttpHeaders();
+  //   header.append('Content-Type', 'application/json');
+  //   let params = new HttpParams().set("email", email).set("password", password);
+  //   return this.http.get( 'http://localhost:8088/login', {headers: header, params: params}).subscribe(
+  //     data => {
+  //       if(data == null ){
+  //         alert('Nepravilan E-mail ili Lozinka!');
+  //       }else{
+  //         console.log(data);
+  //       }
+  //     }
+  //   );
+  // }
+  
+  
+  public getData(email, password):Observable<User[]>{
     let header = new HttpHeaders();
     header.append('Content-Type', 'application/json');
-    let params = new HttpParams().set("username", username).set("password", password);
-    return this.http.get('http://localhost:8082/login', { headers: header, params: params}).subscribe(
-      data => {
-        console.log("Radi!", data)
-      }
-    )
+    let params = new HttpParams().set("email", email).set("password", password);
+    return this.http.get<User[]>( 'http://localhost:8088/login', {headers: header, params: params});
   }
-  // public getData(username, password){
-  //   return this.http.post('http://localhost:8088/login', {username, password}, {responseType: 'text' as 'json'})
-  // }
-
-
-  // public getAllData(){
-  //   return this.http.get<User[]>('http://localhost:8088/getAllData').subscribe(
-  //     data => {
-  //       console.log(data)
-  //     }
-  //   )
-  // }
 }
-
-export interface User{
-  username: string;
-  password: string;
-  email: string;
-  lastname: string;
-  adress: string;
-  city: string;
-  country: string;
-  phone: string;
-  isPacijent: string;
-};

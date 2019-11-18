@@ -19,12 +19,22 @@ public class UserService {
 		return userRepository.findAll();
 	}
 	
-	public List<User> findByUsernameAndPassword(String username, String password){
-		return userRepository.findByUsernameAndPasswordAllIgnoringCase(username, password);
+	public User findByEmailAndPassword(String email, String password){
+		return userRepository.findByEmailAndPasswordAllIgnoringCase(email, password);
+	}
+	public User findUserByEmail(String email) {
+		return userRepository.findOneByEmail(email);
 	}
 	
 	public User saveUser(User user) {
-		User u = userRepository.save(user);
-		return u;
+		User u = userRepository.findOneByEmail(user.getEmail());
+		if( u == null ) {
+			u = userRepository.save(user);
+			return u;
+		}
+		return null;
+	}
+	public void remove(User user) {
+		userRepository.delete(user);
 	}
 }

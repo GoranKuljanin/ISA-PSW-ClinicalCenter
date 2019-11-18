@@ -1,4 +1,7 @@
+import { User } from './../../models/user.model';
+import { LoginService } from './../../services/login.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  Roles: any = ['AdminKlinike', 'User', 'ADMIN_K_C'];   //Prekopirano iz register.component.ts
+  email: string;
+  password: string;
+  user: any;    //Objekat za kastovanje onoga sto dodje sa servera (za logovanje i prebacivanje stranica)
+
+  constructor(private service: LoginService, private route: Router) { }
 
   ngOnInit() {
+  }
+
+  onSubmit(){
+    this.service.getData(this.email, this.password).subscribe(
+      user=>{
+        this.user = user;
+        if( this.user.uloga == this.Roles[2] ){
+            this.route.navigateByUrl('adminKcHomePage');
+        }
+      }
+    );
   }
 
 }
