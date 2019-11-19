@@ -1,3 +1,4 @@
+import { Pacijent } from './../../models/pacijent';
 import { Observable } from 'rxjs';
 import { User } from './../../models/user.model';
 import { HttpClient } from '@angular/common/http';
@@ -21,6 +22,10 @@ export class AdminKlinickogCentraService {
 
   public dodajPacijentaUBazu(model: User){
     return this.http.post('http://localhost:8088/dodajPacijentaUBazuPacijenata', model);
+  }
+
+  public dobaviSvePacijenteIzBaze():Observable<Pacijent[]>{
+    return this.http.get<Pacijent[]>('http://localhost:8088/dobaviSvePacijenteIzBaze');
   }
 
 }

@@ -24,7 +24,13 @@ export class ListaRegistrovanihZahtevaComponent implements OnInit {
   public onPrihvati(models: User){
     let res = this.service.dodajPacijentaUBazu(models).subscribe(
         pacijent=>{
-          console.log(pacijent);
+          //console.log(pacijent);
+          for(let zaBrisanje of this.model){
+              if(models.email === zaBrisanje.email){
+                this.model.splice(this.model.indexOf(zaBrisanje), 1);
+                break;
+              }
+          }
         }
     );
   }

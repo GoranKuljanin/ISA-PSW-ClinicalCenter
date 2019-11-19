@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  Roles: any = ['AdminKlinike', 'User', 'ADMIN_K_C'];   //Prekopirano iz register.component.ts
+  Roles: any = ['AdminKlinike', 'User', 'ADMIN_K_C', 'PACIJENT'];   //Prekopirano iz register.component.ts
   email: string;
   password: string;
   user: any;    //Objekat za kastovanje onoga sto dodje sa servera (za logovanje i prebacivanje stranica)
@@ -24,8 +24,12 @@ export class LoginComponent implements OnInit {
     this.service.getData(this.email, this.password).subscribe(
       user=>{
         this.user = user;
-        if( this.user.uloga == this.Roles[2] ){
+        if( this.user == null ){
+          alert('Ne postoji nalog sa unetim parametrima!');
+        }else if( this.user.uloga == this.Roles[2] ){
             this.route.navigateByUrl('adminKcHomePage');
+        }else{
+          alert('Trenutno ne mozete da se ulogujete!');
         }
       }
     );

@@ -25,6 +25,9 @@ public class UserService {
 	public User findUserByEmail(String email) {
 		return userRepository.findOneByEmail(email);
 	}
+	public List<User> findOnlyUsers(String uloga){
+		return userRepository.findAllByUloga(uloga);
+	}
 	
 	public User saveUser(User user) {
 		User u = userRepository.findOneByEmail(user.getEmail());

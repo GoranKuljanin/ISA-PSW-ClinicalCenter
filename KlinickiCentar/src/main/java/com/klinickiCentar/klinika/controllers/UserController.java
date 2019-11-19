@@ -23,7 +23,7 @@ public class UserController {
 	//@GetMapping(value = "/allUsers", produces = MediaType.APPLICATION_JSON_VALUE)
 	@GetMapping("/getAllUsers")
 	public ResponseEntity<List<User>> getAll(){
-		List<User> users = userService.findAll();
+		List<User> users = userService.findOnlyUsers("User");
 		
 		return ( new ResponseEntity<>(users, HttpStatus.OK) );
 	}

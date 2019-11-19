@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
 
   Roles: any = ['AdminKlinike', 'User', 'ADMIN_K_C'];
   //public data: User = new User('0');
-  public data: User = new User();
+  public user: User = new User();
   //data.uloga: '0';
 
   constructor(private registerService : RegisterServiceService ) { }
@@ -21,13 +21,14 @@ export class RegisterComponent implements OnInit {
   }
 
   public onSubmit(): void{
-      this.data.uloga = this.Roles[1];
-      //res: User
-      let res = this.registerService.saveUser(this.data);
+      this.user.uloga = this.Roles[1];
+     
+      let res = this.registerService.saveUser(this.user);
       res.subscribe((res)=>{
         if(res == null ){
           alert('Vec postoji korisnicki nalog sa unetim E-mailom!');
         }else{
+          alert('Uspesno ste se registrovali kao korisnik!');
           //if( res.uloga == this.Roles[1] )
         }
       })

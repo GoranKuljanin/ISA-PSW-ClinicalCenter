@@ -7,8 +7,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pacijent")
@@ -21,8 +24,10 @@ public class Pacijent {
 	@Column(name = "zdravstvenikarton", nullable = false)
 	private String zdravstveniKarton;
 	
-	//NESTO ZA POVEZIVANJE SA USEROM
-	@OneToOne  //(mappedBy = "pacijent")
+	
+	//Samo ovaj red se dodaje!	
+	@OneToOne//(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")	//, referencedColumnName = "user_id"
 	private User user;
 	
 	public Pacijent() {
@@ -45,6 +50,7 @@ public class Pacijent {
 		this.zdravstveniKarton = zdravstveniKarton;
 	}
 
+	//@JsonIgnore		//Anotacija koja oznacava da se ne dobaljaju dalje Useri, da ne bi bilo ugnjezdavanja!
 	public User getUser() {
 		return user;
 	}

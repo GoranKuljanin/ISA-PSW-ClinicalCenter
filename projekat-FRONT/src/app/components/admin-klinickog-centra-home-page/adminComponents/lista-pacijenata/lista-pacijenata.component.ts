@@ -1,3 +1,5 @@
+import { AdminKlinickogCentraService } from './../../../../services/adminKCServices/admin-klinickog-centra.service';
+import { Pacijent } from './../../../../models/pacijent';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaPacijenataComponent implements OnInit {
 
-  constructor() { }
+  pacijenti: Pacijent[] = [];
+
+  constructor(private servis: AdminKlinickogCentraService) { }
 
   ngOnInit() {
+    let res = this.servis.dobaviSvePacijenteIzBaze().subscribe(
+      data=>{
+        this.pacijenti = data;
+      }
+    );
   }
 
+  public dobaviSvePacijente(){
+
+  }
 }

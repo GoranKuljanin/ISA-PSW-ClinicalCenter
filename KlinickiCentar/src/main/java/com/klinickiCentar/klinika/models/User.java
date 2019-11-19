@@ -47,8 +47,7 @@ public class User {
 	private String uloga;
 	
 	//POJMA NEMAM STA OVO ZNACI
-	@OneToOne( mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "pacijent_id")
+	@OneToOne//(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Pacijent pacijent;
 	
 	
