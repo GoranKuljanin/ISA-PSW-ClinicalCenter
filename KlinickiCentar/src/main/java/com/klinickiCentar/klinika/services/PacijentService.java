@@ -26,5 +26,7 @@ public class PacijentService {
 	public List<Pacijent> dobaviSvePacijente(){
 		return pacijentRepository.findAll();
 	}
-	
+	public void deletePacijent(Pacijent p) {
+		pacijentRepository.delete(p);
+	}
 }

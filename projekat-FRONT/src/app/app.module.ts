@@ -1,3 +1,4 @@
+import { PacijentService } from './services/pacijentServices/pacijent.service';
 import { AdminKlinickogCentraService } from './services/adminKCServices/admin-klinickog-centra.service';
 import { LoginService } from './services/login.service';
 import { RegisterServiceService } from './services/register-service.service';
@@ -17,6 +18,9 @@ import { KorisnikService } from './services/korisnik.service';
 import { AdminKlinickogCentraHomePageComponent } from './components/admin-klinickog-centra-home-page/admin-klinickog-centra-home-page.component';
 import { ListaRegistrovanihZahtevaComponent } from './components/admin-klinickog-centra-home-page/adminComponents/lista-registrovanih-zahteva/lista-registrovanih-zahteva.component';
 import { ListaPacijenataComponent } from './components/admin-klinickog-centra-home-page/adminComponents/lista-pacijenata/lista-pacijenata.component';
+import { PacijentHomePageComponent } from './components/pacijent-home-page/pacijent-home-page.component';
+import { PodaciPacijentaComponent } from './components/pacijent-home-page/podaci-pacijenta/podaci-pacijenta.component';
+import { ZakazaniPreglediComponent } from './components/pacijent-home-page/zakazani-pregledi/zakazani-pregledi.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,9 @@ import { ListaPacijenataComponent } from './components/admin-klinickog-centra-ho
     AdminKlinickogCentraHomePageComponent,
     ListaRegistrovanihZahtevaComponent,
     ListaPacijenataComponent,
+    PacijentHomePageComponent,
+    PodaciPacijentaComponent,
+    ZakazaniPreglediComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +44,7 @@ import { ListaPacijenataComponent } from './components/admin-klinickog-centra-ho
     FormsModule, 
     ReactiveFormsModule 
   ],
-  providers: [KorisnikService, RegisterServiceService, LoginService, AdminKlinickogCentraService],
+  providers: [KorisnikService, RegisterServiceService, LoginService, AdminKlinickogCentraService, PacijentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

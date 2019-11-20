@@ -1,7 +1,7 @@
 import { Pacijent } from './../../models/pacijent';
 import { Observable } from 'rxjs';
 import { User } from './../../models/user.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -26,6 +26,11 @@ export class AdminKlinickogCentraService {
 
   public dobaviSvePacijenteIzBaze():Observable<Pacijent[]>{
     return this.http.get<Pacijent[]>('http://localhost:8088/dobaviSvePacijenteIzBaze');
+  }
+
+  public deleteRequest(email:string){
+    // let params = new HttpParams().set("email", email)
+    // this.http.delete('http://localhost:8088/deletePacijent', {params: params});
   }
 
 }

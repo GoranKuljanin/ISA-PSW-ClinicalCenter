@@ -1,3 +1,4 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { User } from './../../../../models/user.model';
 import { AdminKlinickogCentraService } from './../../../../services/adminKCServices/admin-klinickog-centra.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +12,7 @@ export class ListaRegistrovanihZahtevaComponent implements OnInit {
 
   model: User[] = [];
 
-  constructor(private service: AdminKlinickogCentraService) { }
+  constructor(private service: AdminKlinickogCentraService, private http: HttpClient) { }
 
   ngOnInit() {
     let res = this.service.getListaRegistrovanih().subscribe(
@@ -36,11 +37,27 @@ export class ListaRegistrovanihZahtevaComponent implements OnInit {
   }
 
   public onOdbij(models: User){
-    for (let user of this.model) {
-      if (models.email === user.email) {
-          this.model.splice(this.model.indexOf(user), 1);
-          break;
-      }
-  }
+    // for (let user of this.model) {
+    //   if (models.email === user.email) {
+    //       this.model.splice(this.model.indexOf(user), 1);
+    //       break;
+    //   }
+        // this.service.deleteRequest(models.email).subscribe(
+        //   data=>{
+        //     alert('Uspesno obrisan zahtev!');
+        //   }
+        // );
+        let params = new HttpParams().set("email", models.email)
+        this.http.delete('http://localhost:8088/obrisiZahtev', {params: params}).subscribe(
+          data=>{
+            alert('Zahtev uspesno obrisan!');
+          }
+        );
+        for (let user of this.model) {                  //OVAJ DIO JE SAMO ZA BRISANJE IZGLEDA (u suprotnom bi trebalo ponovo 
+            if (models.email === user.email) {          //dobavljati iz baze)
+                this.model.splice(this.model.indexOf(user), 1);
+                break;
+            }
+          }
   }
 }

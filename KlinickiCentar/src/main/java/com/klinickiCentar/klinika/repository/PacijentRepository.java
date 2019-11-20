@@ -11,4 +11,5 @@ public interface PacijentRepository extends JpaRepository<Pacijent, Long> {
 
 	//Pacijent findOneByEmail(String email);
 	
+	
 }

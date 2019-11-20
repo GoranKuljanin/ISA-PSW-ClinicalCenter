@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.klinickiCentar.klinika.models.Pacijent;
@@ -57,5 +59,12 @@ public class AdminKlinickogCentraController {
 	public ResponseEntity<List<Pacijent>> dobaviSvePacijenteIzBaze(){
 		List<Pacijent> pacijenti = pacijentService.dobaviSvePacijente();
 		return new ResponseEntity<List<Pacijent>>(pacijenti, HttpStatus.OK);
+	}
+	
+	@DeleteMapping(value = "/obrisiZahtev")
+	public ResponseEntity<Void> deleteZahtev(@RequestParam String email){
+		User u = userService.findUserByEmail(email);
+		userService.remove(u);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

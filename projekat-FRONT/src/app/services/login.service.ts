@@ -7,6 +7,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LoginService {
+  user: User;   //Korisceno kod logovanja kao pacijent, da se zapamti koji korisnik je logovan
+                    //Stanje podeseno u login.component.ts
 
   constructor(private http: HttpClient) { }
 
@@ -26,10 +28,11 @@ export class LoginService {
   // }
   
   
-  public getData(email, password):Observable<User[]>{
+  public getData(email, password):Observable<User>{
     let header = new HttpHeaders();
     header.append('Content-Type', 'application/json');
     let params = new HttpParams().set("email", email).set("password", password);
-    return this.http.get<User[]>( 'http://localhost:8088/login', {headers: header, params: params});
+    return this.http.get<User>( 'http://localhost:8088/login', {headers: header, params: params});
   }
+
 }
