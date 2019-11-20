@@ -1,6 +1,7 @@
-import { Korisnik } from './../../models/korisnik.model';
-import { Component, OnInit } from '@angular/core';
+import { PacijentService } from './../../services/pacijentServices/pacijent.service';
+import { User } from './../../models/user.model';
 import { LoginService } from './../../services/login.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,29 +11,34 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  poruka:string;
+  Roles: any = ['AdminKlinike', 'User', 'ADMIN_K_C', 'PACIJENT'];   //Prekopirano iz register.component.ts
+  email: string;
+  password: string;
+  user: any;    //Objekat za kastovanje onoga sto dodje sa servera (za logovanje i prebacivanje stranica)
 
-  constructor(private service: LoginService, private route: Router) { }
+  constructor(private service: LoginService, private route: Router, private pacijentService: PacijentService) { }
 
   ngOnInit() {
   }
 
-  onLogin(event){
-    event.preventDefault();
-    const target = event.target;
-    const username = target.querySelector('#username').value;
-    const password = target.querySelector('#password').value;
-
-    let res = this.service.getData(username, password);
-    res.subscribe((data)=>{
-      if(data == "admin"){
-        alert('Ulogovali ste kao Administrator!');
-        this.route.navigateByUrl('/adminClinicCentre');
-        
-      }else{
-        alert('Niste Administator!');
+  onSubmit(){
+    this.service.getData(this.email, this.password).subscribe(
+      data=>{
+        this.user = data;
+        if( this.user != null ){
+          if( this.user.uloga == this.Roles[2] ){
+            this.route.navigateByUrl('adminKcHomePage');
+          }else if(this.user.uloga == this.Roles[3]){
+            this.service.user = data
+            this.route.navigateByUrl('pacijentHomePage');
+          }else if( this.user.uloga == this.Roles[1] ){
+              alert('Jos niste dodani u sistem od strane administratora.');
+          }
+        }else{
+          alert('Trenutno ne mozete da se ulogujete!');
+        }
       }
-    })
+    );
   }
 
 }

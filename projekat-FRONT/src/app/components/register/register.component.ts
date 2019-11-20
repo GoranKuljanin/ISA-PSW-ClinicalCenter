@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { RegisterService } from './../../services/register.service';
+import { RegisterServiceService } from './../../services/register-service.service';
+import { User } from './../../models/user.model';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-register',
@@ -8,44 +10,28 @@ import { RegisterService } from './../../services/register.service';
 })
 export class RegisterComponent implements OnInit {
 
-  // Roles: any = ['Admin', 'User'];
-     username = '';
-     password = '';
-     email ='';
-     lastname = '';
-     adress = '';
-     city = '';
-     country = '';
-     phone = '';
-     isPacijent = '0';
-  
-  constructor(private service: RegisterService) { }
+  Roles: any = ['AdminKlinike', 'User', 'ADMIN_K_C'];
+  //public data: User = new User('0');
+  public user: User = new User();
+  //data.uloga: '0';
+
+  constructor(private registerService : RegisterServiceService ) { }
 
   ngOnInit() {
   }
 
-  public onRegister(){
-    // event.preventDefault();
-
-    // const target = event.target;
-    // const username = target.querySelector('#username').value;
-    // const password = target.querySelector('#password').value;
-    // const email = target.querySelector('#email').value;
-    // const lastname = target.querySelector('#lastname').value;
-    // const adress = target.querySelector('#adress').value;
-    // const city = target.querySelector('#city').value;
-    // const country = target.querySelector('#country').value;
-    // const phone = target.querySelector('#phone').value;
-
-    let res = this.service.doRegister(this.username, this.password, this.email, this.lastname, this.adress, this.city, this.country, this.phone, this.isPacijent);
-    res.subscribe((data)=>{
-      if(data == "Postoji"){
-        alert('Korisnicko ime ili email vec postoje!');
-      }else{
-        alert('Uspesno ste se registrovali');
-      }
-    })
+  public onSubmit(): void{
+      this.user.uloga = this.Roles[1];
+     
+      let res = this.registerService.saveUser(this.user);
+      res.subscribe((res)=>{
+        if(res == null ){
+          alert('Vec postoji korisnicki nalog sa unetim E-mailom!');
+        }else{
+          alert('Uspesno ste se registrovali kao korisnik!');
+          //if( res.uloga == this.Roles[1] )
+        }
+      })
   }
-
 
 }
