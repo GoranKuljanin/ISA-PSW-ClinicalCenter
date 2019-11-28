@@ -1,3 +1,6 @@
+import { ListaPregledaComponent } from './components/pacijent-home-page/lista-pregleda/lista-pregleda.component';
+import { ZdravstveniKartonComponent } from './components/pacijent-home-page/zdravstveni-karton/zdravstveni-karton.component';
+
 import { ListaRegistrovanihZahtevaComponent } from './components/admin-klinickog-centra-home-page/adminComponents/lista-registrovanih-zahteva/lista-registrovanih-zahteva.component';
 import { AdminKlinickogCentraHomePageComponent } from './components/admin-klinickog-centra-home-page/admin-klinickog-centra-home-page.component';
 import { NgModule } from '@angular/core';
@@ -10,6 +13,7 @@ import { PrikazKlinikeComponent } from './components/lista-klinika/prikaz-klinik
 import { ZakazaniPreglediComponent } from './components/pacijent-home-page/zakazani-pregledi/zakazani-pregledi.component';
 import { PodaciPacijentaComponent } from './components/pacijent-home-page/podaci-pacijenta/podaci-pacijenta.component';
 import { PacijentHomePageComponent } from './components/pacijent-home-page/pacijent-home-page.component';
+
 import { LekarComponent } from './components/lekar/lekar.component';
 import { ZapocniPregledComponent } from './components/lekar/components/zapocni-pregled/zapocni-pregled.component';
 import { RadniKalendarComponent } from './components/lekar/components/radni-kalendar/radni-kalendar.component';
@@ -32,6 +36,8 @@ const routes: Routes = [
         children: [
           { path: 'podaciPacijenta', component: PodaciPacijentaComponent },
           { path: 'zakazaniPregledi', component: ZakazaniPreglediComponent },
+          { path: 'zdravstveniKarton', component: ZdravstveniKartonComponent },
+          { path: 'istorijaPregleda', component: ListaPregledaComponent },
           { path: 'clinics', component: ListaKlinikaComponent },
           { path: 'clinic/:id', component: PrikazKlinikeComponent }
         ]
@@ -46,6 +52,7 @@ const routes: Routes = [
     { path: 'profil/:id', component: ProfilComponent }
   ] 
 }
+
 ];
 
 @NgModule({

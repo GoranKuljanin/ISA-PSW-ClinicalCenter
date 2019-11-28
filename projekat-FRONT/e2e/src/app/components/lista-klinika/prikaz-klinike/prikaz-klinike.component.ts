@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { equal } from 'assert';
+
 import {Klinika} from '../../../models/klinika.model';
 import {Sala} from '../../../models/sala.model';
 import {Termin} from '../../../models/termin.model';
@@ -37,8 +38,8 @@ export class PrikazKlinikeComponent implements OnInit {
     constructor(private route: ActivatedRoute) { }
     
   ngOnInit() {
-    
 
+   
     let idSelektovanog= parseInt(this.route.snapshot.paramMap.get('id'));
     this.clinic=clinics.find(x => x.id == idSelektovanog);
     this.dataSource = new MatTableDataSource(this.sale);

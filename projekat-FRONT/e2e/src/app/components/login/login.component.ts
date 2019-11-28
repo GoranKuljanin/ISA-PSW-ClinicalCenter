@@ -29,7 +29,8 @@ export class LoginComponent implements OnInit {
           if( this.user.uloga == this.Roles[2] ){
             this.route.navigateByUrl('adminKcHomePage');
           }else if(this.user.uloga == this.Roles[3]){
-            this.service.user = data
+            this.service.user = data;
+
             this.route.navigateByUrl('pacijentHomePage');
           }else if( this.user.uloga == this.Roles[1] ){
               alert('Jos niste dodani u sistem od strane administratora.');
