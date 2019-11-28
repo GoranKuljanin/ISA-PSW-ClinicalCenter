@@ -1,5 +1,6 @@
 import { ListaPregledaComponent } from './components/pacijent-home-page/lista-pregleda/lista-pregleda.component';
 import { ZdravstveniKartonComponent } from './components/pacijent-home-page/zdravstveni-karton/zdravstveni-karton.component';
+
 import { ListaRegistrovanihZahtevaComponent } from './components/admin-klinickog-centra-home-page/adminComponents/lista-registrovanih-zahteva/lista-registrovanih-zahteva.component';
 import { AdminKlinickogCentraHomePageComponent } from './components/admin-klinickog-centra-home-page/admin-klinickog-centra-home-page.component';
 import { NgModule } from '@angular/core';
@@ -12,6 +13,14 @@ import { PrikazKlinikeComponent } from './components/lista-klinika/prikaz-klinik
 import { ZakazaniPreglediComponent } from './components/pacijent-home-page/zakazani-pregledi/zakazani-pregledi.component';
 import { PodaciPacijentaComponent } from './components/pacijent-home-page/podaci-pacijenta/podaci-pacijenta.component';
 import { PacijentHomePageComponent } from './components/pacijent-home-page/pacijent-home-page.component';
+
+import { LekarComponent } from './components/lekar/lekar.component';
+import { ZapocniPregledComponent } from './components/lekar/components/zapocni-pregled/zapocni-pregled.component';
+import { RadniKalendarComponent } from './components/lekar/components/radni-kalendar/radni-kalendar.component';
+import { ZakaziPregledComponent } from './components/lekar/components/zakazi-pregled/zakazi-pregled.component';
+import { ZahtevZaGodisnjiComponent } from './components/lekar/components/zahtev-za-godisnji/zahtev-za-godisnji.component';
+import { ProfilComponent } from './components/lekar/components/profil/profil.component';
+import { PacijentiComponent } from './components/lekar/components/pacijenti/pacijenti.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -32,7 +41,18 @@ const routes: Routes = [
           { path: 'clinics', component: ListaKlinikaComponent },
           { path: 'clinic/:id', component: PrikazKlinikeComponent }
         ]
-  }
+  },
+  { path: 'lekarHomePage', component: LekarComponent ,
+  children: [
+    { path: 'pacijenti', component: PacijentiComponent },
+    { path: 'zapocniPregled', component: ZapocniPregledComponent },
+    { path: 'radniKalendar', component: RadniKalendarComponent },
+    { path: 'zakaziPregled', component: ZakaziPregledComponent },
+    { path: 'noviZahtev', component: ZahtevZaGodisnjiComponent },
+    { path: 'profil/:id', component: ProfilComponent }
+  ] 
+}
+
 ];
 
 @NgModule({

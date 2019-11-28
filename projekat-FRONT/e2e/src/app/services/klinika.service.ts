@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Clinic } from 'src/app/models/clinic.model';
+import { Klinika } from 'src/app/models/klinika.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class KlinikaService {
 
   constructor(private http: HttpClient) { }
-  public getKlinike():Observable<Clinic[]>{
-    return this.http.get<Clinic[]>('http://localhost:8088/klinike');
+  public getKlinike():Observable<Klinika[]>{
+    return this.http.get<Klinika[]>('http://localhost:8088/klinike');
   }
 }
