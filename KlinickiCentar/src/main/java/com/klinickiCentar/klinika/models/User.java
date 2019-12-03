@@ -46,7 +46,6 @@ public class User {
 	@Column(name = "uloga", nullable = false)
 	private String uloga;
 	
-	//POJMA NEMAM STA OVO ZNACI
 	@OneToOne//(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Pacijent pacijent;
 	

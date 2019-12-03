@@ -33,7 +33,6 @@ public class Klinika {
 	
 	@Column(name = "opis", nullable = false)
 	private String opis;
-	
 	@OneToMany( mappedBy = "klinika" )
 	@JsonIgnore
 	private List<Termin> termini;

@@ -24,7 +24,7 @@ public class Cena {
 	
 	@Column(name = "opis", nullable = false)
 	private String opis;
-	
+
 	@ManyToOne
 	@JoinColumn(name="klinika")
 	private Klinika klinika;
