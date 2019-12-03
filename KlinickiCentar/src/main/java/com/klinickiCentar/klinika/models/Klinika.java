@@ -1,6 +1,7 @@
 package com.klinickiCentar.klinika.models;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "klinika")
@@ -30,22 +33,21 @@ public class Klinika {
 	
 	@Column(name = "opis", nullable = false)
 	private String opis;
+	@OneToMany( mappedBy = "klinika" )
+	@JsonIgnore
+	private List<Termin> termini;
 	
-	@OneToMany( cascade = CascadeType.ALL )
-	//@JoinColumn(name = "termin_id")
-	private Set<Termin> slobodniTermini = new HashSet<Termin>();
+	@OneToMany( mappedBy = "klinika" )
+	@JsonIgnore
+	private List<Lekar> lekari;
 	
-	@OneToMany(  cascade = CascadeType.ALL)
-	//@JoinColumn(name = "lekar_id")
-	private Set<Lekar> spisakLekara = new HashSet<Lekar>();
+	@OneToMany( mappedBy = "klinika" )
+	@JsonIgnore
+	private List<Sala> sale;
 	
-	@OneToMany( cascade = CascadeType.ALL)
-	//@JoinColumn(name = "sala_id")
-	private Set<Sala> spisakSala = new HashSet<Sala>();
-	
-	@OneToMany( cascade = CascadeType.ALL )
-	//@JoinColumn(name = "cena_id")
-	private Set<Cena> cenovnik = new HashSet<Cena>();
+	@OneToMany( mappedBy = "klinika" )
+	@JsonIgnore
+	private List<Cena> cene;
 
 	public Klinika() {
 		super();
@@ -82,38 +84,90 @@ public class Klinika {
 	public void setOpis(String opis) {
 		this.opis = opis;
 	}
-
-	public Set<Termin> getSlobodniTermini() {
-		return slobodniTermini;
+	//Termini--------------------------------
+	public List<Termin> getTermini() {
+		return termini;
 	}
 
-	public void setSlobodniTermini(Set<Termin> slobodniTermini) {
-		this.slobodniTermini = slobodniTermini;
-	}
-
-	public Set<Lekar> getSpisakLekara() {
-		return spisakLekara;
-	}
-
-	public void setSpisakLekara(Set<Lekar> spisakLekara) {
-		this.spisakLekara = spisakLekara;
-	}
-
-	public Set<Sala> getSpisakSala() {
-		return spisakSala;
-	}
-
-	public void setSpisakSala(Set<Sala> spisakSala) {
-		this.spisakSala = spisakSala;
-	}
-
-	public Set<Cena> getCenovnik() {
-		return cenovnik;
-	}
-
-	public void setCenovnik(Set<Cena> cenovnik) {
-		this.cenovnik = cenovnik;
+	public void setTermini(List<Termin> termini) {
+		this.termini = termini;
 	}
 	
+	public Termin addTermin(Termin termin) {
+		getTermini().add(termin);
+		termin.setKlinika(this);
+		return termin;
+	}
+
+	public Termin removeTermin(Termin termin) {
+		getTermini().remove(termin);
+		termin.setKlinika(null);
+
+		return termin;
+	}
+	//---------------------------------------
+	//Lekari-------------------------------------
+	public List<Lekar> getLekari() {
+		return lekari;
+	}
+
+	public void setLekari(List<Lekar> lekari) {
+		this.lekari = lekari;
+	}
+
+	public Lekar addLekar(Lekar lekar) {
+		getLekari().add(lekar);
+		lekar.setKlinika(this);
+		return lekar;
+	}
+
+	public Lekar removeLekar(Lekar lekar) {
+		getLekari().remove(lekar);
+		lekar.setKlinika(null);
+
+		return lekar;
+	}
+	//--------------------------------------------
+	//Sale----------------------------------------
+	public List<Sala> getSale() {
+		return sale;
+	}
+
+	public void setSale(List<Sala> sale) {
+		this.sale = sale;
+	}
+
+	public Sala addSale(Sala sale) {
+		getSale().add(sale);
+		sale.setKlinika(this);
+		return sale;
+	}
+
+	public Sala removeSale(Sala sale) {
+		getSale().remove(sale);
+		sale.setKlinika(null);
+
+		return sale;
+	}
+	//--------------------------------------------
+	//Cene----------------------------------------
+	public List<Cena> getCene() {
+		return cene;
+	}
+
+	public void setCene(List<Cena> cene) {
+		this.cene = cene;
+	}
 	
+	public Cena addCene(Cena cene) {
+		getCene().add(cene);
+		cene.setKlinika(this);
+		return cene;
+	}
+
+	public Cena removeRacun(Cena cene) {
+		getCene().remove(cene);
+		cene.setKlinika(null);
+		return cene;
+	}
 }

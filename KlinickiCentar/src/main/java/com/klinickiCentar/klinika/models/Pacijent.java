@@ -20,11 +20,6 @@ public class Pacijent {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	//@Column(name = "zdravstvenikarton", nullable = false)
-	//private String zdravstveniKarton;
-	
-	
 	@OneToOne//(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")	//, referencedColumnName = "user_id"
 	private User user;
@@ -45,13 +40,6 @@ public class Pacijent {
 		this.id = id;
 	}
 
-//	public String getZdravstveniKarton() {
-//		return zdravstveniKarton;
-//	}
-//
-//	public void setZdravstveniKarton(String zdravstveniKarton) {
-//		this.zdravstveniKarton = zdravstveniKarton;
-//	}
 
 	//@JsonIgnore		//Anotacija koja oznacava da se ne dobaljaju dalje Useri, da ne bi bilo ugnjezdavanja!
 	public User getUser() {
@@ -69,5 +57,4 @@ public class Pacijent {
 	public void setZdravstveniKarton(ZdravstveniKarton zdravstveniKarton) {
 		this.zdravstveniKarton = zdravstveniKarton;
 	}
-
 }
