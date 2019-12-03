@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.klinickiCentar.klinika.models.Klinika;
-import com.klinickiCentar.klinika.services.KlinikaService;
+import com.klinickiCentar.klinika.models.Pregled;
+import com.klinickiCentar.klinika.services.PreglediService;
 
 @RestController
 @CrossOrigin(origins = "*")
-public class KlinikaController {
-	
+public class PreglediController {
+
 	@Autowired
-	private KlinikaService klinikaService;
+	private PreglediService preglediService;
 	
-	@GetMapping(value = "/klinike")
-	public ResponseEntity<List<Klinika>> cene() {
-		List<Klinika> lista = klinikaService.getCene();
-		return new ResponseEntity<List<Klinika>>(lista, HttpStatus.OK);
+	@GetMapping("/getAllPregledi")
+	public ResponseEntity<List<Pregled>> getAllPregledi(){
+		List<Pregled> pregledi = preglediService.getAllPregledi();
+		return new ResponseEntity<List<Pregled>>(pregledi, HttpStatus.OK);
 	}
 }

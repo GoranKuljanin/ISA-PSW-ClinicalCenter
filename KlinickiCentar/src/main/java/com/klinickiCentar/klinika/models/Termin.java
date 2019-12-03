@@ -22,9 +22,9 @@ public class Termin {
 	@Column(name = "datum", nullable = false)
 	private String datum;
 	
-	@ManyToOne
-	@JoinColumn(name="klinika")
-	private Klinika klinika;
+	//@ManyToOne//(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JoinColumn(name = "klinika_id")
+	//private Klinika klinika;
 
 	public Termin() {
 		super();
@@ -47,13 +47,13 @@ public class Termin {
 		this.datum = datum;
 	}
 
-	public Klinika getKlinika() {
-		return klinika;
-	}
-
-	public void setKlinika(Klinika klinika) {
-		this.klinika = klinika;
-	}
+//	public Klinika getKlinika() {
+//		return klinika;
+//	}
+//
+//	public void setKlinika(Klinika klinika) {
+//		this.klinika = klinika;
+//	}
 	
 	
 }

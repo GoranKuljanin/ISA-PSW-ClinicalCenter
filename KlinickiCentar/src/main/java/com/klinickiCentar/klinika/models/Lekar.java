@@ -22,9 +22,9 @@ public class Lekar {
 	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@ManyToOne
-	@JoinColumn(name="klinika")
-	private Klinika klinika;
+	//@ManyToOne//(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JoinColumn(name = "klinika_id")
+	//private Klinika klinika;
 
 	public Lekar() {
 		super();
@@ -46,13 +46,13 @@ public class Lekar {
 		this.name = name;
 	}
 
-	public Klinika getKlinika() {
-		return klinika;
-	}
-
-	public void setKlinika(Klinika klinika) {
-		this.klinika = klinika;
-	}
+//	public Klinika getKlinika() {
+//		return klinika;
+//	}
+//
+//	public void setKlinika(Klinika klinika) {
+//		this.klinika = klinika;
+//	}
 	
 	
 }

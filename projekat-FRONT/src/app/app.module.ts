@@ -24,13 +24,8 @@ import { PacijentHomePageComponent } from './components/pacijent-home-page/pacij
 import { PodaciPacijentaComponent } from './components/pacijent-home-page/podaci-pacijenta/podaci-pacijenta.component';
 import { ZakazaniPreglediComponent } from './components/pacijent-home-page/zakazani-pregledi/zakazani-pregledi.component';
 import { EditProfilDialogComponent } from './components/pacijent-home-page/podaci-pacijenta/edit-profil-dialog/edit-profil-dialog.component';
-import { LekarComponent } from './components/lekar/lekar.component';
-import { ZapocniPregledComponent } from './components/lekar/components/zapocni-pregled/zapocni-pregled.component';
-import { RadniKalendarComponent } from './components/lekar/components/radni-kalendar/radni-kalendar.component';
-import { ZakaziPregledComponent } from './components/lekar/components/zakazi-pregled/zakazi-pregled.component';
-import { ZahtevZaGodisnjiComponent } from './components/lekar/components/zahtev-za-godisnji/zahtev-za-godisnji.component';
-import { ProfilComponent } from './components/lekar/components/profil/profil.component';
-import { PacijentiComponent } from './components/lekar/components/pacijenti/pacijenti.component';
+import { ZdravstveniKartonComponent } from './components/pacijent-home-page/zdravstveni-karton/zdravstveni-karton.component';
+import { ListaPregledaComponent } from './components/pacijent-home-page/lista-pregleda/lista-pregleda.component';
 
 @NgModule({
   declarations: [
@@ -46,13 +41,8 @@ import { PacijentiComponent } from './components/lekar/components/pacijenti/paci
     PodaciPacijentaComponent,
     ZakazaniPreglediComponent,
     EditProfilDialogComponent,
-    LekarComponent,
-    ZapocniPregledComponent,
-    RadniKalendarComponent,
-    ZakaziPregledComponent,
-    ZahtevZaGodisnjiComponent,
-    ProfilComponent,
-    PacijentiComponent,
+    ZdravstveniKartonComponent,
+    ListaPregledaComponent,
   ],
   imports: [
     BrowserModule,
