@@ -1,0 +1,89 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center margin-top" style="margin-top: 110px;">
+    <mat-card class="paper">
+      <mat-card-header>
+          <mat-grid-list cols="3" rowHeight="4:1">
+            <!-- Pretrazivanje pacijenata -->
+              <mat-grid-tile  [colspan] = "1" [rowspan] = "2">
+                <mat-form-field>
+                  <input matInput type="text" [(ngModel)]="search" placeholder="Search" (input)="Search()">
+                </mat-form-field>
+              </mat-grid-tile>
+              <!-- Filter grada -->
+              <mat-grid-tile  [colspan] = "1" [rowspan] = "2">
+                  <mat-form-field>
+                    <mat-label>Grad</mat-label>
+                    <mat-select [(ngModel)]="selectedValue" (selectionChange)="FilterGrad()">
+                      <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </mat-grid-tile>
+              <!-- Filter drzave -->
+              <!--<mat-grid-tile  [colspan] = "1" [rowspan] = "1">{{selectedValue}}</mat-grid-tile>-->
+          </mat-grid-list> 
+            <mat-card-title style="font-size: 24px;">Tabela Pacijenata</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          
+            <hr>
+            <table id="tabelaPacijenata" mat-table (matSortChange)="sortData($event)" [dataSource]="tableSource" matSort class="mat-elevation-z2">
+                    
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="Ime" >
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ime </th>
+                      <td mat-cell *matCellDef="let element">{{element.user.username}}</td>
+                    </ng-container>
+                  
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="Prezime" >
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 5px;" > Prezime </th>
+                      <td mat-cell *matCellDef="let element" style="padding-left: 5px;">{{element.user.lastname}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Email" >
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 5px;"> Email </th>
+                      <td mat-cell *matCellDef="let element" style="padding-left: 5px;">{{element.user.email}} </td>
+                    </ng-container>
+                  
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="Kontakt">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 5px;"> Kontakt </th>
+                      <td mat-cell *matCellDef="let element" style="padding-left: 5px;">{{element.user.phoneNumber}} </td>
+                    </ng-container>
+                    
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="Adresa">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 5px;"> Adresa </th>
+                      <td mat-cell *matCellDef="let element" style="padding-left: 5px;">{{element.user.adress}} </td>
+                    </ng-container>
+                  
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="Grad">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 5px;"> Grad </th>
+                      <td mat-cell *matCellDef="let element" style="padding-left: 5px;">{{element.user.city}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Drzava">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 5px;"> Drzava </th>
+                      <td mat-cell *matCellDef="let element" style="padding-left: 5px;">{{element.user.country}} </td>
+                    </ng-container>
+                  
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="ZdravstveniKarton">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 5px;"> Zdravstveni Karton </th>
+                      <td mat-cell *matCellDef="let element" style="padding-left: 5px;" >{{element.zdravstveniKarton}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef=" ">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 5px;">  </th>
+                      <td mat-cell *matCellDef="let element" style="padding-left: 5px;" >
+                      <a routerLink="/lekarHomePage/pacijent/{{element.id}}" routerLinkActive="active"><mat-icon>account_circle</mat-icon></a>
+                    </td>
+                    </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    
+                  </table>
+      </mat-card-content>
+    </mat-card>
+</div>
