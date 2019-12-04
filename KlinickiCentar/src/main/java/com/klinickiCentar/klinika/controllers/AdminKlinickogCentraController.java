@@ -33,7 +33,7 @@ public class AdminKlinickogCentraController {
 		
 		User user = userService.findUserByEmail(u.getEmail());
 		Pacijent p = new Pacijent();
-		p.setZdravstveniKarton("ZdravstveniKarton");
+		//p.setZdravstveniKarton("ZdravstveniKarton");
 		user.setUloga("PACIJENT");
 		p.setUser(user);
 		//user.setPacijent(p);

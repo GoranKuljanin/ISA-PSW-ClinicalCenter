@@ -32,6 +32,8 @@ import { ZahtevZaGodisnjiComponent } from './components/lekar/components/zahtev-
 import { ProfilComponent } from './components/lekar/components/profil/profil.component';
 import { PacijentiComponent } from './components/lekar/components/pacijenti/pacijenti.component';
 import { PrikazPacijentaComponent } from './components/lekar/components/prikaz-pacijenta/prikaz-pacijenta.component';
+import { ZdravstveniKartonComponent } from './components/pacijent-home-page/zdravstveni-karton/zdravstveni-karton.component';
+import { ListaPregledaComponent } from './components/pacijent-home-page/lista-pregleda/lista-pregleda.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { PrikazPacijentaComponent } from './components/lekar/components/prikaz-p
     ProfilComponent,
     PacijentiComponent,
     PrikazPacijentaComponent,
+    ZdravstveniKartonComponent,
+    ListaPregledaComponent,
   ],
   imports: [
     BrowserModule,

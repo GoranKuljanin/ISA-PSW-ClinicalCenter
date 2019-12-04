@@ -16,6 +16,8 @@ import com.klinickiCentar.klinika.models.Klinika;
 import com.klinickiCentar.klinika.models.Lekar;
 import com.klinickiCentar.klinika.models.Sala;
 import com.klinickiCentar.klinika.models.Termin;
+
+import com.klinickiCentar.klinika.models.Klinika;
 import com.klinickiCentar.klinika.services.KlinikaService;
 
 @RestController

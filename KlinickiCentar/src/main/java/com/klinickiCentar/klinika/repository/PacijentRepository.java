@@ -9,7 +9,6 @@ import com.klinickiCentar.klinika.models.User;
 
 public interface PacijentRepository extends JpaRepository<Pacijent, Long> {
 
-
 	//Pacijent findOneByEmail(String email);
 	
 }

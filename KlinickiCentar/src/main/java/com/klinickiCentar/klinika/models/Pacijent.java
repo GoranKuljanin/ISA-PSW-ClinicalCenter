@@ -23,14 +23,18 @@ public class Pacijent {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "zdravstvenikarton", nullable = false)
-	private String zdravstveniKarton;
+	// @Column(name = "zdravstvenikarton", nullable = false)
+	// private String zdravstveniKarton;
 	
 	
 	//Samo ovaj red se dodaje!	
 	@OneToOne//(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")	//, referencedColumnName = "user_id"
 	private User user;
+	
+	@OneToOne
+	@JoinColumn(name = "zdravstveni_karton_id")
+	private ZdravstveniKarton zdravstveniKarton;
 	
 	public Pacijent() {
 		super();
@@ -44,13 +48,13 @@ public class Pacijent {
 		this.id = id;
 	}
 
-	public String getZdravstveniKarton() {
-		return zdravstveniKarton;
-	}
-
-	public void setZdravstveniKarton(String zdravstveniKarton) {
-		this.zdravstveniKarton = zdravstveniKarton;
-	}
+//	public String getZdravstveniKarton() {
+//		return zdravstveniKarton;
+//	}
+//
+//	public void setZdravstveniKarton(String zdravstveniKarton) {
+//		this.zdravstveniKarton = zdravstveniKarton;
+//	}
 
 	//@JsonIgnore		//Anotacija koja oznacava da se ne dobaljaju dalje Useri, da ne bi bilo ugnjezdavanja!
 	public User getUser() {
@@ -59,6 +63,14 @@ public class Pacijent {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public ZdravstveniKarton getZdravstveniKarton() {
+		return zdravstveniKarton;
+	}
+
+	public void setZdravstveniKarton(ZdravstveniKarton zdravstveniKarton) {
+		this.zdravstveniKarton = zdravstveniKarton;
 	}
 
 }
