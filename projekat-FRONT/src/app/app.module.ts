@@ -1,3 +1,5 @@
+import { ListaSalaComponent } from './components/admin-klinike/components/lista-sala/lista-sala.component';
+import { AdminKlinikeComponent } from './components/admin-klinike/admin-klinike.component';
 import { PregledService } from './services/pregled.service';
 import { PacijentService } from './services/pacijentServices/pacijent.service';
 import { AdminKlinickogCentraService } from './services/adminKCServices/admin-klinickog-centra.service';
@@ -62,6 +64,8 @@ import { PregledaniPacijentComponent } from './components/lekar/components/prika
     ListaPregledaComponent,
     ZdravstveniKartonComponent,
     PregledaniPacijentComponent,
+    AdminKlinikeComponent,
+    ListaSalaComponent
   ],
   imports: [
     BrowserModule,
