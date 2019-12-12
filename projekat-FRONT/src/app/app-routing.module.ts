@@ -1,3 +1,5 @@
+import { ListaSalaComponent } from './components/admin-klinike/components/lista-sala/lista-sala.component';
+import { AdminKlinikeComponent } from './components/admin-klinike/admin-klinike.component';
 import { ListaRegistrovanihZahtevaComponent } from './components/admin-klinickog-centra-home-page/adminComponents/lista-registrovanih-zahteva/lista-registrovanih-zahteva.component';
 import { AdminKlinickogCentraHomePageComponent } from './components/admin-klinickog-centra-home-page/admin-klinickog-centra-home-page.component';
 import { NgModule } from '@angular/core';
@@ -29,6 +31,11 @@ const routes: Routes = [
         children: [
          { path: 'listaRegistrovanihZahteva', component: ListaRegistrovanihZahtevaComponent },
          { path: 'listaPacijenata', component: ListaPacijenataComponent }
+        ]
+  },
+  { path: 'adminKHomePage/:ida', component: AdminKlinikeComponent,
+        children: [
+         { path: 'sale', component: ListaSalaComponent }
         ]
   },
   { path: 'pacijentHomePage', component: PacijentHomePageComponent ,

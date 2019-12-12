@@ -5,11 +5,13 @@ insert into users (username, password, lastname, email, adress, city, country, p
 insert into users (username, password, lastname, email, adress, city, country, phonenumber, uloga) values ('Marko', '123', 'Markovic', 'lekar', 'adr', 'Novi Sad', 'RS', '064', 'LEKAR');
 insert into users (username, password, lastname, email, adress, city, country, phonenumber, uloga) values ('Uros', '123', 'Urosevic', 'Urosevic2gmail.com', 'adr', 'Ruma', 'RS', '064', 'PACIJENT');
 insert into users (username, password, lastname, email, adress, city, country, phonenumber, uloga) values ('Laza', '123', 'Lazic', 'Lazic2gmail.com', 'adr', 'Sremska Mitrovica', 'RS', '064', 'PACIJENT');
+insert into users (username, password, lastname, email, adress, city, country, phonenumber, uloga) values ('Admin', '123', 'Klinike', 'adminklinike', 'adr', 'Sremska Mitrovica', 'RS', '064', 'ADMIN_K');
 
 insert into klinika (naziv, adresa, opis) values ('Naziv1', 'Adresa1', 'Opis1');
 insert into klinika (naziv, adresa, opis) values ('Naziv2', 'Adresa2', 'Opis2');
 
-insert into sala (name,klinika_id) values ('Sala1',1);
+insert into sala (name,klinika_id) values ('Ordinacija',1);
+insert into sala (name,klinika_id) values ('Laboratorija',1);
 
 insert into cena (vrednost, opis, klinika_id) values (1, 'Opis1', 1);
 insert into cena (vrednost, opis, klinika_id) values (100, 'Operacija', 1);

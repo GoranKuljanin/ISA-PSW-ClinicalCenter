@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  Roles: any = ['AdminKlinike', 'User', 'ADMIN_K_C', 'PACIJENT','LEKAR'];   //Prekopirano iz register.component.ts
+  Roles: any = ['AdminKlinike', 'User', 'ADMIN_K_C', 'PACIJENT','LEKAR','ADMIN_K'];   //Prekopirano iz register.component.ts
   email: string;
   password: string;
   user: any;    //Objekat za kastovanje onoga sto dodje sa servera (za logovanje i prebacivanje stranica)
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
     this.service.getData(this.email, this.password).subscribe(
       data=>{
         this.user = data;
+        console.log(data);
         if( this.user != null ){
           if( this.user.uloga == this.Roles[2] ){
             this.route.navigateByUrl('adminKcHomePage');
@@ -35,6 +36,9 @@ export class LoginComponent implements OnInit {
           }else if(this.user.uloga == this.Roles[4]){
             this.service.user = data
             this.route.navigateByUrl('lekarHomePage/'+this.user.id);
+          }else if(this.user.uloga == this.Roles[5]){
+            this.service.user = data
+            this.route.navigateByUrl('adminKHomePage/'+this.user.id);
           }else if( this.user.uloga == this.Roles[1] ){
               alert('Jos niste dodani u sistem od strane administratora.');
           }
