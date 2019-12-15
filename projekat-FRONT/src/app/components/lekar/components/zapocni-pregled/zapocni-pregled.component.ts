@@ -9,7 +9,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./zapocni-pregled.component.css']
 })
 export class ZapocniPregledComponent implements OnInit {
-  pacijent: Pacijent
+  pacijent: Pacijent ={id:0,zdravstveniKarton:{id:0,dijagnoza:"",terapija:"",pregled:null},user:{id:0,username:"",lastname:"",phoneNumber:""
+                                                                                                ,city:"",country:"",email:"",password:"",adress:"",uloga:""}}
   lekar:number
   constructor(private servis: PacijentService,private route: ActivatedRoute) { }
 

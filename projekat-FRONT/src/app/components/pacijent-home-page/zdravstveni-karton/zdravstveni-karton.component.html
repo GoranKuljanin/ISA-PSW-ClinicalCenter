@@ -27,8 +27,10 @@
                                 <li>Trajanje: {{pregled.trajanje}}</li>
                                 <li>Cena: {{pregled.cena}}</li>
                                 <li>Sala: {{pregled.sala.name}}</li>
+
                                 <li *ngIf="pregled.dijagnoza">Dijagnoza: {{pregled.dijagnoza}}</li>
                                 <li *ngIf="pregled.terapija">Terapija: {{pregled.terapija}}</li>
+
     
                     </mat-expansion-panel>
                   </mat-accordion>

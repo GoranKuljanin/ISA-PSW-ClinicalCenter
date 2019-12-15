@@ -22,22 +22,28 @@ export class ListaSalaComponent implements OnInit {
   myDate = new Date();
   naziviSala:string[]=["Sve sobe","Laboratorija","Ordinacija","Kancelarija"];
   selectedNaziv:string
-
+  idAdmina:number
   constructor(private servis: AdminKlinikeService,private route: ActivatedRoute) {
+    this.route.parent.params.subscribe(
+      (params) => 
+      { 
+        this.idAdmina=params.ida; 
+       });
+   
   }
   ider:number
   datumi:ZauzetiDatumi[]=[{day:1,month:11,year:2019,sala_id:1},{day:2,month:11,year:2019,sala_id:1},{day:15,month:11,year:2019,sala_id:1},{day:17,month:11,year:2019,sala_id:1},
     {day:22,month:11,year:2019,sala_id:1},{day:23,month:11,year:2019,sala_id:1},{day:25,month:11,year:2019,sala_id:1},{day:12,month:11,year:2019,sala_id:1},
     {day:3,month:11,year:2019,sala_id:2},{day:5,month:11,year:2019,sala_id:2},{day:8,month:11,year:2019,sala_id:2},{day:22,month:11,year:2019,sala_id:2}]
   ngOnInit() {
-    this.servis.getSveSale().subscribe(
+    this.servis.getSveSale(this.idAdmina).subscribe(
       data=>{
         this.sale = data;
         for(let i=0;i<this.sale.length;i++){
           this.pomocni=new SalaSaTerminom;
           this.pomocni.id=this.sale[i].id;
           this.pomocni.name=this.sale[i].name;
-          this.pomocni.day=12;
+          this.pomocni.day=15;
           this.pomocni.month=12;
           this.pomocni.year=2019;
           this.listSource.push(this.pomocni);
@@ -45,7 +51,7 @@ export class ListaSalaComponent implements OnInit {
         this.listSourceRES=this.listSource;
         this.listSearch=this.listSource;
         this.listFilter=this.listSource;
-        this.listSource[0].day=13;
+        this.listSource[0].day=16;
       }
     );
     

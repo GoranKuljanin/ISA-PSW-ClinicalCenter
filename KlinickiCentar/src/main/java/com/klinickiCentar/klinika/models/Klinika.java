@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "klinika")
 public class Klinika {
@@ -42,6 +44,10 @@ public class Klinika {
 	
 	@OneToOne
 	private Cena cene;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "klinika", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<AdministratorKlinike> adminiKlinike = new HashSet<AdministratorKlinike>();
 	
 //	@OneToMany(mappedBy = "pacijent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	private Set<Pregled> listaPregleda = new HashSet<Pregled>();
@@ -175,4 +181,12 @@ public class Klinika {
 		cene.setKlinika(null);
 		return cene;
 	}*/
+	@JsonIgnore
+	public Set<AdministratorKlinike> getAdministratoriKlinike() {
+		return adminiKlinike;
+	}
+
+	public void setAdministratoriKlinike(Set<AdministratorKlinike> adminiKlinike) {
+		this.adminiKlinike = adminiKlinike;
+	}
 }

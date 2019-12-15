@@ -50,6 +50,7 @@ export class PrikazKlinikeComponent implements OnInit {
     klinika: Klinika;
     email:string;
 
+
     constructor(private route: ActivatedRoute, private pregledService: PregledService, private klinikaService: KlinikaService,
       private router: Router) {
       // this.pregledService.getAllPregledi().subscribe(
@@ -58,6 +59,7 @@ export class PrikazKlinikeComponent implements OnInit {
       //     this.preglediSource = new MatTableDataSource(data);
       //   }
       // );
+
     }
     
   ngOnInit() {
@@ -96,6 +98,7 @@ export class PrikazKlinikeComponent implements OnInit {
           i += 1;
         }
         this.preglediSource = new MatTableDataSource(this.pregledi);
+
       }
     );
   }
@@ -106,6 +109,7 @@ export class PrikazKlinikeComponent implements OnInit {
       data=>{
         this.pregledi = data;
         this.preglediSource = new MatTableDataSource(data);
+
       }
     );
     this.selectedIndexForTab.setValue(1);

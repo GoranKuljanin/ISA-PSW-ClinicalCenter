@@ -46,6 +46,7 @@ public class PreglediController {
 		}
 		
 		return new ResponseEntity<List<Pregled>>(slobodniPregledni, HttpStatus.OK);
+
 	}
 	
 	@GetMapping("/getPreglediByDatum")
@@ -60,6 +61,7 @@ public class PreglediController {
 		}
 		
 		return new ResponseEntity<List<Pregled>>(slobodniPregledni, HttpStatus.OK);
+    
 	}
 	
 	@PostMapping("/zakaziPregled")
