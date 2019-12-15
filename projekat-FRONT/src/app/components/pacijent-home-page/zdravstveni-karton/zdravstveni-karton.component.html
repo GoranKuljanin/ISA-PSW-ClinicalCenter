@@ -1,0 +1,40 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center margin-top" style="margin-top: 110px;">
+
+        <mat-card class="paper">
+            <mat-card-header>
+              <mat-card-title style="font-size: 30px;">Vas Zdravstveni Karton</mat-card-title>
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+                
+                
+                    <p style="font-size: 18px;">Detalji Zdravstvenih Kartona:</p>
+                  <mat-accordion *ngFor="let pregled of pregledi">
+                    
+                    <mat-expansion-panel (opened)="panelOpenState = true"
+                                         (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Datum pregleda: {{pregled.datum}}
+                        </mat-panel-title>
+                            <mat-panel-description>
+                              Lekar: {{pregled.lekar.user.username}} {{pregled.lekar.user.lastname}}
+                              <!-- Klinika: {{pregled.lekar.klinika.naziv}} -->
+                            </mat-panel-description>
+                      </mat-expansion-panel-header>
+    
+                                <!-- <li>Pregled: {{karton.pregled.datum}}</li> -->
+                                <li>Trajanje: {{pregled.trajanje}}</li>
+                                <li>Cena: {{pregled.cena}}</li>
+                                <li>Sala: {{pregled.sala.name}}</li>
+                                <li *ngIf="pregled.dijagnoza">Dijagnoza: {{pregled.dijagnoza}}</li>
+                                <li *ngIf="pregled.terapija">Terapija: {{pregled.terapija}}</li>
+    
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                
+            </mat-card-content>
+          </mat-card>
+      
+      </div>
+    
