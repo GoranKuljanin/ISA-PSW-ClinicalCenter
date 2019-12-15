@@ -11,8 +11,10 @@ insert into users (username, password, lastname, email, adress, city, country, p
 insert into klinika (naziv, adresa, opis) values ('Euromedic', 'Bulervar Oslobodjenja 300', 'Na jednom mestu obezbedjena Vam je najkvalitetnija medicinska pomoc od strane vodecih specijalista i subspecijalista iz gotovo svih oblasti savremene medicine.');
 insert into klinika (naziv, adresa, opis) values ('Naziv2', 'Adresa2', 'Opis2');
 
+
 insert into lekar (specijalizacija, opis, slika, user_id, klinika_id) values ('Hirurg','Kratak opis lekara1','../../../../../assets/lekari/lekar1.jpg',5 , 1);
 insert into lekar (specijalizacija, opis, slika, user_id, klinika_id) values ('Doktor','Kratak opis lekara2','../../../../../assets/lekari/lekar2.jpg',9 , 1);
+
 
 insert into sala (name,klinika_id) values ('Ordinacija',1);
 insert into sala (name,klinika_id) values ('Laboratorija',1);
@@ -22,6 +24,7 @@ insert into cena (vrednost, opis, klinika_id) values (100, 'Operacija', 1);
 insert into cena (vrednost, opis, klinika_id) values (250, 'Klinika2', 2);
 
 insert into adminklinike (user_id, klinika_id) values (8, 1);
+
 
 insert into zdravstvenikarton (dijagnoza, terapija) values ('Dijagnoza2', 'Terapija2');
 insert into zdravstvenikarton (dijagnoza, terapija) values ('Dijagnoza1', 'Terapija1');
@@ -33,5 +36,6 @@ insert into pacijent (zdravstveni_karton_id, user_id) values (2, 7);
 
 insert into termin (datum,klinika_id) values ('Datum1',1);
 
-insert into pregled (datum, trajanje, sala_id, cena, lekar_id, pacijent_id, zdravstveni_karton_id) values ('30.11.2019', '1h', 1, 1500.00, 1, 1, 1);
-insert into pregled (datum, trajanje, sala_id, cena, lekar_id) values ('14.13.2019', '11h', 1, 1500.00, 1);
+insert into pregled (datum, trajanje, sala_id, cena, lekar_id, pacijent_id, zdravstveni_karton_id, dijagnoza, terapija) values ('30.11.2019', '1h', 1, 1500.00, 1, 1, 1, 'Dijagnoza1', 'Terapija1');
+insert into pregled (datum, trajanje, sala_id, cena, lekar_id) values ('14.12.2019', '11h', 1, 1500.00, 1);
+

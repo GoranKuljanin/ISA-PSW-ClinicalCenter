@@ -48,6 +48,13 @@ public class Pregled {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private ZdravstveniKarton zdravstveniKarton;
 	
+
+	@Column(name = "dijagnoza")
+	private String dijagnoza;
+	
+	@Column(name = "terapija")
+	private String terapija;
+
 //	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	private Klinika klinika;
 
@@ -118,6 +125,24 @@ public class Pregled {
 	public void setZdravstveniKarton(ZdravstveniKarton zdravstveniKarton) {
 		this.zdravstveniKarton = zdravstveniKarton;
 	}
+
+
+	public String getDijagnoza() {
+		return dijagnoza;
+	}
+
+	public void setDijagnoza(String dijagnoza) {
+		this.dijagnoza = dijagnoza;
+	}
+
+	public String getTerapija() {
+		return terapija;
+	}
+
+	public void setTerapija(String terapija) {
+		this.terapija = terapija;
+	}
+
 
 //	@JsonIgnore
 //	public Klinika getKlinika() {

@@ -47,7 +47,6 @@ public getZdravstveniKarton(email: string):Observable<ZdravstveniKarton>{
 public getPreglede():Observable<Pregled[]>{
   return this.http.get<Pregled[]>('http://localhost:8088/getAllPregledi');
 }
-
   //
   // public updatePacijenta(email: string, username: string):Observable<User>{
   //   let header = new HttpHeaders();

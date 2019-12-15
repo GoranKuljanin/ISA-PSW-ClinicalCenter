@@ -23,6 +23,10 @@ export class Pregled {
     lekar: Lekar;
     pacijent: Pacijent;
     zdravstveniKarton: ZdravstveniKarton;
+
+    dijagnoza: string;
+    terapija: string;
+
 }
 
 export class PregledanPacijent {

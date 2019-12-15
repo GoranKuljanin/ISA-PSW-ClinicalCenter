@@ -14,6 +14,13 @@ export class PregledService {
       return this.http.get<Pregled[]>('http://localhost:8088/getAllPregledi');
   }
 
+  public getPreglediByDatum(datum:string):Observable<Pregled[]>{
+    let header = new HttpHeaders();
+      header.append('Content-Type', 'application/json');
+      let params = new HttpParams().set("datum", datum);
+      return this.http.get<Pregled[]>('http://localhost:8088/getPreglediByDatum', {headers: header, params: params});
+  }
+
   public zakaziPregledZaPacijenta(idd: any, email: string){
     //let body = 'id=idd&email=email';
     let header = new HttpHeaders();

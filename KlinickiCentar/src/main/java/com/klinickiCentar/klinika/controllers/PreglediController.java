@@ -46,6 +46,22 @@ public class PreglediController {
 		}
 		
 		return new ResponseEntity<List<Pregled>>(slobodniPregledni, HttpStatus.OK);
+
+	}
+	
+	@GetMapping("/getPreglediByDatum")
+	public ResponseEntity<List<Pregled>> getAllPreglediByDatum(@RequestParam String datum){
+		List<Pregled> pregledi = preglediService.getPreglediByDatum(datum);
+		
+		List<Pregled> slobodniPregledni = new ArrayList<>();
+		for(Pregled p : pregledi) {
+			if(p.getPacijent() == null) {
+				slobodniPregledni.add(p);
+			}
+		}
+		
+		return new ResponseEntity<List<Pregled>>(slobodniPregledni, HttpStatus.OK);
+    
 	}
 	
 	@PostMapping("/zakaziPregled")
