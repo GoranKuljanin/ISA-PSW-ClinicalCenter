@@ -22,6 +22,12 @@ export class PregledService {
     return this.http.post('http://localhost:8088/zakaziPregled', idd, {headers: header, params: params});
   }
 
+  public odjaviPregled(id: number){
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'application/json');
+    this.http.post('http://localhost:8088/odjaviPregled', id, {headers: header}).subscribe();
+  }
+
   public zakazaniPregledi(email: string):Observable<Pregled[]>{
     let header = new HttpHeaders();
     header.append('Content-Type', 'application/json');

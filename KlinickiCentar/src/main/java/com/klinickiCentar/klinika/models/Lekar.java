@@ -12,13 +12,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "lekar")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Lekar {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(name = "specijalizacija")
+	private String specijalizacija;
+	
+	@Column(name = "opis")
+	private String opis;
+	
+	@Column(name = "slika")
+	private String slika;
 	
 	@OneToOne
 	@JoinColumn(name = "user_id")
@@ -55,6 +67,30 @@ public class Lekar {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getSpecijalizacija() {
+		return specijalizacija;
+	}
+
+	public void setSpecijalizacija(String specijalizacija) {
+		this.specijalizacija = specijalizacija;
+	}
+
+	public String getOpis() {
+		return opis;
+	}
+
+	public void setOpis(String opis) {
+		this.opis = opis;
+	}
+
+	public String getSlika() {
+		return slika;
+	}
+
+	public void setSlika(String slika) {
+		this.slika = slika;
 	}
 	
 	

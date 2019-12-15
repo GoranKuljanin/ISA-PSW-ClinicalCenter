@@ -24,8 +24,8 @@
                   </ng-container>
     
                   <ng-container matColumnDef="lekar">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 85px;"> Lekar </th>
-                    <td mat-cell *matCellDef="let element" style="padding-left: 85px;">{{element.lekar.user.username}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 45px;"> Lekar </th>
+                    <td mat-cell *matCellDef="let element" style="padding-left: 45px;">{{element.lekar.user.username}} {{element.lekar.user.lastname}} </td>
                   </ng-container>
     
                   <ng-container matColumnDef="cena">
@@ -40,7 +40,7 @@
     
                   <ng-container matColumnDef="odjavi">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 85px;"> Odjavi Termin </th>
-                    <td mat-cell *matCellDef="let element" style="padding-left: 85px;"> <button>Odjavi Termin</button> </td>
+                    <td mat-cell *matCellDef="let element" style="padding-left: 85px;"> <button (click)="odjaviPregled(element.id)" >Odjavi Pregled</button> </td>
                   </ng-container>
                 
                   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

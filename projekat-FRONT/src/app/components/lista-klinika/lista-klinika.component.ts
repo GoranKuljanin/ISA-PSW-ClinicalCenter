@@ -1,6 +1,7 @@
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {Klinika} from '../../models/klinika.model';
 import { KlinikaService } from '../../services/klinika.service';
 
@@ -32,22 +33,27 @@ export class ListaKlinikaComponent implements OnInit {
   //     }
   //   );
   // }
+
+  //@ViewChild(MatSort, {static: true})sort: MatSort;
+
   klinike: Klinika[] = [];
   collumns: string[] = ['Ime', 'Adresa'];
   search: string;
   clinicsRES: Klinika[];
-  sortedData: Klinika[];
+  //sortedData: Klinika[];
+  sortedData = new MatTableDataSource<Klinika>();
 
 constructor(private service: KlinikaService) {
-  this.sortedData = this.klinike.slice();
+  this.sortedData.data = this.klinike.slice();
  }
 
 ngOnInit() {
-  //this.clinicsRES = clinics;
   this.service.getKlinike().subscribe(
     data => {
       this.klinike = data;
       this.clinicsRES = this.klinike;
+      this.sortedData.data = data 
+      //this.sortedData.sort = this.sort;
     }
   );
   
@@ -56,11 +62,11 @@ ngOnInit() {
 sortData(sort: MatSort){
   const data = this.klinike.slice()
   if( !sort.active || sort.direction === ''){
-    this.sortedData = data;
+    this.sortedData.data = data;
     return;
   }
 
-  this.sortedData = data.sort((a, b) => {
+  this.sortedData.data = data.sort((a, b) => {
     const isAsc = sort.direction === 'asc';
     switch(sort.active){
       case 'Ime': return compare(a.naziv, b.naziv, isAsc);
@@ -72,11 +78,11 @@ sortData(sort: MatSort){
 }
 Search(){
   if(this.search == ""){
-    this.sortedData = this.klinike;
+    this.sortedData.data = this.klinike;
   }else{
     this.clinicsRES = this.klinike.filter( res=>{ return res.naziv.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) ||
      res.adresa.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) } );
-     this.sortedData = this.clinicsRES;
+     this.sortedData.data = this.clinicsRES;
   }
 }
 

@@ -11,6 +11,7 @@ import com.klinickiCentar.klinika.models.Klinika;
 import com.klinickiCentar.klinika.models.Lekar;
 import com.klinickiCentar.klinika.models.Sala;
 import com.klinickiCentar.klinika.models.Termin;
+import com.klinickiCentar.klinika.models.User;
 import com.klinickiCentar.klinika.repository.CenaRepository;
 import com.klinickiCentar.klinika.repository.LekarRepository;
 import com.klinickiCentar.klinika.repository.SalaRepository;
@@ -34,6 +35,15 @@ public class KlinikaService {
 	
 	public List<Klinika> getKlinike() {
 		return klinikaRepository.findAll();
+	}
+	
+	public Klinika updateKlinika(Klinika klinika) {
+		klinikaRepository.save(klinika);
+		return null;
+	}
+	
+	public Klinika getKlinika(Long id) {
+		return klinikaRepository.getOne(id);
 	}
 	
 	public Collection<Cena> getCene(Long id) {

@@ -9,21 +9,24 @@
                 
                 
                     <p style="font-size: 18px;">Detalji Zdravstvenih Kartona:</p>
-                  <mat-accordion *ngFor="let karton of kartoni">
+                  <mat-accordion *ngFor="let pregled of pregledi">
                     
                     <mat-expansion-panel (opened)="panelOpenState = true"
                                          (closed)="panelOpenState = false">
                       <mat-expansion-panel-header>
                         <mat-panel-title>
-                          {{karton.dijagnoza}}
+                          Datum pregleda: {{pregled.datum}}
                         </mat-panel-title>
                             <mat-panel-description>
-                            
+                              Lekar: {{pregled.lekar.user.username}} {{pregled.lekar.user.lastname}}
+                              <!-- Klinika: {{pregled.lekar.klinika.naziv}} -->
                             </mat-panel-description>
                       </mat-expansion-panel-header>
     
                                 <!-- <li>Pregled: {{karton.pregled.datum}}</li> -->
-                                <li>Terapija: {{karton.terapija}}</li>
+                                <li>Trajanje: {{pregled.trajanje}}</li>
+                                <li>Cena: {{pregled.cena}}</li>
+                                <li>Sala: {{pregled.sala.name}}</li>
     
                     </mat-expansion-panel>
                   </mat-accordion>

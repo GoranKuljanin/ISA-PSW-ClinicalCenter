@@ -1,5 +1,6 @@
 package com.klinickiCentar.klinika.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -36,7 +37,15 @@ public class PreglediController {
 	@GetMapping("/getAllPregledi")
 	public ResponseEntity<List<Pregled>> getAllPregledi(){
 		List<Pregled> pregledi = preglediService.getAllPregledi();
-		return new ResponseEntity<List<Pregled>>(pregledi, HttpStatus.OK);
+		
+		List<Pregled> slobodniPregledni = new ArrayList<>();
+		for(Pregled p : pregledi) {
+			if(p.getPacijent() == null) {
+				slobodniPregledni.add(p);
+			}
+		}
+		
+		return new ResponseEntity<List<Pregled>>(slobodniPregledni, HttpStatus.OK);
 	}
 	
 	@PostMapping("/zakaziPregled")
@@ -61,6 +70,16 @@ public class PreglediController {
 		return new ResponseEntity<List<Pregled>>(set, HttpStatus.OK);
 	}
 	
+	@PostMapping("/odjaviPregled")
+	public ResponseEntity<Pregled> odjaviPregled(@RequestBody Long id){
+		Pregled zakazani = preglediService.getById(id);
+		zakazani.setPacijent(null);
+		zakazani = preglediService.save(zakazani);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	//Kontroler za testiranje
 	@GetMapping("/test")
 	public ResponseEntity<Pacijent> test(){
 		Pacijent p = pacijentService.getPacijentByUser(3L);

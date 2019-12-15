@@ -11,7 +11,7 @@ export class ZdravstveniKarton {
     id: number;
     dijagnoza: string;
     terapija: string;
-    pregled: Pregled;
+    pregled: Pregled[];
 }
 
 export class Pregled {
@@ -21,6 +21,8 @@ export class Pregled {
     sala: Sala;
     cena: number;
     lekar: Lekar;
+    pacijent: Pacijent;
+    zdravstveniKarton: ZdravstveniKarton;
 }
 
 export class PregledanPacijent {
