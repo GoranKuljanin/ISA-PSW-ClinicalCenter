@@ -7,5 +7,5 @@ export class Lekar{
     opis:string;
     slika:string;
     user:User;
-    //klinika: Klinika;
+    klinika: Klinika;
 }

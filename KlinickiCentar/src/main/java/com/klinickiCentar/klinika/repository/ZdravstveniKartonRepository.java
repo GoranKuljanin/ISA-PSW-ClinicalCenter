@@ -10,4 +10,5 @@ public interface ZdravstveniKartonRepository extends JpaRepository<ZdravstveniKa
 
 	
 	List<ZdravstveniKarton> findByPregledId(Long id);
+	ZdravstveniKarton findByPacijentId(Long id);
 }

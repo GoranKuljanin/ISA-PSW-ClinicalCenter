@@ -1,0 +1,28 @@
+
+<div class="dialog" fxLayout="row" fxLayoutAlign="center center" >
+    <mat-card class="box">
+
+        <mat-card-header>
+          <mat-card-title>Zakazi sledeci pregled</mat-card-title>
+        </mat-card-header>
+
+        <form class="form" #formControl="ngForm">
+            <!--Forma pregleda-->
+            <mat-card-content>
+                <mat-form-field class="full-width">
+                    <!--<input matInput [matDatepicker]="picker" [(ngModel)]="datum" name="datum" placeholder="Datum">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>-->
+                    <input matInput placeholder="Datum" [(ngModel)]="datum" name="datum"  required>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Vreme" [(ngModel)]="vreme" name="vreme"  required>
+                </mat-form-field>
+            </mat-card-content>
+            <!--Bottom dugmici-->
+            <button mat-raised-button color="primary" (click)="submit()" [type]="submit" [mat-dialog-close]="1"  [disabled]="!formControl.valid">Sacuvaj</button>
+            <button mat-button (click)="cancel()">Odustani</button>
+        </form>
+
+    </mat-card>
+    </div>

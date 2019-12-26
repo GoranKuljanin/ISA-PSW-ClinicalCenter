@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Pacijent } from 'src/app/models/pacijent';
 import { PacijentService } from 'src/app/services/pacijentServices/pacijent.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { ZakaziPregledDialogComponent } from './zakazi-pregled-dialog/zakazi-pregled-dialog.component';
 
 @Component({
   selector: 'app-zapocni-pregled',
@@ -9,9 +11,10 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./zapocni-pregled.component.css']
 })
 export class ZapocniPregledComponent implements OnInit {
-  pacijent: Pacijent
+  pacijent: Pacijent ={id:0,zdravstveniKarton:{id:0,dijagnoza:"",terapija:"",pregled:null},user:{id:0,username:"",lastname:"",phoneNumber:""
+                                                                                                ,city:"",country:"",email:"",password:"",adress:"",uloga:""}}
   lekar:number
-  constructor(private servis: PacijentService,private route: ActivatedRoute) { }
+  constructor(private servis: PacijentService,private route: ActivatedRoute,public dialog: MatDialog) { }
 
   ngOnInit() {
     this.route.parent.params.subscribe(
@@ -25,6 +28,17 @@ export class ZapocniPregledComponent implements OnInit {
         this.pacijent = data;
       }
     );
+  }
+
+  public openDialog() {
+
+    const dialogRef = this.dialog.open(ZakaziPregledDialogComponent, {
+        data: {}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        
+    });
+
   }
 
 }

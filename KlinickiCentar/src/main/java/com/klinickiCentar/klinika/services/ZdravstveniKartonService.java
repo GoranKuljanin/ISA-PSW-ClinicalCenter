@@ -18,6 +18,14 @@ public class ZdravstveniKartonService {
 		return zdravstveniKartonRepository.findAll();
 	}
 	
+	public ZdravstveniKarton findZdravstveniKartonByPacijent(Long id) {
+		return zdravstveniKartonRepository.findByPacijentId(id);
+	}
+	
+	
+	
+	
+	
 	//Proba za dobavljanje kartona po nekim referencama koje se nalaze u modelu (radi!)
 	public List<ZdravstveniKarton> getPacijentZdravstveniKarton(Long id){
 		return zdravstveniKartonRepository.findByPregledId(id);

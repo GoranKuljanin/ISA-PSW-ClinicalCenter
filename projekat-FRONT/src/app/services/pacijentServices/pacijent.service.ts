@@ -22,6 +22,14 @@ export class PacijentService {
     this.http.put('http://localhost:8088/pacijent', pacijent).subscribe();
 }
 
+public azurirajPacijenta(user: User):Observable<User> {
+  //this.http.put('http://localhost:8088/pacijent', pacijent).subscribe();
+   let header = new HttpHeaders();
+   header.append('Content-Type', 'application/json');
+  // let param = new HttpParams();
+   return this.http.post<User>('http://localhost:8088/updatePacijent', user, {headers: header});
+}
+
 public getPacijente():Observable<Pacijent[]>{
   return this.http.get<Pacijent[]>('http://localhost:8088/getPacijenti');
 }
@@ -29,14 +37,16 @@ public getPacijenta(id:number):Observable<Pacijent>{
   return this.http.get<Pacijent>('http://localhost:8088/getPacijenti/'+id);
 }
 
-public getZdravstveneKartone():Observable<ZdravstveniKarton[]>{
-  return this.http.get<ZdravstveniKarton[]>('http://localhost:8088/getZdravstveniKartoni');
+public getZdravstveniKarton(email: string):Observable<ZdravstveniKarton>{
+  let header = new HttpHeaders();
+  header.append('Content-Type', 'application/json');
+  let params = new HttpParams().set("email", email);
+  return this.http.get<ZdravstveniKarton>('http://localhost:8088/getZdravstveniKarton',{headers: header, params: params});
 }
 
 public getPreglede():Observable<Pregled[]>{
   return this.http.get<Pregled[]>('http://localhost:8088/getAllPregledi');
 }
-
   //
   // public updatePacijenta(email: string, username: string):Observable<User>{
   //   let header = new HttpHeaders();

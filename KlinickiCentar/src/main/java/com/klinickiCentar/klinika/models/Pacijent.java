@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "pacijent")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Pacijent {
 	
 	@Id
@@ -36,6 +37,9 @@ public class Pacijent {
 	
 	@OneToMany(mappedBy = "pacijent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Pregled> zakazaniPregledi = new HashSet<Pregled>();
+	
+	@OneToMany(mappedBy = "pacijent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<ZahtevZaZakazivanje> zahteviZaZakazivanje = new HashSet<ZahtevZaZakazivanje>();
 	
 	public Pacijent() {
 		super();
@@ -73,5 +77,13 @@ public class Pacijent {
 	public void setZakazaniPregledi(Set<Pregled> zakazaniPregledi) {
 		this.zakazaniPregledi = zakazaniPregledi;
 	}
+	
+	@JsonIgnore
+	public Set<ZahtevZaZakazivanje> getZahteviZaZakazivanje() {
+		return zahteviZaZakazivanje;
+	}
 
+	public void setZahteviZaZakazivanje(Set<ZahtevZaZakazivanje> zahteviZaZakazivanje) {
+		this.zahteviZaZakazivanje = zahteviZaZakazivanje;
+	}
 }

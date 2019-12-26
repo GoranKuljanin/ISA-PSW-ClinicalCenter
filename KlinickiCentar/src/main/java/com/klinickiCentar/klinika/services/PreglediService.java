@@ -23,6 +23,10 @@ public class PreglediService {
 		return preglediRepository.findAll();
 	}
 	
+	public List<Pregled> getPreglediByDatum(String datum){
+		return preglediRepository.findByDatum(datum);
+	}
+	
 	public Pregled getById(Long id) {
 		return preglediRepository.findOneById(id);
 	}
