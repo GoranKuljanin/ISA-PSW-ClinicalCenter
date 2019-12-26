@@ -1,8 +1,12 @@
 import { PacijentService } from './../../services/pacijentServices/pacijent.service';
 import { User } from './../../models/user.model';
+import { AdminKlinike } from './../../models/adminKlinike.model';
 import { LoginService } from './../../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AdminKlinikeService } from 'src/app/services/admin-klinike.service';
+import { LekarService } from 'src/app/services/lekar.service';
+import { Lekar } from 'src/app/models/lekar.model';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +19,24 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
   user: any;    //Objekat za kastovanje onoga sto dodje sa servera (za logovanje i prebacivanje stranica)
+  adminiKlinike: AdminKlinike[]
+  admin:AdminKlinike
+  lekari:Lekar[]
+  lekar:Lekar
 
-  constructor(private service: LoginService, private route: Router, private pacijentService: PacijentService) { }
+  constructor(private service: LoginService, private route: Router, private pacijentService: PacijentService,private adminKlinikeService: AdminKlinikeService,private lekarService: LekarService) { }
 
   ngOnInit() {
+    this.adminKlinikeService.getAdmini().subscribe(
+      data=>{
+        this.adminiKlinike = data;
+      }
+    );
+    this.lekarService.getLekari().subscribe(
+      data=>{
+        this.lekari = data;
+      }
+    );
   }
 
   onSubmit(){
@@ -35,10 +53,23 @@ export class LoginComponent implements OnInit {
             this.route.navigateByUrl('pacijentHomePage');
           }else if(this.user.uloga == this.Roles[4]){
             this.service.user = data
-            this.route.navigateByUrl('lekarHomePage/'+this.user.id);
+            for(let i=0;i<this.lekari.length;i++){
+              if (this.lekari[i].user.id==this.user.id){
+                this.lekar=this.lekari[i];
+                break;
+              }
+            }
+            this.route.navigateByUrl('lekarHomePage/'+this.lekar.id);
           }else if(this.user.uloga == this.Roles[5]){
             this.service.user = data
-            this.route.navigateByUrl('adminKHomePage/'+this.user.id);
+            for(let i=0;i<this.adminiKlinike.length;i++){
+              if (this.adminiKlinike[i].user.id==this.user.id){
+                this.admin=this.adminiKlinike[i];
+                break;
+              }
+            }
+            
+            this.route.navigateByUrl('adminKHomePage/'+this.admin.id);
           }else if( this.user.uloga == this.Roles[1] ){
               alert('Jos niste dodani u sistem od strane administratora.');
           }

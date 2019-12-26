@@ -62,22 +62,33 @@ public class PacijentController {
 	//NAPRAVITI POSEBAN UPIT IZ BAZE KOJI CE AUTOMATSKI SPAJATI TABELU User I Pacijent
 	//DA SE NE DOBAVLJAJU PODACI IZ OBE TABELE
 	@PostMapping(value = "/updatePacijent")
-	public ResponseEntity<User> updatePacijenta(@RequestParam String email, @RequestParam String username){
-			User user = userService.findUserByEmail(email);
+	public ResponseEntity<User> updatePacijenta(@RequestBody User u){
+			User user = userService.findUserByEmail(u.getEmail());
+			//String user = u.getEmail();
+//			if( user == null ) {
+//				return new ResponseEntity<Pacijent>(null);
+//			}
+//			user.setUsername(p.getUser().getUsername());
+//			User sacuvano = userService.updateUser(user);
+//			Pacijent newPacijent = new Pacijent();
+//			newPacijent.setId(p.getId());
+//			newPacijent.setZakazaniPregledi(p.getZakazaniPregledi());
+//			newPacijent.setZdravstveniKarton(p.getZdravstveniKarton());
+//			newPacijent.setUser(user);
+			u.setPassword(user.getPassword());
+			u.setUloga(user.getUloga());
+			User newUser = userService.saveUser(u);
 			
-			if( user == null ) {
-				return new ResponseEntity<User>(null);
-			}
-			user.setUsername(username);
-			User sacuvano = userService.saveUser(user);
-			return new ResponseEntity<User>(sacuvano, HttpStatus.OK);
+			return new ResponseEntity<User>(user, HttpStatus.OK);
 		
 	}
 	
 	@PutMapping("/pacijent")
 	@CrossOrigin
 	public ResponseEntity<User> updateKredit(@RequestBody User user){
-		
+		User u = userService.findUserByEmail(user.getEmail());
+		user.setPassword(u.getPassword());
+		user.setUloga(u.getUloga());
 		userService.updateUser(user);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

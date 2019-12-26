@@ -1,3 +1,4 @@
+import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Pregled } from './../../../models/pacijent';
 import { PregledService } from './../../../services/pregled.service';
@@ -13,12 +14,13 @@ export class ZakazaniPreglediComponent implements OnInit {
   displayedColumns: string[] = ['datum', 'trajanje', 'lekar', 'cena', 'sala', 'odjavi']
 
   zakazaniPregledi: Pregled[] = [];
-  sortedData: Pregled[];
+  //sortedData: Pregled[];
   preglediRES: Pregled[];
   search: string;
+  sortedData = new MatTableDataSource<Pregled>();
 
   constructor(private http: PregledService) { 
-    this.sortedData = this.zakazaniPregledi.slice();
+    this.sortedData.data = this.zakazaniPregledi.slice();
   }
 
   ngOnInit() {
@@ -26,18 +28,30 @@ export class ZakazaniPreglediComponent implements OnInit {
       data=>{
           this.zakazaniPregledi = data;
           this.preglediRES = this.zakazaniPregledi;
+          this.sortedData.data = data;
       }
     );
+  }
+
+  odjaviPregled(id: number){
+    this.http.odjaviPregled(id);
+    for(let zaBrisanje of this.sortedData.data){
+      if(zaBrisanje.id === id){
+        this.sortedData.data.splice(this.sortedData.data.indexOf(zaBrisanje), 1);
+        this.sortedData._updateChangeSubscription();
+        break;
+      }
+    }
   }
 
   sortData(sort: MatSort){
     const data = this.zakazaniPregledi.slice()
   if( !sort.active || sort.direction === ''){
-    this.sortedData = data;
+    this.sortedData.data = data;
     return;
   }
 
-  this.sortedData = data.sort((a, b) => {
+  this.sortedData.data = data.sort((a, b) => {
     const isAsc = sort.direction === 'asc';
     switch(sort.active){
       case 'Datum': return compare(a.datum, b.datum, isAsc);
@@ -52,12 +66,12 @@ export class ZakazaniPreglediComponent implements OnInit {
 
   Search(){
     if(this.search == ""){
-      this.sortedData = this.zakazaniPregledi;
+      this.sortedData.data = this.zakazaniPregledi;
     }else{
       this.preglediRES = this.zakazaniPregledi.filter( res=>{ return res.datum.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) ||
        res.trajanje.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) || res.lekar.user.username.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) || 
       res.sala.name.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) || res.cena.toString().match(this.search.toLocaleLowerCase()) } );
-       this.sortedData = this.preglediRES;
+       this.sortedData.data = this.preglediRES;
     }
   }
 

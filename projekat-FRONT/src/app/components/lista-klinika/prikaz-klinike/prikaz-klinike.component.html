@@ -7,18 +7,17 @@
       </mat-card-header>
       <hr>
       <mat-card-content>
-        <mat-tab-group style="margin-top: 30px;margin-bottom: 50px;">
+        <mat-tab-group style="margin-top: 30px;margin-bottom: 50px;" [selectedIndex]="selectedIndexForTab.value" (selectedIndexChange)="selectedIndexForTab.setValue($event)">
           <mat-tab label="Termini" >
             <p style="font-size: 18px;">Odaberite Datum Za Pregled.</p>
             <mat-form-field class="example-full-width">
-              <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+              <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="selectedDate($event)">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker touchUi #picker></mat-datepicker>
             </mat-form-field>
           </mat-tab>
 
-
-          <mat-tab label="Pregledi">                               
+          <mat-tab #pregledi label="Pregledi">                               
             <p style="font-size: 18px;">Slobodni Pregledi:</p>
             <table mat-table [dataSource]="preglediSource" class="mat-elevation-z8">
 
@@ -34,7 +33,7 @@
 
               <ng-container matColumnDef="lekar">
                 <th mat-header-cell *matHeaderCellDef > Lekar </th>
-                <td mat-cell *matCellDef="let element">{{element.lekar.user.username}} </td>
+                <td mat-cell *matCellDef="let element">{{element.lekar.user.username}} {{element.lekar.user.lastname}} </td>
               </ng-container>
 
               <ng-container matColumnDef="cena">
@@ -56,7 +55,6 @@
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
           </mat-tab>
-
           <!-- <mat-tab label="Lekari">
               <p style="font-size: 18px;">Spisak svih lekara:</p>
             <mat-accordion *ngFor="let lekar of lekari">

@@ -22,6 +22,14 @@ import { PacijentiComponent } from './components/lekar/components/pacijenti/paci
 import { PrikazPacijentaComponent } from './components/lekar/components/prikaz-pacijenta/prikaz-pacijenta.component';
 import { ZdravstveniKartonComponent } from './components/pacijent-home-page/zdravstveni-karton/zdravstveni-karton.component';
 import { ListaPregledaComponent } from './components/pacijent-home-page/lista-pregleda/lista-pregleda.component';
+import { OsnovniPodaciComponent } from './components/admin-klinike/components/osnovni-podaci/osnovni-podaci.component';
+import { SlobodniTerminiPregledaComponent } from './components/admin-klinike/components/slobodni-termini-pregleda/slobodni-termini-pregleda.component';
+import { CenovnikComponent } from './components/admin-klinike/components/cenovnik/cenovnik.component';
+import { TipoviPregledaComponent } from './components/admin-klinike/components/tipovi-pregleda/tipovi-pregleda.component';
+import { IzvestajPoslovanjaComponent } from './components/admin-klinike/components/izvestaj-poslovanja/izvestaj-poslovanja.component';
+import { LekariComponent } from './components/admin-klinike/components/lekari/lekari.component';
+import { ProfilAdminaKlinikeComponent } from './components/admin-klinike/components/profil-admina-klinike/profil-admina-klinike.component';
+import { ZahteviZakazivanjaPregledaComponent } from './components/admin-klinike/components/zahtevi-zakazivanja-pregleda/zahtevi-zakazivanja-pregleda.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -35,7 +43,15 @@ const routes: Routes = [
   },
   { path: 'adminKHomePage/:ida', component: AdminKlinikeComponent,
         children: [
-         { path: 'sale', component: ListaSalaComponent }
+         { path: 'zakazivanjePregleda', component: ZahteviZakazivanjaPregledaComponent },
+         { path: 'sale', component: ListaSalaComponent },
+         { path: 'lekari', component: LekariComponent },
+         { path: 'osnovniPodaciKlinike', component: OsnovniPodaciComponent },
+         { path: 'slobodniTerminiPregleda', component: SlobodniTerminiPregledaComponent },
+         { path: 'cenovnik', component: CenovnikComponent },
+         { path: 'tipoviPregleda', component: TipoviPregledaComponent },
+         { path: 'profil', component: ProfilAdminaKlinikeComponent },
+         { path: 'izvestajPoslovanja', component: IzvestajPoslovanjaComponent }
         ]
   },
   { path: 'pacijentHomePage', component: PacijentHomePageComponent ,
@@ -55,7 +71,7 @@ const routes: Routes = [
     { path: 'radniKalendar', component: RadniKalendarComponent },
     { path: 'zakaziPregled', component: ZakaziPregledComponent },
     { path: 'noviZahtev', component: ZahtevZaGodisnjiComponent },
-    { path: 'profil/:id', component: ProfilComponent },
+    { path: 'profil', component: ProfilComponent },
     { path: 'pacijent/:id', component: PrikazPacijentaComponent}
   ] 
 }

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+//import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +15,7 @@ import com.klinickiCentar.klinika.models.User;
 import com.klinickiCentar.klinika.repository.UserRepository;
 import com.klinickiCentar.klinika.services.UserService;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @SpringBootTest
 class KlinickiCentarApplicationTests {
 

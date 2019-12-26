@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "klinika")
 public class Klinika {
@@ -34,14 +36,21 @@ public class Klinika {
 	@OneToOne
 	private Termin termini;
 	
-	@OneToOne
-	private Lekar lekari;
+	/*@OneToOne
+	private Lekar lekari;*/
+	@JsonIgnore
+	@OneToMany(mappedBy = "klinika", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Lekar> lekari = new HashSet<Lekar>();
 	
 	@OneToOne
 	private Sala sale;
 	
 	@OneToOne
 	private Cena cene;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "klinika", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<AdministratorKlinike> adminiKlinike = new HashSet<AdministratorKlinike>();
 	
 //	@OneToMany(mappedBy = "pacijent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	private Set<Pregled> listaPregleda = new HashSet<Pregled>();
@@ -104,26 +113,22 @@ public class Klinika {
 	}*/
 	//---------------------------------------
 	//Lekari-------------------------------------
-	public Lekar getLekari() {
+	/*public Lekar getLekari() {
 		return lekari;
 	}
 
 	public void setLekari(Lekar lekari) {
 		this.lekari = lekari;
-	}
-
-	/*public Lekar addLekar(Lekar lekar) {
-		getLekari().add(lekar);
-		lekar.setKlinika(this);
-		return lekar;
-	}
-
-	public Lekar removeLekar(Lekar lekar) {
-		getLekari().remove(lekar);
-		lekar.setKlinika(null);
-
-		return lekar;
 	}*/
+	@JsonIgnore
+	public Set<Lekar> getLekari() {
+		return lekari;
+	}
+
+	public void setLekari(Set<Lekar> lekari) {
+		this.lekari = lekari;
+	}
+
 	//--------------------------------------------
 	//Sale----------------------------------------
 	public Sala getSale() {
@@ -175,4 +180,12 @@ public class Klinika {
 		cene.setKlinika(null);
 		return cene;
 	}*/
+	@JsonIgnore
+	public Set<AdministratorKlinike> getAdministratoriKlinike() {
+		return adminiKlinike;
+	}
+
+	public void setAdministratoriKlinike(Set<AdministratorKlinike> adminiKlinike) {
+		this.adminiKlinike = adminiKlinike;
+	}
 }

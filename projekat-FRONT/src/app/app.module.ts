@@ -38,6 +38,16 @@ import { PrikazPacijentaComponent } from './components/lekar/components/prikaz-p
 import { ListaPregledaComponent } from './components/pacijent-home-page/lista-pregleda/lista-pregleda.component';
 import { ZdravstveniKartonComponent } from './components/pacijent-home-page/zdravstveni-karton/zdravstveni-karton.component';
 import { PregledaniPacijentComponent } from './components/lekar/components/prikaz-pacijenta/pregledani-pacijent/pregledani-pacijent.component';
+import { OsnovniPodaciComponent } from './components/admin-klinike/components/osnovni-podaci/osnovni-podaci.component';
+import { SlobodniTerminiPregledaComponent } from './components/admin-klinike/components/slobodni-termini-pregleda/slobodni-termini-pregleda.component';
+import { LekariComponent } from './components/admin-klinike/components/lekari/lekari.component';
+import { CenovnikComponent } from './components/admin-klinike/components/cenovnik/cenovnik.component';
+import { TipoviPregledaComponent } from './components/admin-klinike/components/tipovi-pregleda/tipovi-pregleda.component';
+import { ProfilAdminaKlinikeComponent } from './components/admin-klinike/components/profil-admina-klinike/profil-admina-klinike.component';
+import { IzvestajPoslovanjaComponent } from './components/admin-klinike/components/izvestaj-poslovanja/izvestaj-poslovanja.component';
+import { OsnovniPodaciDialogComponent } from './components/admin-klinike/components/osnovni-podaci/osnovni-podaci-dialog/osnovni-podaci-dialog.component';
+import { ZakaziPregledDialogComponent } from './components/lekar/components/zapocni-pregled/zakazi-pregled-dialog/zakazi-pregled-dialog.component';
+import { ZahteviZakazivanjaPregledaComponent } from './components/admin-klinike/components/zahtevi-zakazivanja-pregleda/zahtevi-zakazivanja-pregleda.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +75,17 @@ import { PregledaniPacijentComponent } from './components/lekar/components/prika
     ZdravstveniKartonComponent,
     PregledaniPacijentComponent,
     AdminKlinikeComponent,
-    ListaSalaComponent
+    ListaSalaComponent,
+    OsnovniPodaciComponent,
+    SlobodniTerminiPregledaComponent,
+    LekariComponent,
+    CenovnikComponent,
+    TipoviPregledaComponent,
+    ProfilAdminaKlinikeComponent,
+    IzvestajPoslovanjaComponent,
+    OsnovniPodaciDialogComponent,
+    ZakaziPregledDialogComponent,
+    ZahteviZakazivanjaPregledaComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +97,7 @@ import { PregledaniPacijentComponent } from './components/lekar/components/prika
     FormsModule, 
     ReactiveFormsModule 
   ],
-  entryComponents: [EditProfilDialogComponent],
+  entryComponents: [EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent],
   providers: [KorisnikService, RegisterServiceService, LoginService, AdminKlinickogCentraService, PacijentService, PregledService],
   bootstrap: [AppComponent]
 })

@@ -37,26 +37,29 @@ export class PacijentiComponent implements OnInit {
   statusPacijenta: string[] = [
     'Svi', 'Pregledani'
   ];
-  displayedColumns: string[] = ['Ime', 'Prezime','Email','Kontakt','Adresa','Grad','Drzava','ZdravstveniKarton',' ']
+  displayedColumns: string[] = ['Ime', 'Prezime','JedinstveniBroj','Email','Kontakt','Adresa','Grad','Drzava','ZdravstveniKarton',' ']
   
   
   constructor(private servis: PacijentService,private route: ActivatedRoute) {}
   
   ngOnInit() {
+    
+
+    let res = this.servis.getPacijente().subscribe(
+      data=>{
+        this.pacijenti = data;
+        this.tableSource = new MatTableDataSource(this.pacijenti.slice())
+      this.pacijentiRES=this.pacijenti.slice()
+      this.searchData=this.pacijenti.slice()
+      }
+      
+    );
     this.route.parent.params.subscribe(
       (params) => 
       { 
         this.lekar=params.idl; 
        });
-
-    let res = this.servis.getPacijente().subscribe(
-      data=>{
-        this.pacijenti = data;
-      }
-    );
-    this.tableSource = new MatTableDataSource(this.pacijenti.slice());
-    this.pacijentiRES=this.pacijenti.slice()
-    this.searchData=this.pacijenti.slice()
+    
   }
 
   //Funkcije-------------------------------------

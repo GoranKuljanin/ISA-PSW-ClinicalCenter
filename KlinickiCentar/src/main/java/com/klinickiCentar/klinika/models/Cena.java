@@ -61,8 +61,8 @@ public class Cena {
 		this.opis = opis;
 	}
 
-	public Long getKlinika() {
-		return klinika.getId();
+	public Klinika getKlinika() {
+		return klinika;
 	}
 
 	public void setKlinika(Klinika klinika) {

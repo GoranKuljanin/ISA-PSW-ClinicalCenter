@@ -38,17 +38,29 @@
                         <mat-form-field class="full-width">
                               <input matInput placeholder="Cena:"  required>
                         </mat-form-field>
+                        <!--Zakazi sledeci pregled-->
+                        <mat-grid-list cols="4" rowHeight="3:1">
+                              <!--Potvrdi / odustani-->
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1">
+                              </mat-grid-tile>
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1"></mat-grid-tile>
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1"></mat-grid-tile>
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1"> 
+                                    <a mat-stroked-button color="primary" (click)="openDialog()">Zakazi Sledeci Pregled</a>
+                              </mat-grid-tile>
+                        </mat-grid-list>
+                        
                         <mat-grid-list cols="4" rowHeight="2:1">
-                                    <!--Profilna slika-->
-                                    <mat-grid-tile [colspan] = "1" [rowspan]="1">
-                                                <a mat-raised-button color="primary" routerLink="#" routerLinkActive="active">Potvrdi</a>
-                                    </mat-grid-tile>
-                                    <mat-grid-tile [colspan] = "1" [rowspan]="1"></mat-grid-tile>
-                                    <mat-grid-tile [colspan] = "1" [rowspan]="1"></mat-grid-tile>
-                                    <mat-grid-tile [colspan] = "1" [rowspan]="1">
-                                                <a mat-raised-button routerLink="/lekarHomePage/{{lekar}}/pacijenti" routerLinkActive="active">Odustani</a>
-                                    </mat-grid-tile>
-                                </mat-grid-list>
+                              <!--Potvrdi / odustani-->
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1">
+                                          <a mat-raised-button color="primary" routerLink="#" routerLinkActive="active">Potvrdi</a>
+                              </mat-grid-tile>
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1"></mat-grid-tile>
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1"></mat-grid-tile>
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1">
+                                          <a mat-raised-button routerLink="/lekarHomePage/{{lekar}}/pacijenti" routerLinkActive="active">Odustani</a>
+                              </mat-grid-tile>
+                        </mat-grid-list>
                   </mat-card-content>
             </form>
         </mat-card>

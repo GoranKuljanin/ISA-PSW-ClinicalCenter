@@ -28,7 +28,7 @@
               <input matInput type="text" [(ngModel)]="search" placeholder="Search" (input)="Search()">
             </mat-form-field>
             <hr>
-              <table mat-table (matSortChange)="sortData($event)" [dataSource]="sortedData" matSort class="mat-elevation-z2">
+              <table mat-table (matSortChange)="sortData($event)" [dataSource]="sortedData" matSort class="mat-elevation-z2"> 
                     
                     <!-- Position Column -->
                     <ng-container matColumnDef="Ime" >
