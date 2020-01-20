@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.klinickiCentar.klinika.models.AdministratorKlinike;
@@ -43,6 +45,13 @@ public class AdminKlinikeController {
 		AdministratorKlinike admin= adminKlinikeService.getAdminaKlinike(id);
 		Klinika klinika=admin.getKlinika();
 		return new ResponseEntity<Klinika>(klinika, HttpStatus.OK);
+	}
+	
+	@PutMapping("/adminKlinike")
+	@CrossOrigin
+	public ResponseEntity<AdministratorKlinike> updateAdminKlinike(@RequestBody AdministratorKlinike adminKlinike){
+		adminKlinikeService.updateUseraAdminKlinike(adminKlinike);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

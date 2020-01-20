@@ -29,7 +29,7 @@ export class OsnovniPodaciDialogComponent implements OnInit {
     //this.rout.navigate('/podaciPacijenta');
     window.location.href = this.rout.url;
   }
-public cancel(): void {
+  public cancel(): void {
     this.dialogRef.close();
     this.snackBar.open('Odustali ste!', 'U redu', { duration: 1000 });
   }
