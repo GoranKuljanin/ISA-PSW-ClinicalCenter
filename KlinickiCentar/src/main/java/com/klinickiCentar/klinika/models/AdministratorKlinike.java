@@ -1,6 +1,7 @@
 package com.klinickiCentar.klinika.models;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,6 +29,13 @@ public class AdministratorKlinike {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Klinika klinika;
 	
+	@Column(columnDefinition = "boolean default true")
+    private Boolean firstLogin;
+	
+	public AdministratorKlinike() {
+		super();
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -51,4 +59,14 @@ public class AdministratorKlinike {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public Boolean getFirstLogin() {
+		return firstLogin;
+	}
+
+	public void setFirstLogin(Boolean firstLogin) {
+		this.firstLogin = firstLogin;
+	}
+	
+	
 }

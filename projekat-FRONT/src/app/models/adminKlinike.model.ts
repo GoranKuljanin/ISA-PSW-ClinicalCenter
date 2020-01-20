@@ -5,4 +5,5 @@ export class AdminKlinike{
     id:number;
     user:User;
     klinika:Klinika;
+    firstLogin:boolean;
 }

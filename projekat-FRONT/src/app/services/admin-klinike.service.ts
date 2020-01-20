@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Klinika } from '../models/klinika.model';
 import { AdminKlinike } from '../models/adminKlinike.model';
 import { Cena } from '../models/cena.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,15 @@ export class AdminKlinikeService {
   }
   public updateKliniku(klinika: Klinika): void {
     this.http.put('http://localhost:8088/klinika', klinika).subscribe();
-}
+  }
+
+  public updateAdminaK(admin: AdminKlinike): void {
+    this.http.put('http://localhost:8088/adminKlinike', admin).subscribe();
+  }
+  public updateUser(admin: User): void {
+    this.http.put('http://localhost:8088/user', admin).subscribe();
+  }
+  public getUserById(id:number):Observable<User>{
+    return this.http.get<User>('http://localhost:8088/user/'+id);
+  }
 }
