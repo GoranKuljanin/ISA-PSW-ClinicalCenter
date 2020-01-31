@@ -14,7 +14,7 @@ import { LekarService } from 'src/app/services/lekar.service';
 })
 export class ProfilComponent implements OnInit {
   idLekara:number
-  lekar:Lekar={id:0,klinika:{id:0,naziv:"",adresa:"",opis:""},user:{id:0,username:"",lastname:"",adress:"",city:"",country:"",phoneNumber:"",uloga:"",password:"",email:""},opis:"",slika:"",specijalizacija:"" }
+  lekar:Lekar={id:0, radnovreme:"",klinika:{id:0, naziv:"",adresa:"",opis:""},user:{id:0,username:"",lastname:"",adress:"",city:"",country:"",phoneNumber:"",uloga:"",password:"",email:""},opis:"",slika:"",specijalizacija:"" }
   //lekari:Lekar[]=[{id:0,klinika:{id:0,naziv:"",adresa:"",opis:""},user:{id:0,username:"",lastname:"",adress:"",city:"",country:"",phoneNumber:"",uloga:"",password:"",email:""},opis:"",slika:"",specijalizacija:"" }]
   constructor(private route: ActivatedRoute, private lekarService: LekarService) { 
     this.route.parent.params.subscribe(
