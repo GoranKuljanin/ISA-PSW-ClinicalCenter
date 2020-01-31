@@ -12,8 +12,8 @@ insert into klinika (naziv, adresa, opis) values ('Euromedic', 'Bulervar Oslobod
 insert into klinika (naziv, adresa, opis) values ('Sirius Medical', 'Ilije Ognjanovica 10', 'Nas strucni tim lekara, tehnicara i saradnika kao i celokupno osoblje ce vas srdacno docekati u prijatnom ambijentu “Sirius Medical” bolnice , biti vam uvek na usluzi i omoguciti najvisi nivo nege pacijenata.');
 
 
-insert into lekar (specijalizacija, opis, slika, user_id, klinika_id) values ('Hirurg','Vrhunski strucnjak, poznat po minimalno invazivnim operacijama stitaste zlezde, kao i parastitastih zlezda, sa brzim i lakim oporavkom.','../../../../../assets/lekari/lekar1.jpg',5 , 1);
-insert into lekar (specijalizacija, opis, slika, user_id, klinika_id) values ('Kardiolog','Svestrani i vrsni kardiolog, angazovan ne samo u Srbiji, vec i u regionu.','../../../../../assets/lekari/lekar2.jpg',9 , 1);
+insert into lekar (specijalizacija, radnovreme, opis, slika, user_id, klinika_id) values ('Hirurg', '8:00-16:00', 'Vrhunski strucnjak, poznat po minimalno invazivnim operacijama stitaste zlezde, kao i parastitastih zlezda, sa brzim i lakim oporavkom.','../../../../../assets/lekari/lekar1.jpg',5 , 1);
+insert into lekar (specijalizacija, radnovreme, opis, slika, user_id, klinika_id) values ('Kardiolog', '6:00-14:00', 'Svestrani i vrsni kardiolog, angazovan ne samo u Srbiji, vec i u regionu.','../../../../../assets/lekari/lekar2.jpg',9 , 1);
 
 
 insert into sala (name,klinika_id) values ('Ordinacija',1);

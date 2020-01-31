@@ -1,5 +1,7 @@
 package com.klinickiCentar.klinika.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,8 +41,8 @@ public class Klinika {
 	/*@OneToOne
 	private Lekar lekari;*/
 	@JsonIgnore
-	@OneToMany(mappedBy = "klinika", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Lekar> lekari = new HashSet<Lekar>();
+	@OneToMany(mappedBy = "klinika")
+	private Collection<Lekar> lekari = new ArrayList<Lekar>();
 	
 	@OneToOne
 	private Sala sale;
@@ -120,15 +122,26 @@ public class Klinika {
 	public void setLekari(Lekar lekari) {
 		this.lekari = lekari;
 	}*/
-	@JsonIgnore
-	public Set<Lekar> getLekari() {
+	
+	public Collection<Lekar> getLekari() {
 		return lekari;
 	}
 
-	public void setLekari(Set<Lekar> lekari) {
-		this.lekari = lekari;
+	public void addLekar(Lekar lekar) {
+		if (this.lekari.contains(lekar))
+		      return ;
+		lekari.add(lekar);
+		lekar.setKlinika(this);
 	}
-
+	public void removeLekar(Lekar lekar) {
+	    //prevent endless loop
+	    if (!lekari.contains(lekar))
+	      return ;
+	    //remove the account
+	    lekari.remove(lekar);
+	    //remove myself from the twitter account
+	    lekar.setKlinika(null);
+	  }
 	//--------------------------------------------
 	//Sale----------------------------------------
 	public Sala getSale() {
