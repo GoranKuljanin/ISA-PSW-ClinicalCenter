@@ -10,32 +10,32 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./ak-edit-profil-dialog.component.css']
 })
 export class AkEditProfilDialogComponent implements OnInit {
-  user: User = { id: 0, username: "", lastname: "", city: "", country: "", adress: "", email: "", phoneNumber: "", password: "", uloga: "" };
-  stariUser: User = { id: 0, username: "", lastname: "", city: "", country: "", adress: "", email: "", phoneNumber: "", password: "", uloga: "" };
+  user: User = {id:0,username:"", lastname:"", city:"", country:"", adress:"", email:"", phoneNumber:"", password:"", uloga:""};
+  stariUser: User = {id:0,username:"", lastname:"", city:"", country:"", adress:"", email:"", phoneNumber:"", password:"", uloga:""};
 
   constructor(public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<AkEditProfilDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User,
     public adminKlinikeService: AdminKlinikeService, private rout: Router) {
-    this.adminKlinikeService.getUserById(this.data.id).subscribe(
-      data => {
-        this.stariUser = data;
-        this.user = this.stariUser;
-      }
-    );
-  }
+      this.adminKlinikeService.getUserById(this.data.id).subscribe(
+        data=>{
+          this.stariUser = data;
+          this.user = this.stariUser;
+        }
+      );
+     }
 
   ngOnInit() {
   }
   public update(): void {
-    this.user.id = this.data.id;
-    this.user.username = this.data.username;
-    this.user.lastname = this.data.lastname;
-    this.user.adress = this.data.adress;
-    this.user.country = this.data.country;
-    this.user.city = this.data.city;
-    this.user.email = this.data.email;
-    this.user.phoneNumber = this.data.phoneNumber;
+    this.user.id=this.data.id;
+    this.user.username=this.data.username;
+    this.user.lastname=this.data.lastname;
+    this.user.adress=this.data.adress;
+    this.user.country=this.data.country;
+    this.user.city=this.data.city;
+    this.user.email=this.data.email;
+    this.user.phoneNumber=this.data.phoneNumber;
     this.adminKlinikeService.updateUser(this.user);
     this.snackBar.open('Uspešno modifikovan profil: ', 'U redu', { duration: 2500 });
     window.location.href = this.rout.url;

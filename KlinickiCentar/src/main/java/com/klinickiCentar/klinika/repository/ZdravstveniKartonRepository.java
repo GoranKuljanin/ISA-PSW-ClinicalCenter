@@ -9,6 +9,6 @@ import com.klinickiCentar.klinika.models.ZdravstveniKarton;
 public interface ZdravstveniKartonRepository extends JpaRepository<ZdravstveniKarton, Long>{
 
 	
-	List<ZdravstveniKarton> findByPregledId(Long id);
+	//List<ZdravstveniKarton> findByPregledId(Long id);
 	ZdravstveniKarton findByPacijentId(Long id);
 }

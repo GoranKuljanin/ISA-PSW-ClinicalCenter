@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.klinickiCentar.klinika.models.Pacijent;
 import com.klinickiCentar.klinika.models.Pregled;
+import com.klinickiCentar.klinika.models.Termin;
 import com.klinickiCentar.klinika.models.User;
 import com.klinickiCentar.klinika.services.PacijentService;
 import com.klinickiCentar.klinika.services.PreglediService;
@@ -49,14 +51,25 @@ public class PreglediController {
 
 	}
 	
-	@GetMapping("/getPreglediByDatum")
-	public ResponseEntity<List<Pregled>> getAllPreglediByDatum(@RequestParam String datum){
-		List<Pregled> pregledi = preglediService.getPreglediByDatum(datum);
+	@GetMapping("/getPreglediByDatum/{id}")						
+	public ResponseEntity<List<Pregled>> getAllPreglediByDatum(@RequestParam String datum, @PathVariable ("id") Long id){
+		Termin termin = preglediService.findTerminByDatum(datum);
+		
+		if( termin == null ) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		//List<Pregled> pregledi = preglediService.getAllPregledi();
+		Set<Pregled> pregledi = termin.getPregled();
 		
 		List<Pregled> slobodniPregledni = new ArrayList<>();
 		for(Pregled p : pregledi) {
-			if(p.getPacijent() == null) {
-				slobodniPregledni.add(p);
+			if(p.getKlinika().getId().equals(id)) {
+				if(p.getPacijent() == null) {
+					//if(p.getTermin().getId().equals(termin.getId())) {
+						slobodniPregledni.add(p);
+					//}	
+				}
 			}
 		}
 		
@@ -96,9 +109,9 @@ public class PreglediController {
 	}
 	
 	//Kontroler za testiranje
-	@GetMapping("/test")
-	public ResponseEntity<Pacijent> test(){
-		Pacijent p = pacijentService.getPacijentByUser(3L);
-		return new ResponseEntity<Pacijent>(p, HttpStatus.OK);
-	}
+//	@GetMapping("/test")
+//	public ResponseEntity<Pacijent> test(){
+//		Pacijent p = pacijentService.getPacijentByUser(3L);
+//		return new ResponseEntity<Pacijent>(p, HttpStatus.OK);
+//	}
 }

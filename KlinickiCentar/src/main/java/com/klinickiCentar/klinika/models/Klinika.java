@@ -1,7 +1,5 @@
 package com.klinickiCentar.klinika.models;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,14 +10,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "klinika")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Klinika {
 
 	@Id
@@ -35,14 +36,14 @@ public class Klinika {
 	@Column(name = "opis", nullable = false)
 	private String opis;
 	
-	@OneToOne
-	private Termin termini;
+	//@OneToOne
+	//private Termin termini;
 	
 	/*@OneToOne
 	private Lekar lekari;*/
 	@JsonIgnore
-	@OneToMany(mappedBy = "klinika")
-	private Collection<Lekar> lekari = new ArrayList<Lekar>();
+	@OneToMany(mappedBy = "klinika", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Lekar> lekari = new HashSet<Lekar>();
 	
 	@OneToOne
 	private Sala sale;
@@ -53,6 +54,9 @@ public class Klinika {
 	@JsonIgnore
 	@OneToMany(mappedBy = "klinika", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<AdministratorKlinike> adminiKlinike = new HashSet<AdministratorKlinike>();
+	
+	@OneToMany(mappedBy = "klinika", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<Pregled> pregled = new HashSet<>();
 	
 //	@OneToMany(mappedBy = "pacijent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	private Set<Pregled> listaPregleda = new HashSet<Pregled>();
@@ -93,13 +97,13 @@ public class Klinika {
 		this.opis = opis;
 	}
 	//Termini--------------------------------
-	public Termin getTermini() {
-		return termini;
-	}
+	//public Termin getTermini() {
+	//	return termini;
+	//}
 
-	public void setTermini(Termin termini) {
-		this.termini = termini;
-	}
+	//public void setTermini(Termin termini) {
+	//	this.termini = termini;
+	//}
 	
 	/*public Termin addTermin(Termin termin) {
 		getTermini().add(termin);
@@ -122,26 +126,15 @@ public class Klinika {
 	public void setLekari(Lekar lekari) {
 		this.lekari = lekari;
 	}*/
-	
-	public Collection<Lekar> getLekari() {
+	@JsonIgnore
+	public Set<Lekar> getLekari() {
 		return lekari;
 	}
 
-	public void addLekar(Lekar lekar) {
-		if (this.lekari.contains(lekar))
-		      return ;
-		lekari.add(lekar);
-		lekar.setKlinika(this);
+	public void setLekari(Set<Lekar> lekari) {
+		this.lekari = lekari;
 	}
-	public void removeLekar(Lekar lekar) {
-	    //prevent endless loop
-	    if (!lekari.contains(lekar))
-	      return ;
-	    //remove the account
-	    lekari.remove(lekar);
-	    //remove myself from the twitter account
-	    lekar.setKlinika(null);
-	  }
+
 	//--------------------------------------------
 	//Sale----------------------------------------
 	public Sala getSale() {

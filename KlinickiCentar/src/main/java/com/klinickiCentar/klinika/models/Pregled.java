@@ -1,5 +1,8 @@
 package com.klinickiCentar.klinika.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -17,15 +19,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "pregled")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Pregled {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name = "datum")
-	private String datum; //datum i vrijeme
 	
 	@Column(name = "trajanje")
 	private String trajanje;
@@ -36,27 +35,20 @@ public class Pregled {
 	@Column(name = "cena")
 	private double cena;
 	
-//	@OneToOne
-//	private ZdravstveniKarton zdravstveniKarton;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Pacijent pacijent;
 	
 	@OneToOne
 	private Lekar lekar;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private ZdravstveniKarton zdravstveniKarton;
-	
 
-	@Column(name = "dijagnoza")
-	private String dijagnoza;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Klinika klinika;
 	
-	@Column(name = "terapija")
-	private String terapija;
-
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	private Klinika klinika;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+	private Termin termin;
+	
+	@OneToOne(mappedBy = "pregled", fetch = FetchType.LAZY)
+	private Izvestaj izvestaj;
 
 	public Pregled() {
 		super();
@@ -68,14 +60,6 @@ public class Pregled {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getDatum() {
-		return datum;
-	}
-
-	public void setDatum(String datum) {
-		this.datum = datum;
 	}
 
 	public String getTrajanje() {
@@ -117,48 +101,30 @@ public class Pregled {
 	public void setPacijent(Pacijent pacijent) {
 		this.pacijent = pacijent;
 	}
+
 	@JsonIgnore
-	public ZdravstveniKarton getZdravstveniKarton() {
-		return zdravstveniKarton;
+	public Izvestaj getIzvestaj() {
+		return izvestaj;
 	}
 
-	public void setZdravstveniKarton(ZdravstveniKarton zdravstveniKarton) {
-		this.zdravstveniKarton = zdravstveniKarton;
+	public void setIzvestaj(Izvestaj izvestaj) {
+		this.izvestaj = izvestaj;
 	}
 
-
-	public String getDijagnoza() {
-		return dijagnoza;
+	public Termin getTermin() {
+		return termin;
 	}
 
-	public void setDijagnoza(String dijagnoza) {
-		this.dijagnoza = dijagnoza;
+	public void setTermin(Termin termin) {
+		this.termin = termin;
+	}
+	@JsonIgnore
+	public Klinika getKlinika() {
+		return klinika;
 	}
 
-	public String getTerapija() {
-		return terapija;
+	public void setKlinika(Klinika klinika) {
+		this.klinika = klinika;
 	}
-
-	public void setTerapija(String terapija) {
-		this.terapija = terapija;
-	}
-
-
-//	@JsonIgnore
-//	public Klinika getKlinika() {
-//		return klinika;
-//	}
-//
-//	public void setKlinika(Klinika klinika) {
-//		this.klinika = klinika;
-//	}
-
-//	public ZdravstveniKarton getZdravstveniKarton() {
-//		return zdravstveniKarton;
-//	}
-//
-//	public void setZdravstveniKarton(ZdravstveniKarton zdravstveniKarton) {
-//		this.zdravstveniKarton = zdravstveniKarton;
-//	}
 	
 }

@@ -52,10 +52,6 @@ public class Lekar {
 	@JsonIgnore
 	@OneToMany(mappedBy = "lekar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ZahtevZaZakazivanje> zahteviZaZakazivanje = new HashSet<ZahtevZaZakazivanje>();
-	
-	@Column(name = "radnovreme")
-	private String radnovreme;
-	
 
 	public Lekar() {
 		super();
@@ -102,35 +98,13 @@ public class Lekar {
 		this.slika = slika;
 	}
 	
-	public String getRadnovreme() {
-		return radnovreme;
-	}
-
-	public void setRadnovreme(String radnovreme) {
-		this.radnovreme = radnovreme;
-	}
-
 	public Klinika getKlinika() {
 		return klinika;
 	}
 
 	public void setKlinika(Klinika klinika) {
-		if (sameAsOld(klinika))
-		      return ;
-		    //set new owner
-			Klinika oldKlinika = this.klinika;
-		    this.klinika = klinika;
-		    //remove from the old owner
-		    if (oldKlinika!=null)
-		    	oldKlinika.removeLekar(this);
-		    //set myself into new owner
-		    if (klinika!=null)
-		    	klinika.addLekar(this);
+		this.klinika = klinika;
 	}
-	
-	private boolean sameAsOld(Klinika klinika) {
-	    return this.klinika==null? klinika == null : this.klinika.equals(klinika);
-	  }
 	
 	@JsonIgnore
 	public Set<ZahtevZaZakazivanje> getZahteviZaZakazivanje() {
@@ -140,5 +114,4 @@ public class Lekar {
 	public void setZahteviZaZakazivanje(Set<ZahtevZaZakazivanje> zahteviZaZakazivanje) {
 		this.zahteviZaZakazivanje = zahteviZaZakazivanje;
 	}
-	
 }

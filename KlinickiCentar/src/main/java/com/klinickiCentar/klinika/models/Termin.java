@@ -1,5 +1,8 @@
 package com.klinickiCentar.klinika.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,13 +10,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "termin")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Termin {
 
 	@Id
@@ -23,9 +28,9 @@ public class Termin {
 	@Column(name = "datum", nullable = false)
 	private String datum;
 	
-	@OneToOne
-	@JoinColumn(name="klinika_id")
-	private Klinika klinika;
+	@OneToMany(mappedBy = "termin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	//@JoinColumn(name = "pregled_id", referencedColumnName = "id")
+	private Set<Pregled> pregled = new HashSet<>();
 
 	public Termin() {
 		super();
@@ -48,13 +53,16 @@ public class Termin {
 		this.datum = datum;
 	}
 
-	public Klinika getKlinika() {
-		return klinika;
+	@JsonIgnore
+	public Set<Pregled> getPregled() {
+		return pregled;
 	}
 
-	public void setKlinika(Klinika klinika) {
-		this.klinika = klinika;
+
+	public void setPregled(Set<Pregled> pregled) {
+		this.pregled = pregled;
 	}
+
 	
 	
 }

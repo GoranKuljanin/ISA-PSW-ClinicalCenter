@@ -59,9 +59,9 @@ public class KlinikaController {
 		return listaSala;
 	}
 	
-	@GetMapping(value = "klinika/{id}/termini")
-	public Collection<Termin> getTermini(@PathVariable ("id") Long id) {
-		Collection<Termin> listaTermina = klinikaService.getTermini(id);
-		return listaTermina;
-	}
+//	@GetMapping(value = "klinika/{id}/termini")
+//	public Collection<Termin> getTermini(@PathVariable ("id") Long id) {
+//		Collection<Termin> listaTermina = klinikaService.getTermini(id);
+//		return listaTermina;
+//	}
 }

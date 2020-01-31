@@ -1,9 +1,10 @@
 
   <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center margin-top" style="margin-top: 110px;">
 
+    
     <mat-card class="paper">
       <mat-card-header>
-        <mat-card-title style="font-size: 30px;">Klinika {{clinic.naziv}}</mat-card-title>
+        <mat-card-title style="font-size: 30px;" *ngIf="klinika">Klinika {{klinika.naziv}}</mat-card-title>
       </mat-card-header>
       <hr>
       <mat-card-content>
@@ -23,7 +24,7 @@
 
               <ng-container matColumnDef="datum">
                 <th mat-header-cell *matHeaderCellDef > Datum </th>
-                <td mat-cell *matCellDef="let element">{{element.datum}} </td>
+                <td mat-cell *matCellDef="let element">{{element.termin.datum}} </td>
               </ng-container>
             
               <ng-container matColumnDef="trajanje">
@@ -54,7 +55,7 @@
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-          </mat-tab>
+          </mat-tab>  
           <!-- <mat-tab label="Lekari">
               <p style="font-size: 18px;">Spisak svih lekara:</p>
             <mat-accordion *ngFor="let lekar of lekari">
@@ -73,8 +74,8 @@
               </mat-expansion-panel>
             </mat-accordion>
           </mat-tab> -->
-
-          <mat-tab label="O nama">
+          
+          <!-- <mat-tab label="O nama">
               <p style="font-size: 18px;margin-top: 50px;">Adresa: {{clinic.adresa}}</p>
               <p style="font-size: 18px;">Opis: {{clinic.opis}}</p>
           </mat-tab>
@@ -85,7 +86,6 @@
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Opis </th>
                       <td mat-cell *matCellDef="let element">{{element.opis}} </td>
                     </ng-container>
-                  <!-- Position Column -->
                   <ng-container matColumnDef="vrednost">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
                     <td mat-cell *matCellDef="let element">{{element.vrednost}} </td>
@@ -93,9 +93,8 @@
                   <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
                   <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
                 </table>
-          </mat-tab>
-        </mat-tab-group>
+          </mat-tab> -->
+        </mat-tab-group> 
       </mat-card-content>
     </mat-card>
-  
   </div>
