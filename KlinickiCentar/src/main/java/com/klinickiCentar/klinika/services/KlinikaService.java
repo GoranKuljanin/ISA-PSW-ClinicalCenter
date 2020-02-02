@@ -60,12 +60,12 @@ public class KlinikaService {
 		return lekari;
 	}
 	
-//	public Collection<Termin> getTermini(Long id) {
-//		
-//		Collection<Termin> termini= terminRepository.findAll();
-//		termini.removeIf((Termin c) -> c.getKlinika().getId()!=id);
-//		return termini;
-//	}
+	public Collection<Termin> getTermini(Long id) {
+		
+		Collection<Termin> termini= terminRepository.findAll();
+		termini.removeIf((Termin c) -> c.getKlinika().getId()!=id);
+		return termini;
+	}
 	
 	public Collection<Sala> getSale(Long id) {
 		

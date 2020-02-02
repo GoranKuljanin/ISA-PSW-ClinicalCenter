@@ -1,5 +1,3 @@
-//import { Pregled } from 'src/app/models/pacijent';
-import { Termin } from './termin.model';
 import { Lekar } from 'src/app/models/lekar.model';
 import { Sala } from './Sala.model';
 import { User } from './user.model';
@@ -11,50 +9,26 @@ export class Pacijent {
 
 export class ZdravstveniKarton {
     id: number;
-    izvestaj: Izvestaj[];
-    dioptrija: string;
-    alergija: string;
-    visina: string;
-    tezina: string;
-    krvna_grupa: string;
+    dijagnoza: string;
+    terapija: string;
+    pregled: Pregled[];
 }
 
 export class Pregled {
     id: number;
+    datum: string;
     trajanje: string;
     sala: Sala;
     cena: number;
     lekar: Lekar;
     pacijent: Pacijent;
-    termin: Termin;
+    zdravstveniKarton: ZdravstveniKarton;
+
+    dijagnoza: string;
+    terapija: string;
 
 }
 
 export class PregledanPacijent {
     pregledaniPacijent:Pacijent
-}
-
-export class Dijagnoza {
-
-    id: number;
-    sifra: string;
-    naziv: string;
-    opisDijagnoze: string;
-}
-
-export class Lek {
-    
-    id: number;
-    sifra: string;
-    naziv: string;
-    opis: string;
-}
-
-export class Izvestaj {
-
-    id: number;
-    pregled: Pregled;
-    dijagnoza: Dijagnoza;
-    lek: Lek[];
-    terapija: string;
 }

@@ -12,8 +12,8 @@ import { Component, OnInit } from '@angular/core';
 export class ZdravstveniKartonComponent implements OnInit {
 
   pacijent: User;
-  karton: ZdravstveniKarton;
-  //pregledi: Pregled[] = [];
+  kartoni: ZdravstveniKarton;
+  pregledi: Pregled[] = [];
 
   constructor(private service: PacijentService) { }
 
@@ -21,9 +21,8 @@ export class ZdravstveniKartonComponent implements OnInit {
     //this.pacijent = this.service.user
     this.service.getZdravstveniKarton(localStorage.getItem("logedInUser")).subscribe(
       data=>{
-          this.karton = data;
-          console.log(data);
-          //this.pregledi = this.kartoni.pregled; //Nalazi se u uzvestaju
+          this.kartoni = data;
+          this.pregledi = this.kartoni.pregled;
       }
     );
   }

@@ -1,7 +1,5 @@
-import { Sala } from './../../../../models/sala.model';
-import { Pregled } from './../../../../models/pacijent';
 import { Component, OnInit } from '@angular/core';
-import { Pacijent, Dijagnoza, Lek, Izvestaj } from 'src/app/models/pacijent';
+import { Pacijent } from 'src/app/models/pacijent';
 import { PacijentService } from 'src/app/services/pacijentServices/pacijent.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
@@ -13,12 +11,7 @@ import { ZakaziPregledDialogComponent } from './zakazi-pregled-dialog/zakazi-pre
   styleUrls: ['./zapocni-pregled.component.css']
 })
 export class ZapocniPregledComponent implements OnInit {
-  lek: Lek[] = [{id: 0, sifra:"", naziv: "", opis: ""}];
-  dijagnoza: Dijagnoza = {id: 0,sifra:"", naziv:"", opisDijagnoze: ""};
-  sala: Sala = {id: 0, name:"", klinika:null};
-  pregled: Pregled = {id: 0, trajanje:"", sala: this.sala, cena:0, lekar: null, pacijent:null, termin: null};
-  izvestaj: Izvestaj[] = [{id: 0, pregled: this.pregled, dijagnoza:this.dijagnoza, lek: this.lek, terapija:""}];
-  pacijent: Pacijent ={id:0,zdravstveniKarton:null,user:{id:0,username:"",lastname:"",phoneNumber:""
+  pacijent: Pacijent ={id:0,zdravstveniKarton:{id:0,dijagnoza:"",terapija:"",pregled:null},user:{id:0,username:"",lastname:"",phoneNumber:""
                                                                                                 ,city:"",country:"",email:"",password:"",adress:"",uloga:""}}
   lekar:number
   constructor(private servis: PacijentService,private route: ActivatedRoute,public dialog: MatDialog) { }

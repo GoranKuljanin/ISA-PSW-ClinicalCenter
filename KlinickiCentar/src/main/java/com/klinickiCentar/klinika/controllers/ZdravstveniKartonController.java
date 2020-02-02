@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.klinickiCentar.klinika.models.Izvestaj;
 import com.klinickiCentar.klinika.models.Pacijent;
 import com.klinickiCentar.klinika.models.User;
 import com.klinickiCentar.klinika.models.ZdravstveniKarton;
@@ -56,11 +55,5 @@ public class ZdravstveniKartonController {
 		Pacijent p = pacijentService.getPacijentByUser(u.getId());
 		ZdravstveniKarton karton = p.getZdravstveniKarton();
 		return new ResponseEntity<ZdravstveniKarton>(karton, HttpStatus.OK);
-	}
-	
-	@GetMapping("/proba")
-	public ResponseEntity<Izvestaj> getIzvestaj(){
-		Izvestaj iz = zdravstveniKartonService.getIzvestaj();
-		return new ResponseEntity<Izvestaj>(iz, HttpStatus.OK);
 	}
 }

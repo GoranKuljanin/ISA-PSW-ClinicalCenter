@@ -11,5 +11,5 @@ public interface PreglediRepository extends JpaRepository<Pregled, Long>{
 
 	Pregled findOneById(Long id);
 	List<Pregled> findByPacijentId(Long id);
-	//List<Pregled> findByDatum(String datum);
+	List<Pregled> findByDatum(String datum);
 }
