@@ -62,7 +62,6 @@ public class Termin {
 	public void setPregled(Set<Pregled> pregled) {
 		this.pregled = pregled;
 	}
-
 	
 	
 }

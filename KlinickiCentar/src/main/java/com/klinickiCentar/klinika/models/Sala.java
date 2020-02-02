@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -26,8 +25,11 @@ public class Sala {
 	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@OneToOne
-	@JoinColumn(name="klinika_id")
+	@Column(name = "brojsale")
+	private String brojsale;
+	
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinColumn(name = "klinika_id")
 	private Klinika klinika;
 
 	public Sala() {
@@ -49,14 +51,37 @@ public class Sala {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+
+	public String getBrojsale() {
+		return brojsale;
+	}
+
+	public void setBrojsale(String brojsale) {
+		this.brojsale = brojsale;
+	}
 
 	public Klinika getKlinika() {
 		return klinika;
 	}
 
 	public void setKlinika(Klinika klinika) {
-		this.klinika = klinika;
+		if (sameAsOld(klinika))
+		      return ;
+		    //set new owner
+			Klinika oldKlinika = this.klinika;
+		    this.klinika = klinika;
+		    //remove from the old owner
+		    if (oldKlinika!=null)
+		    	oldKlinika.removeSala(this);
+		    //set myself into new owner
+		    if (klinika!=null)
+		    	klinika.addSala(this);
 	}
 	
+	private boolean sameAsOld(Klinika klinika) {
+	    return this.klinika==null? klinika == null : this.klinika.equals(klinika);
+	  }
 	
 }
