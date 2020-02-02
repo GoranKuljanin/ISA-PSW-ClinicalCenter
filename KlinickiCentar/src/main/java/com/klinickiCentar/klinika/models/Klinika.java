@@ -1,5 +1,7 @@
 package com.klinickiCentar.klinika.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -36,18 +37,21 @@ public class Klinika {
 	@Column(name = "opis", nullable = false)
 	private String opis;
 	
-	//@OneToOne
-	//private Termin termini;
+//	@JsonIgnore
+//	@OneToOne
+//	private Termin termini;
 	
 	/*@OneToOne
 	private Lekar lekari;*/
 	@JsonIgnore
-	@OneToMany(mappedBy = "klinika", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Lekar> lekari = new HashSet<Lekar>();
+	@OneToMany(mappedBy = "klinika")
+	private Collection<Lekar> lekari = new ArrayList<Lekar>();
 	
-	@OneToOne
-	private Sala sale;
+	@JsonIgnore
+	@OneToMany(mappedBy = "klinika")
+	private Collection<Sala> sale = new ArrayList<Sala>();
 	
+	@JsonIgnore
 	@OneToOne
 	private Cena cene;
 	
@@ -97,67 +101,53 @@ public class Klinika {
 		this.opis = opis;
 	}
 	//Termini--------------------------------
-	//public Termin getTermini() {
-	//	return termini;
-	//}
-
-	//public void setTermini(Termin termini) {
-	//	this.termini = termini;
-	//}
 	
-	/*public Termin addTermin(Termin termin) {
-		getTermini().add(termin);
-		termin.setKlinika(this);
-		return termin;
-	}
-
-	public Termin removeTermin(Termin termin) {
-		getTermini().remove(termin);
-		termin.setKlinika(null);
-
-		return termin;
-	}*/
-	//---------------------------------------
+//	public Termin getTermini() {
+//		return termini;
+//	}
+//
+//	public void setTermini(Termin termini) {
+//		this.termini = termini;
+//	}
+	
 	//Lekari-------------------------------------
-	/*public Lekar getLekari() {
+	
+	
+	public Collection<Lekar> getLekari() {
 		return lekari;
 	}
 
-	public void setLekari(Lekar lekari) {
-		this.lekari = lekari;
-	}*/
-	@JsonIgnore
-	public Set<Lekar> getLekari() {
-		return lekari;
+	public void addLekar(Lekar lekar) {
+		if (this.lekari.contains(lekar))
+		      return ;
+		lekari.add(lekar);
+		lekar.setKlinika(this);
 	}
-
-	public void setLekari(Set<Lekar> lekari) {
-		this.lekari = lekari;
-	}
-
-	//--------------------------------------------
+	public void removeLekar(Lekar lekar) {
+	    if (!lekari.contains(lekar))
+	      return ;
+	    lekari.remove(lekar);
+	    lekar.setKlinika(null);
+	  }
+	
 	//Sale----------------------------------------
-	public Sala getSale() {
+	
+	public Collection<Sala> getSale() {
 		return sale;
 	}
 
-	public void setSale(Sala sale) {
-		this.sale = sale;
+	public void addSala(Sala sala) {
+		if (this.sale.contains(sala))
+		      return ;
+		sale.add(sala);
+		sala.setKlinika(this);
 	}
-
-	/*public Sala addSale(Sala sale) {
-		getSale().add(sale);
-		sale.setKlinika(this);
-		return sale;
-	}
-
-	public Sala removeSale(Sala sale) {
-		getSale().remove(sale);
-		sale.setKlinika(null);
-
-		return sale;
-	}*/
-	//--------------------------------------------
+	public void removeSala(Sala sala) {
+	    if (!sale.contains(sala))
+	      return ;
+	    sale.remove(sala);
+	    sala.setKlinika(null);
+	  }
 	//Cene----------------------------------------
 	public Cena getCene() {
 		return cene;
@@ -166,26 +156,7 @@ public class Klinika {
 	public void setCene(Cena cene) {
 		this.cene = cene;
 	}
-
-//	public Set<Pregled> getListaPregleda() {
-//		return listaPregleda;
-//	}
-//
-//	public void setListaPregleda(Set<Pregled> listaPregleda) {
-//		this.listaPregleda = listaPregleda;
-//	}
 	
-	/*public Cena addCene(Cena cene) {
-		getCene().add(cene);
-		cene.setKlinika(this);
-		return cene;
-	}
-
-	public Cena removeRacun(Cena cene) {
-		getCene().remove(cene);
-		cene.setKlinika(null);
-		return cene;
-	}*/
 	@JsonIgnore
 	public Set<AdministratorKlinike> getAdministratoriKlinike() {
 		return adminiKlinike;

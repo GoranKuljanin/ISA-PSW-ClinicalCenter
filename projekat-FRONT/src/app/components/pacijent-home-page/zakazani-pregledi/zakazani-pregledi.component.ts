@@ -1,8 +1,10 @@
+import { Pregled } from 'src/app/models/pacijent';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { Pregled } from './../../../models/pacijent';
 import { PregledService } from './../../../services/pregled.service';
 import { Component, OnInit } from '@angular/core';
+
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-zakazani-pregledi',
@@ -19,6 +21,10 @@ export class ZakazaniPreglediComponent implements OnInit {
   search: string;
   sortedData = new MatTableDataSource<Pregled>();
 
+  dat = new Date();
+  today1 = moment(this.dat).format('DD.MM.YYYY');
+  today = new Date(this.today1);
+
   constructor(private http: PregledService) { 
     this.sortedData.data = this.zakazaniPregledi.slice();
   }
@@ -29,8 +35,30 @@ export class ZakazaniPreglediComponent implements OnInit {
           this.zakazaniPregledi = data;
           this.preglediRES = this.zakazaniPregledi;
           this.sortedData.data = data;
+          //let datum = new Date(this.zakazaniPregledi[0].termin.datum);
+          
+          
       }
     );
+  }
+  
+  provjeri(datum: string){
+
+    let dan = datum.split('.')[0];
+    let mesec = datum.split('.')[1];
+    let godina = datum.split('.')[2];
+    datum = mesec + '.' + dan + '.' + godina;
+
+    let zakazani = new Date(datum);
+
+    let zakazaniDatum = moment(zakazani).format('DD.MM.YYYY');
+    let zakazaniDan = parseInt(zakazaniDatum.split('.')[0]);
+  
+    let danasnjiDan = parseInt(this.today1.split('.')[0]);
+    if((zakazaniDan) - (this.dat.getDate()) == 1){
+      return true;
+    }
+    return false;
   }
 
   odjaviPregled(id: number){

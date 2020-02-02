@@ -12,14 +12,14 @@ insert into klinika (naziv, adresa, opis) values ('Euromedic', 'Bulervar Oslobod
 insert into klinika (naziv, adresa, opis) values ('Sirius Medical', 'Ilije Ognjanovica 10', 'Nas strucni tim lekara, tehnicara i saradnika kao i celokupno osoblje ce vas srdacno docekati u prijatnom ambijentu “Sirius Medical” bolnice , biti vam uvek na usluzi i omoguciti najvisi nivo nege pacijenata.');
 
 
-insert into lekar (specijalizacija, opis, slika, user_id, klinika_id) values ('Hirurg','Vrhunski strucnjak, poznat po minimalno invazivnim operacijama stitaste zlezde, kao i parastitastih zlezda, sa brzim i lakim oporavkom.','../../../../../assets/lekari/lekar1.jpg',5 , 1);
-insert into lekar (specijalizacija, opis, slika, user_id, klinika_id) values ('Kardiolog','Svestrani i vrsni kardiolog, angazovan ne samo u Srbiji, vec i u regionu.','../../../../../assets/lekari/lekar2.jpg',9 , 1);
+insert into lekar (specijalizacija, radnovreme, opis, slika, user_id, klinika_id) values ('Hirurg', '8:00-16:00', 'Vrhunski strucnjak, poznat po minimalno invazivnim operacijama stitaste zlezde, kao i parastitastih zlezda, sa brzim i lakim oporavkom.','../../../../../assets/lekari/lekar1.jpg',5 , 1);
+insert into lekar (specijalizacija, radnovreme, opis, slika, user_id, klinika_id) values ('Kardiolog', '6:00-14:00', 'Svestrani i vrsni kardiolog, angazovan ne samo u Srbiji, vec i u regionu.','../../../../../assets/lekari/lekar2.jpg',9 , 1);
 
 
-insert into sala (name,klinika_id) values ('Ordinacija',1);
-insert into sala (name,klinika_id) values ('Laboratorija',1);
-insert into sala (name,klinika_id) values ('ORL',1);
-insert into sala (name,klinika_id) values ('Radiologija',1);
+insert into sala (name,brojsale,klinika_id) values ('Ordinacija','1',1);
+insert into sala (name,brojsale,klinika_id) values ('Laboratorija','2',1);
+insert into sala (name,brojsale,klinika_id) values ('ORL','3',1);
+insert into sala (name,brojsale,klinika_id) values ('Radiologija','4',1);
 
 insert into cena (vrednost, opis, klinika_id) values (4000, 'Specialisticki pregled', 1);
 insert into cena (vrednost, opis, klinika_id) values (3000, 'Kontrolni pregled', 1);
@@ -37,8 +37,8 @@ insert into zdravstvenikarton (dioptrija, alergija, visina, tezina, krvna_grupa)
 
 insert into pacijent (zdravstveni_karton_id, user_id) values (1, 3);
 insert into pacijent (zdravstveni_karton_id, user_id) values (2, 4);
-insert into pacijent (zdravstveni_karton_id, user_id) values (3, 6);
-insert into pacijent (zdravstveni_karton_id, user_id) values (4, 7);
+insert into pacijent (zdravstveni_karton_id, user_id) values (1, 6);
+insert into pacijent (zdravstveni_karton_id, user_id) values (2, 7);
 
 insert into dijagnoza(sifra, naziv, dijagnoza) values ('123', 'Dijagnoza 1', 'Opis Dijagnoza 1');
 insert into dijagnoza(sifra, naziv, dijagnoza) values ('145', 'Dijagnoza 2', 'Opis Dijagnoza 2');

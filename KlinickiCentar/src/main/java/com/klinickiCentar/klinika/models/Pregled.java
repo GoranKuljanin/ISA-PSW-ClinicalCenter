@@ -1,8 +1,5 @@
 package com.klinickiCentar.klinika.models;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +37,7 @@ public class Pregled {
 	
 	@OneToOne
 	private Lekar lekar;
-
+	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Klinika klinika;
 	

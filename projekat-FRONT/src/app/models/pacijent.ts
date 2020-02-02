@@ -1,4 +1,3 @@
-//import { Pregled } from 'src/app/models/pacijent';
 import { Termin } from './termin.model';
 import { Lekar } from 'src/app/models/lekar.model';
 import { Sala } from './Sala.model';
