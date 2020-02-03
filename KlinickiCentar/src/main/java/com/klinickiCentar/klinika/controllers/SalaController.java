@@ -50,7 +50,7 @@ public class SalaController {
 	}
 	
 	@DeleteMapping(value = "sala/{id}")
-	public ResponseEntity<Sala> getLekari(@PathVariable ("id") Long id) {
+	public ResponseEntity<Sala> deleteSala(@PathVariable ("id") Long id) {
 		salaService.deleteSala(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
