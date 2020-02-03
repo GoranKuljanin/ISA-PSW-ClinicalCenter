@@ -52,6 +52,7 @@ import { AkEditProfilDialogComponent } from './components/admin-klinike/componen
 import { AkEditPasswordDialogComponent } from './components/admin-klinike/components/profil-admina-klinike/dialog/ak-edit-password-dialog/ak-edit-password-dialog.component';
 import { LekariDialogComponent } from './components/admin-klinike/components/lekari/lekari-dialog/lekari-dialog.component';
 import { SaleDialogComponent } from './components/admin-klinike/components/lista-sala/sale-dialog/sale-dialog.component';
+import { TipoviPregledaDialogComponent } from './components/admin-klinike/components/tipovi-pregleda/tipovi-pregleda-dialog/tipovi-pregleda-dialog.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { SaleDialogComponent } from './components/admin-klinike/components/lista
     AkEditProfilDialogComponent,
     AkEditPasswordDialogComponent,
     LekariDialogComponent,
-    SaleDialogComponent
+    SaleDialogComponent,
+    TipoviPregledaDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +107,7 @@ import { SaleDialogComponent } from './components/admin-klinike/components/lista
     FormsModule, 
     ReactiveFormsModule 
   ],
-  entryComponents: [SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent],
+  entryComponents: [TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent],
   providers: [KorisnikService, RegisterServiceService, LoginService, AdminKlinickogCentraService, PacijentService, PregledService],
   bootstrap: [AppComponent]
 })

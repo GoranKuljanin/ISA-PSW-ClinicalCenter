@@ -21,6 +21,9 @@ insert into sala (name,brojsale,klinika_id) values ('Laboratorija','2',1);
 insert into sala (name,brojsale,klinika_id) values ('ORL','3',1);
 insert into sala (name,brojsale,klinika_id) values ('Radiologija','4',1);
 
+insert into tipPregleda (naziv,opis) values ('Tip1','Opis1');
+insert into tipPregleda (naziv,opis) values ('Tip2','Opis2');
+
 insert into cena (vrednost, opis, klinika_id) values (4000, 'Specialisticki pregled', 1);
 insert into cena (vrednost, opis, klinika_id) values (3000, 'Kontrolni pregled', 1);
 insert into cena (vrednost, opis, klinika_id) values (2500, 'Audiometrija', 1);
