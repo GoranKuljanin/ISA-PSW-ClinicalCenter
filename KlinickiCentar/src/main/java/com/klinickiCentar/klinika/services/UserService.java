@@ -19,6 +19,11 @@ public class UserService {
 	@Autowired
 	private LekarRepository lekarRepository;
 	
+	public User findByUsername(String username) {
+		User u = userRepository.findByUsername(username);
+		return u;
+	}
+	
 	public List<User> findAll(){
 		return userRepository.findAll();
 	}
@@ -49,18 +54,19 @@ public class UserService {
 		lekarRepository.save(l);
 	}
 	
-	public User findByEmailAndPassword(String email, String password){
-		return userRepository.findByEmailAndPasswordAllIgnoringCase(email, password);
-	}
-	public User findUserByEmail(String email) {
-		return userRepository.findOneByEmail(email);
-	}
+//	public User findByEmailAndPassword(String email, String password){
+//		return userRepository.findByEmailAndPasswordAllIgnoringCase(email, password);
+//	}
+//	public User findUserByEmail(String email) {
+//		return userRepository.findOneByEmail(email);
+//	}
 	public List<User> findOnlyUsers(String uloga){
 		return userRepository.findAllByUloga(uloga);
 	}
 	
 	public User saveUser(User user) {
-		User u = userRepository.findOneByEmail(user.getEmail());
+		//User u = userRepository.findOneByEmail(user.getEmail());
+		User u = userRepository.findByUsername(user.getUsername());		//Username => mail
 		if( u == null ) {
 			u = userRepository.save(user);
 			return u;

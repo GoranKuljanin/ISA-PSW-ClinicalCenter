@@ -1,14 +1,14 @@
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
     <mat-card class="paper scrollable-content">
         <mat-card-header class="navb">
-            <div><h2 >{{pacijent.user.username}} {{pacijent.user.lastname}}</h2></div>
+            <div><h2 >{{pacijent.user.firstname}} {{pacijent.user.lastname}}</h2></div>
         </mat-card-header>
         
         <mat-card-content>
             <mat-tab-group style="margin-top: 10px;margin-bottom: 50px;">
               <!--Osnovni podaci o lekaru-->
               <mat-tab label="O Pacijentu" >
-                    <p style="font-size: 18px;">Email:   {{pacijent.user.email}}</p>
+                    <p style="font-size: 18px;">Email:   {{pacijent.user.username}}</p>
                     <p style="font-size: 18px;">Adresa:   {{pacijent.user.adress}}</p>
                     <p style="font-size: 18px;">Grad:   {{pacijent.user.city}}</p>
                     <p style="font-size: 18px;">Drzava:   {{pacijent.user.country}}</p>

@@ -48,7 +48,7 @@ export class PrikazKlinikeComponent implements OnInit {
     pregledi: Pregled[];
     klinike: Klinika[] = [];
     klinika: Klinika;
-    email:string;
+    username:string;
 
     constructor(private route: ActivatedRoute, private pregledService: PregledService, private klinikaService: KlinikaService,
       private router: Router) {

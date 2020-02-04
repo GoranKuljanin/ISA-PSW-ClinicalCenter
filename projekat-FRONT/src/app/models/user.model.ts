@@ -1,9 +1,10 @@
 export class User {
     id?:number;
-    username: string;
+    username: string;           //ovo postaje email
     password: string;
+    firstname: string;
     lastname: string;
-    email: string;
+    //email: string;
     adress: string;
     city: string;
     country: string;

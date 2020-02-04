@@ -69,7 +69,7 @@ export class PacijentiComponent implements OnInit {
       this.tableSource = new MatTableDataSource(this.sortedData);
     } else {
     this.pacijentiRES=this.searchData.filter(res=>{return res.user.lastname.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) || 
-      res.user.username.toLocaleLowerCase().match(this.search.toLocaleLowerCase())});
+      res.user.firstname.toLocaleLowerCase().match(this.search.toLocaleLowerCase())});
     this.sortedData=this.pacijentiRES;
     this.tableSource = new MatTableDataSource(this.sortedData);
   }
@@ -126,9 +126,9 @@ export class PacijentiComponent implements OnInit {
     this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'Ime': return compare(a.user.username, b.user.username, isAsc);
+        case 'Ime': return compare(a.user.firstname, b.user.firstname, isAsc);
         case 'Prezime': return compare(a.user.lastname, b.user.lastname, isAsc);
-        case 'Email': return compare(a.user.email, b.user.email, isAsc);
+        case 'Email': return compare(a.user.username, b.user.username, isAsc);
         case 'Kontakt': return compare(a.user.phoneNumber, b.user.phoneNumber, isAsc);
         case 'Adresa': return compare(a.user.adress, b.user.adress, isAsc);
         case 'Grad': return compare(a.user.city, b.user.city, isAsc);

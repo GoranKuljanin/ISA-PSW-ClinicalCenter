@@ -1,3 +1,9 @@
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
+import { PacijentGuard } from './guards/pacijent.guard';
+import { ApiService } from './services/api/api.services';
+import { AuthService } from './services/authService/auth.service';
+import { PutanjaService } from './putanje/putanje.service';
+import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { ListaSalaComponent } from './components/admin-klinike/components/lista-sala/lista-sala.component';
 import { AdminKlinikeComponent } from './components/admin-klinike/admin-klinike.component';
 import { PregledService } from './services/pregled.service';
@@ -10,7 +16,7 @@ import { NgModule } from '@angular/core';
 import { AngularMaterialModule } from './angular-material.module';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -52,7 +58,6 @@ import { AkEditProfilDialogComponent } from './components/admin-klinike/componen
 import { AkEditPasswordDialogComponent } from './components/admin-klinike/components/profil-admina-klinike/dialog/ak-edit-password-dialog/ak-edit-password-dialog.component';
 import { LekariDialogComponent } from './components/admin-klinike/components/lekari/lekari-dialog/lekari-dialog.component';
 import { SaleDialogComponent } from './components/admin-klinike/components/lista-sala/sale-dialog/sale-dialog.component';
-import { TipoviPregledaDialogComponent } from './components/admin-klinike/components/tipovi-pregleda/tipovi-pregleda-dialog/tipovi-pregleda-dialog.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +100,7 @@ import { TipoviPregledaDialogComponent } from './components/admin-klinike/compon
     AkEditPasswordDialogComponent,
     LekariDialogComponent,
     SaleDialogComponent,
-    TipoviPregledaDialogComponent
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,
@@ -107,8 +112,23 @@ import { TipoviPregledaDialogComponent } from './components/admin-klinike/compon
     FormsModule, 
     ReactiveFormsModule 
   ],
-  entryComponents: [TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent],
-  providers: [KorisnikService, RegisterServiceService, LoginService, AdminKlinickogCentraService, PacijentService, PregledService],
+  entryComponents: [SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  },
+  KorisnikService, 
+  RegisterServiceService, 
+  LoginService, 
+  AdminKlinickogCentraService, 
+  PacijentService, 
+  PregledService,
+  PutanjaService,
+  AuthService,
+  ApiService,
+  PacijentGuard
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

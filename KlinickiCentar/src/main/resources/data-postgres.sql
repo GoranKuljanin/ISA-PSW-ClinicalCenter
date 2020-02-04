@@ -1,12 +1,22 @@
-insert into users (username, password, lastname, email, adress, city, country, phonenumber, uloga) values ('Goranr', '12345678', 'Kuljanin', 'goku@gmail.com', 'DJ', 'Novi Sad', 'RS', '064', 'ADMIN_K_C');
-insert into users (username, password, lastname, email, adress, city, country, phonenumber, uloga) values ('Milos', '12345678', 'Majstorovic', 'milos@gmail.com', 'Kosovska 1', 'Novi Sad', 'RS', '0643344', 'User');
-insert into users (username, password, lastname, email, adress, city, country, phonenumber, uloga) values ('Ana', '12345678', 'Andric', 'ana@gmail.com', 'Koste R. 2', 'Novi Sad', 'RS', '0641234', 'PACIJENT');
-insert into users (username, password, lastname, email, adress, city, country, phonenumber, uloga) values ('Vesna', '12345678', 'Vesnaa', 'vesna@gmail.com', 'S. Bajica 4', 'Novi Sad', 'RS', '0644455', 'PACIJENT');
-insert into users (username, password, lastname, email, adress, city, country, phonenumber, uloga) values ('Marko', '1', 'Markovic', 'lekar', 'Milsevska 7', 'Novi Sad', 'RS', '0645566', 'LEKAR');
-insert into users (username, password, lastname, email, adress, city, country, phonenumber, uloga) values ('Uros', '12345678', 'Urosevic', 'uros@gmail.com', 'Micurinova 6', 'Ruma', 'RS', '0641122', 'PACIJENT');
-insert into users (username, password, lastname, email, adress, city, country, phonenumber, uloga) values ('Laza', '12345678', 'Lazic', 'laza@gmail.com', 'Cankareva 4', 'S. Mitrovica', 'RS', '0645566', 'PACIJENT');
-insert into users (username, password, lastname, email, adress, city, country, phonenumber, uloga) values ('Admin', '1', 'Klinike', 'adminklinike', 'Kopernikova 73', 'S. Mitrovica', 'RS', '0647744', 'ADMIN_K');
-insert into users (username, password, lastname, email, adress, city, country, phonenumber, uloga) values ('Nemanja', '12345678', 'Pavlovic', 'nemanja@gmail.com', 'Panonska 17', 'Novi Sad', 'RS', '0641287', 'LEKAR');
+insert into users (firstname, password, lastname, username, adress, city, country, phonenumber, uloga, enabled, last_password_reset_date) values ('Goranr', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Kuljanin', 'goku@gmail.com', 'DJ', 'Novi Sad', 'RS', '064', 'ADMIN_K_C', true, '2017-10-01 21:58:58.508-07');
+insert into users (firstname, password, lastname, username, adress, city, country, phonenumber, uloga, enabled, last_password_reset_date) values ('Milos', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Majstorovic', 'milos@gmail.com', 'Kosovska 1', 'Novi Sad', 'RS', '0643344', 'User', true, '2017-10-01 21:58:58.508-07');
+insert into users (firstname, password, lastname, username, adress, city, country, phonenumber, uloga, enabled, last_password_reset_date) values ('Ana', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Andric', 'ana@gmail.com', 'Koste R. 2', 'Novi Sad', 'RS', '0641234', 'PACIJENT', true, '2017-10-01 21:58:58.508-07');
+insert into users (firstname, password, lastname, username, adress, city, country, phonenumber, uloga, enabled, last_password_reset_date) values ('Vesna', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Vesnaa', 'vesna@gmail.com', 'S. Bajica 4', 'Novi Sad', 'RS', '0644455', 'PACIJENT', true, '2017-10-01 21:58:58.508-07');
+insert into users (firstname, password, lastname, username, adress, city, country, phonenumber, uloga, enabled, last_password_reset_date) values ('Marko', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Markovic', 'lekar', 'Milsevska 7', 'Novi Sad', 'RS', '0645566', 'LEKAR', true, '2017-10-01 21:58:58.508-07');
+insert into users (firstname, password, lastname, username, adress, city, country, phonenumber, uloga, enabled, last_password_reset_date) values ('Uros', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Urosevic', 'uros@gmail.com', 'Micurinova 6', 'Ruma', 'RS', '0641122', 'PACIJENT', true, '2017-10-01 21:58:58.508-07');
+insert into users (firstname, password, lastname, username, adress, city, country, phonenumber, uloga, enabled, last_password_reset_date) values ('Laza', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Lazic', 'laza@gmail.com', 'Cankareva 4', 'S. Mitrovica', 'RS', '0645566', 'PACIJENT', true, '2017-10-01 21:58:58.508-07');
+insert into users (firstname, password, lastname, username, adress, city, country, phonenumber, uloga, enabled, last_password_reset_date) values ('Admin', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Klinike', 'adminklinike', 'Kopernikova 73', 'S. Mitrovica', 'RS', '0647744', 'ADMIN_K', true, '2017-10-01 21:58:58.508-07');
+insert into users (firstname, password, lastname, username, adress, city, country, phonenumber, uloga, enabled, last_password_reset_date) values ('Nemanja', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Pavlovic', 'nemanja@gmail.com', 'Panonska 17', 'Novi Sad', 'RS', '0641287', 'LEKAR', true, '2017-10-01 21:58:58.508-07');
+
+INSERT INTO AUTHORITY (name) VALUES ('ROLE_PACIJENT');
+INSERT INTO AUTHORITY (name) VALUES ('ROLE_ADMIN');
+INSERT INTO AUTHORITY (name) VALUES ('ROLE_ADMIN_KLINICKOG_CENTRA');
+INSERT INTO AUTHORITY (name) VALUES ('ROLE_LEKAR');
+
+INSERT INTO USER_AUTHORITY  (user_id, authority_id) VALUES (3, 1);
+INSERT INTO USER_AUTHORITY  (user_id, authority_id) VALUES (1, 3);
+INSERT INTO USER_AUTHORITY  (user_id, authority_id) VALUES (8, 2);
+INSERT INTO USER_AUTHORITY  (user_id, authority_id) VALUES (5, 4);
 
 insert into klinika (naziv, adresa, opis) values ('Euromedic', 'Bulervar Oslobodjenja 30', 'Na jednom mestu obezbedjena Vam je najkvalitetnija medicinska pomoc od strane vodecih specijalista i subspecijalista iz gotovo svih oblasti savremene medicine.');
 insert into klinika (naziv, adresa, opis) values ('Sirius Medical', 'Ilije Ognjanovica 10', 'Nas strucni tim lekara, tehnicara i saradnika kao i celokupno osoblje ce vas srdacno docekati u prijatnom ambijentu “Sirius Medical” bolnice , biti vam uvek na usluzi i omoguciti najvisi nivo nege pacijenata.');
@@ -20,9 +30,6 @@ insert into sala (name,brojsale,klinika_id) values ('Ordinacija','1',1);
 insert into sala (name,brojsale,klinika_id) values ('Laboratorija','2',1);
 insert into sala (name,brojsale,klinika_id) values ('ORL','3',1);
 insert into sala (name,brojsale,klinika_id) values ('Radiologija','4',1);
-
-insert into tipPregleda (naziv,opis) values ('Tip1','Opis1');
-insert into tipPregleda (naziv,opis) values ('Tip2','Opis2');
 
 insert into cena (vrednost, opis, klinika_id) values (4000, 'Specialisticki pregled', 1);
 insert into cena (vrednost, opis, klinika_id) values (3000, 'Kontrolni pregled', 1);

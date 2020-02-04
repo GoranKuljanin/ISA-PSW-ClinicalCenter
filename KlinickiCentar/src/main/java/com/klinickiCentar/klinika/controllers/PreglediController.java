@@ -1,5 +1,6 @@
 package com.klinickiCentar.klinika.controllers;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -7,11 +8,13 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +28,7 @@ import com.klinickiCentar.klinika.services.UserService;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping(value = "/pregledi")
 public class PreglediController {
 
 	@Autowired
@@ -37,6 +41,7 @@ public class PreglediController {
 	private UserService userService;
 	
 	@GetMapping("/getAllPregledi")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<Pregled>> getAllPregledi(){
 		List<Pregled> pregledi = preglediService.getAllPregledi();
 		
@@ -80,7 +85,7 @@ public class PreglediController {
 	@PostMapping("/zakaziPregled")
 	public ResponseEntity<Pregled> zakaziPregled(@RequestParam String email, @RequestBody Long id){
 		
-		User u = userService.findUserByEmail(email);
+		User u = userService.findByUsername(email);
 		Pacijent p = pacijentService.getPacijentByUser(u.getId());
 		Pregled pp = preglediService.getById(id);
 		
@@ -92,8 +97,10 @@ public class PreglediController {
 		return new ResponseEntity<Pregled>(pp, HttpStatus.OK);
 	}
 	@GetMapping("/zakazaniPregledi")
-	public ResponseEntity<List<Pregled>> zakazaniPregledi(@RequestParam String email){		//@RequestParam Long id
-		User u = userService.findUserByEmail(email);
+	@PreAuthorize("hasRole('ROLE_PACIJENT')")			//@RequestParam String email,
+	public ResponseEntity<List<Pregled>> zakazaniPregledi(Principal currUser){		//@RequestParam Long id
+		System.out.println("Za preglede: " + currUser.getName());
+		User u = userService.findByUsername(currUser.getName());
 		Pacijent p = pacijentService.getPacijentByUser(u.getId());
 		List<Pregled> set = preglediService.getByPacijentId(p.getId());
 		return new ResponseEntity<List<Pregled>>(set, HttpStatus.OK);

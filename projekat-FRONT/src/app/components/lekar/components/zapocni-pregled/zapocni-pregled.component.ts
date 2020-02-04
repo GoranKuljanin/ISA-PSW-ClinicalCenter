@@ -19,8 +19,8 @@ export class ZapocniPregledComponent implements OnInit {
   sala: Sala = {id: 0, name:"", klinika:null, brojsale:"1"};
   pregled: Pregled = {id: 0, trajanje:"", sala: this.sala, cena:0, lekar: null, pacijent:null, termin: null};
   izvestaj: Izvestaj[] = [{id: 0, pregled: this.pregled, dijagnoza:this.dijagnoza, lek: this.lek, terapija:""}];
-  pacijent: Pacijent ={id:0,zdravstveniKarton:null,user:{id:0,username:"",lastname:"",phoneNumber:""
-                                                                                                ,city:"",country:"",email:"",password:"",adress:"",uloga:""}}
+  pacijent: Pacijent ={id:0,zdravstveniKarton:null,user:{id:0,firstname:"",lastname:"",phoneNumber:""
+                                                                                                ,city:"",country:"",username:"",password:"",adress:"",uloga:""}}
   
   lekar:number
   constructor(private servis: PacijentService,private route: ActivatedRoute,public dialog: MatDialog) { }

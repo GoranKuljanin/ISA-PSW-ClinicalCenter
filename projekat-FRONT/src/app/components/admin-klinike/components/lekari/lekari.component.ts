@@ -19,8 +19,8 @@ export class LekariComponent implements OnInit {
   klinika: Klinika;
   search:string;
   user: User = new User();
-  lekariFullList: Lekar[] = [{ radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, username: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", email: "" }, opis: "", slika: "", specijalizacija: "" }]
-  lekariSearchedList:Lekar[] = [{ radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, username: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", email: "" }, opis: "", slika: "", specijalizacija: "" }]
+  lekariFullList: Lekar[] = [{ radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, firstname: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", username: "" }, opis: "", slika: "", specijalizacija: "" }]
+  lekariSearchedList:Lekar[] = [{ radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, firstname: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", username: "" }, opis: "", slika: "", specijalizacija: "" }]
   
   constructor(private route: ActivatedRoute, private lekarService: LekarService, public dialog: MatDialog,
     private adminKlinikeService: AdminKlinikeService, public userService: RegisterServiceService) {
@@ -49,7 +49,7 @@ export class LekariComponent implements OnInit {
       this.lekariSearchedList = this.lekariFullList;
     } else {
       this.lekariSearchedList = this.lekariSearchedList.filter(res => {
-        return (res.user.username + ' ' + res.user.lastname).toLocaleLowerCase().match(this.search.toLocaleLowerCase())
+        return (res.user.firstname + ' ' + res.user.lastname).toLocaleLowerCase().match(this.search.toLocaleLowerCase())
       });
     }
   }

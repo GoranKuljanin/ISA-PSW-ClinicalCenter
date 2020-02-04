@@ -7,7 +7,7 @@
     <form class="form" #formControl="ngForm">
       <mat-card-content>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Ime" [(ngModel)]="user.username" [ngModelOptions]="{standalone: true}" [disabled]="data.flag==1"
+          <input matInput placeholder="Ime" [(ngModel)]="user.firstname" [ngModelOptions]="{standalone: true}" [disabled]="data.flag==1"
             required>
         </mat-form-field>
         <mat-form-field class="full-width">
@@ -15,7 +15,7 @@
             [disabled]="data.flag==1" required>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Email" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}" [disabled]="data.flag==1"
+          <input matInput placeholder="Username" [(ngModel)]="user.username" [ngModelOptions]="{standalone: true}" [disabled]="data.flag==1"
             required>
         </mat-form-field>
         <mat-form-field *ngIf="data.flag==1" class="full-width">
