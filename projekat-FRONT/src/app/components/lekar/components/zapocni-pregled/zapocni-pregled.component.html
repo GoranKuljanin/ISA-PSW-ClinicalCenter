@@ -1,0 +1,68 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center margin-top" style="margin-top: 110px;">
+        <mat-card class="paper">
+          <mat-card-header>
+                <mat-card-title style="font-size: 24px;">Zapocni Pregled</mat-card-title>
+          </mat-card-header>
+          <form class="form" #formControl="ngForm">
+                  <mat-card-content>
+                        <hr>
+                        <p style="font-size: 18px;">Zdravstveni karton:</p>
+                        <mat-form-field class="full-width">
+                              <input matInput placeholder="Broj zdravstvenog kartona:" [(ngModel)]="pacijent.zdravstveniKarton.id" name="zdravstveniKarton" disabled>
+                        </mat-form-field>
+                        <p style="font-size: 18px;">Pacijent:</p>
+                        <mat-form-field class="full-width">
+                              <input matInput placeholder="Ime:" [(ngModel)]="pacijent.user.firstname" name="firstname" disabled>
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                              <input matInput placeholder="Prezime:" [(ngModel)]="pacijent.user.lastname" name="lastname" disabled>
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                              <input matInput placeholder="Email:" [(ngModel)]="pacijent.user.username" name="username" disabled>
+                        </mat-form-field>
+                        <p style="font-size: 18px;">Pregled:</p>
+                        <mat-form-field class="full-width">
+                                    <input matInput [matDatepicker]="dp3" placeholder="Datum" disabled>
+                                    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                                    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                                  </mat-form-field>
+                        <mat-form-field class="full-width">
+                              <input matInput placeholder="Trajanje:"  required>
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                              <input matInput placeholder="Dijagnoza:"  required>
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                              <input matInput placeholder="Terapija:"  required>
+                        </mat-form-field>
+                        <mat-form-field class="full-width">
+                              <input matInput placeholder="Cena:"  required>
+                        </mat-form-field>
+                        <!--Zakazi sledeci pregled-->
+                        <mat-grid-list cols="4" rowHeight="3:1">
+                              <!--Potvrdi / odustani-->
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1">
+                              </mat-grid-tile>
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1"></mat-grid-tile>
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1"></mat-grid-tile>
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1"> 
+                                    <a mat-stroked-button color="primary" (click)="openDialog()">Zakazi Sledeci Pregled</a>
+                              </mat-grid-tile>
+                        </mat-grid-list>
+                        
+                        <mat-grid-list cols="4" rowHeight="2:1">
+                              <!--Potvrdi / odustani-->
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1">
+                                          <a mat-raised-button color="primary" routerLink="#" routerLinkActive="active">Potvrdi</a>
+                              </mat-grid-tile>
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1"></mat-grid-tile>
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1"></mat-grid-tile>
+                              <mat-grid-tile [colspan] = "1" [rowspan]="1">
+                                          <a mat-raised-button routerLink="/lekarHomePage/{{lekar}}/pacijenti" routerLinkActive="active">Odustani</a>
+                              </mat-grid-tile>
+                        </mat-grid-list>
+                  </mat-card-content>
+            </form>
+        </mat-card>
+    </div>
+    
