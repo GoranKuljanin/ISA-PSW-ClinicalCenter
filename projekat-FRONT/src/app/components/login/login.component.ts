@@ -1,3 +1,6 @@
+import { PutanjaService } from './../../putanje/putanje.service';
+import { map } from 'rxjs/operators';
+import { AuthService } from './../../services/authService/auth.service';
 import { PacijentService } from './../../services/pacijentServices/pacijent.service';
 import { User } from './../../models/user.model';
 import { AdminKlinike } from './../../models/adminKlinike.model';
@@ -16,7 +19,7 @@ import { Lekar } from 'src/app/models/lekar.model';
 export class LoginComponent implements OnInit {
 
   Roles: any = ['AdminKlinike', 'User', 'ADMIN_K_C', 'PACIJENT','LEKAR','ADMIN_K'];   //Prekopirano iz register.component.ts
-  email: string;
+  username: string;
   password: string;
   user: any;    //Objekat za kastovanje onoga sto dodje sa servera (za logovanje i prebacivanje stranica)
   adminiKlinike: AdminKlinike[]
@@ -24,60 +27,88 @@ export class LoginComponent implements OnInit {
   lekari:Lekar[]
   lekar:Lekar
 
-  constructor(private service: LoginService, private route: Router, private pacijentService: PacijentService,private adminKlinikeService: AdminKlinikeService,private lekarService: LekarService) { }
+  dataInvalid = false;
+
+  constructor(private service: LoginService, private route: Router, private pacijentService: PacijentService,private adminKlinikeService: AdminKlinikeService,private lekarService: LekarService,
+          private authService: AuthService, private putanjaService: PutanjaService) { }
 
   ngOnInit() {
-    this.adminKlinikeService.getAdmini().subscribe(
-      data=>{
-        this.adminiKlinike = data;
-      }
-    );
-    this.lekarService.getLekari().subscribe(
-      data=>{
-        this.lekari = data;
-      }
-    );
+    // this.adminKlinikeService.getAdmini().subscribe(
+    //   data=>{
+    //     this.adminiKlinike = data;
+    //   }
+    // );
+    // this.lekarService.getLekari().subscribe(
+    //   data=>{
+    //     this.lekari = data;
+    //   }
+    // );
   }
+
+  currentUser
 
   onSubmit(){
-    this.service.getData(this.email, this.password).subscribe(
-      data=>{
-        this.user = data;
-        console.log(data);
-        if( this.user != null ){
-          if( this.user.uloga == this.Roles[2] ){
-            this.route.navigateByUrl('adminKcHomePage');
-          }else if(this.user.uloga == this.Roles[3]){
-            this.service.user = data;
-            localStorage.setItem('logedInUser', data.email);            //Dodato da bi se sacuvao ko je ulogovan (cuva i ako se osvezi stranica za razliku od servisa)
-            this.route.navigateByUrl('pacijentHomePage');
-          }else if(this.user.uloga == this.Roles[4]){
-            this.service.user = data
-            for(let i=0;i<this.lekari.length;i++){
-              if (this.lekari[i].user.id==this.user.id){
-                this.lekar=this.lekari[i];
-                break;
-              }
-            }
-            this.route.navigateByUrl('lekarHomePage/'+this.lekar.id);
-          }else if(this.user.uloga == this.Roles[5]){
-            this.service.user = data
-            for(let i=0;i<this.adminiKlinike.length;i++){
-              if (this.adminiKlinike[i].user.id==this.user.id){
-                this.admin=this.adminiKlinike[i];
-                break;
-              }
-            }
+    // this.service.getData(this.email, this.password).subscribe(
+    //   data=>{
+    //     this.user = data;
+    //     console.log(data);
+    //     if( this.user != null ){
+    //       if( this.user.uloga == this.Roles[2] ){
+    //         this.route.navigateByUrl('adminKcHomePage');
+    //       }else if(this.user.uloga == this.Roles[3]){
+    //         this.service.user = data;
+    //         localStorage.setItem('logedInUser', data.email);            //Dodato da bi se sacuvao ko je ulogovan (cuva i ako se osvezi stranica za razliku od servisa)
+    //         this.route.navigateByUrl('pacijentHomePage');
+    //       }else if(this.user.uloga == this.Roles[4]){
+    //         this.service.user = data
+    //         for(let i=0;i<this.lekari.length;i++){
+    //           if (this.lekari[i].user.id==this.user.id){
+    //             this.lekar=this.lekari[i];
+    //             break;
+    //           }
+    //         }
+    //         this.route.navigateByUrl('lekarHomePage/'+this.lekar.id);
+    //       }else if(this.user.uloga == this.Roles[5]){
+    //         this.service.user = data
+    //         for(let i=0;i<this.adminiKlinike.length;i++){
+    //           if (this.adminiKlinike[i].user.id==this.user.id){
+    //             this.admin=this.adminiKlinike[i];
+    //             break;
+    //           }
+    //         }
             
-            this.route.navigateByUrl('adminKHomePage/'+this.admin.id);
-          }else if( this.user.uloga == this.Roles[1] ){
-              alert('Jos niste dodani u sistem od strane administratora.');
+    //         this.route.navigateByUrl('adminKHomePage/'+this.admin.id);
+    //       }else if( this.user.uloga == this.Roles[1] ){
+    //           alert('Jos niste dodani u sistem od strane administratora.');
+    //       }
+    //     }else{
+    //       alert('Trenutno ne mozete da se ulogujete!');
+    //     }
+    //   }
+    // );
+
+    this.authService.login(this.username, this.password).subscribe(
+      auth=>{
+        this.service.getUserData().subscribe(
+          user => {
+            
+            if(user.authorities[0].authority == 'ROLE_PACIJENT'){
+              this.route.navigateByUrl('pacijentHomePage');
+            }else if(user.authorities[0].authority == 'ROLE_ADMIN'){
+              
+            }else if(user.authorities[0].authority == 'ROLE_LEKAR'){
+              
+            }else if(user.authorities[0].authority == 'ROLE_ADMIN_KLINICKOG_CENTRA'){
+
+            }else{
+              alert('Vas zahtev jos uvek nije potvrdjen');
+            }
           }
-        }else{
-          alert('Trenutno ne mozete da se ulogujete!');
-        }
+        );
+      },
+      error => {
+        this.dataInvalid = true;
       }
     );
   }
-
 }

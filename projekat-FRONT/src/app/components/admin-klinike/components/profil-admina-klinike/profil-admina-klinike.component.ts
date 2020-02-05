@@ -34,10 +34,10 @@ export class ProfilAdminaKlinikeComponent implements OnInit {
 
   ngOnInit() {
   }
-  public openDialog(id:number, username: string, lastname: string, adress: string, city:string, country:string, email:string, phoneNumber:string ) {
+  public openDialog(id:number, firstname: string, lastname: string, adress: string, city:string, country:string, username:string, phoneNumber:string ) {
 
     const dialogRef = this.dialog.open(AkEditProfilDialogComponent, {
-        data: {id:id, username: username, lastname: lastname,  adress: adress,  city: city,  country: country,  email: email, phoneNumber: phoneNumber}
+        data: {id:id, firstname: firstname, lastname: lastname,  adress: adress,  city: city,  country: country,  username: username, phoneNumber: phoneNumber}
     });
     dialogRef.afterClosed().subscribe(result => {
         

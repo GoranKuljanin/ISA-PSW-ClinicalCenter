@@ -31,7 +31,8 @@ public class AdminKlinickogCentraController {
 	@PostMapping("/dodajPacijentaUBazuPacijenata")
 	public ResponseEntity<Pacijent> dodajPacijentaUBazu(@RequestBody User u){
 		
-		User user = userService.findUserByEmail(u.getEmail());
+		//User user = userService.findUserByEmail(u.getEmail());
+		User user = userService.findByUsername(u.getUsername());
 		Pacijent p = new Pacijent();
 		//p.setZdravstveniKarton("ZdravstveniKarton");
 		user.setUloga("PACIJENT");
@@ -63,7 +64,7 @@ public class AdminKlinickogCentraController {
 	
 	@DeleteMapping(value = "/obrisiZahtev")
 	public ResponseEntity<Void> deleteZahtev(@RequestParam String email){
-		User u = userService.findUserByEmail(email);
+		User u = userService.findByUsername(email);
 		userService.remove(u);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

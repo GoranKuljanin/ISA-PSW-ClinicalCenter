@@ -25,10 +25,10 @@ class KlinickiCentarApplicationTests {
 	@Before(value = "")
 	public void setup() throws Exception{
 		User u = new User();
-		u.setUsername("Goranr");
+		u.setFirstname(u.getFirstname());;
 		u.setPassword("123");
 		u.setLastname("Kuljanin");
-		u.setEmail("goku@gmail.com");
+		u.setUsername("goku@gmail.com");;
 		u.setAdress("DJ");
 		u.setCity("Novi Sad");
 		u.setCity("RS");
@@ -41,7 +41,7 @@ class KlinickiCentarApplicationTests {
 	@Test
 	void contextLoads() {
 		String email = "goku@gmail.com";
-		User user = userService.findUserByEmail(email);
+		User user = userService.findByUsername(email);
 		
 		assertEquals("Goranr", user.getUsername());
 	}

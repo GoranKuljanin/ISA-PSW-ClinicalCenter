@@ -10,6 +10,6 @@ export class RegisterServiceService {
   constructor(private http: HttpClient) { }
 
   public saveUser(user: User){
-    return this.http.post('http://localhost:8088/register', user)
+    return this.http.post('http://localhost:8088/auth/register', user)
   }
 }

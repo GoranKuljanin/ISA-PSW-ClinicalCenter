@@ -25,7 +25,7 @@
             <!--CONTENT-->
             <mat-grid-list cols="9" rowHeight="3:1" *ngFor="let zahtev of listSource">
                 <mat-grid-tile  [colspan] = "2" [rowspan] = "1">
-                    <p >{{ zahtev.lekar.user.username}} {{ zahtev.lekar.user.lastname}}</p>
+                    <p >{{ zahtev.lekar.user.firstname}} {{ zahtev.lekar.user.lastname}}</p>
                 </mat-grid-tile>
                 <mat-grid-tile  [colspan] = "2" [rowspan] = "1">
                         <p>{{zahtev.datum}}</p>
@@ -34,7 +34,7 @@
                         <p>{{zahtev.vreme}}</p>
                 </mat-grid-tile>
                 <mat-grid-tile  [colspan] = "2" [rowspan] = "1">
-                    <p >{{ zahtev.pacijent.user.username}} {{ zahtev.pacijent.user.lastname}}</p>
+                    <p >{{ zahtev.pacijent.user.firstname}} {{ zahtev.pacijent.user.lastname}}</p>
                 </mat-grid-tile>
                 <mat-grid-tile  [colspan] = "1" [rowspan] = "1">
                     <a matTooltip="Rezervisi salu." routerLink="#" routerLinkActive="active"><mat-icon>assignment</mat-icon></a>

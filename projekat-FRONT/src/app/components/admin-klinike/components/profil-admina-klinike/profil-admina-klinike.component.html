@@ -7,7 +7,7 @@
                         </mat-grid-tile>
                         <!-- Naziv klinike -->
                         <mat-grid-tile [colspan]="2" [rowspan]="1">
-                              <mat-card-title style="font-size: 24px;">{{user.username}} {{user.lastname}}
+                              <mat-card-title style="font-size: 24px;">{{user.firstname}} {{user.lastname}}
                               </mat-card-title>
                         </mat-grid-tile>
                         <!-- Razmak -->
@@ -17,7 +17,7 @@
                         <mat-grid-tile [colspan]="1" [rowspan]="1">
                               <span class="nav-tool-items">
                                     <a mat-button
-                                          (click)="openDialog(user.id, user.username, user.lastname, user.adress, user.city, user.country, user.email, user.phoneNumber)">
+                                          (click)="openDialog(user.id, user.firstname, user.lastname, user.adress, user.city, user.country, user.username, user.phoneNumber)">
                                           <i class="material-icons">edit</i>
                                     </a>
                               </span>
@@ -30,7 +30,7 @@
                   <p style="font-size: 18px;">Grad: {{user.city}}</p>
                   <p style="font-size: 18px;">Drzava: {{user.country}}</p>
                   <p style="font-size: 18px;">Broj: {{user.phoneNumber}}</p>
-                  <p style="font-size: 18px;">Email: {{user.email}}</p>
+                  <p style="font-size: 18px;">Email: {{user.username}}</p>
                   <a style="float:right;" mat-flat-button
                         (click)="openPasswordnDialog(user.id)"
                         color="warn">

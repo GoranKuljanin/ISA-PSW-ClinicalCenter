@@ -1,5 +1,8 @@
 package com.klinickiCentar.klinika.models;
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,28 +11,43 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.joda.time.DateTime;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "username", nullable = false)
-	private String username;
+	private String username;								//E-mail
 	
 	@Column(name = "password", nullable = false)
 	private String password;
 	
+	@Column(name = "last_password_reset_date")
+    private java.sql.Timestamp lastPasswordResetDate;
+	
+	@Column(name = "enabled")
+    private boolean enabled;
+	
 	@Column(name = "lastname", nullable = false)
 	private String lastname;
 	
-	@Column(name = "email", unique = true, nullable = false)
-	private String email;
+	@Column(name = "firstname", unique = true, nullable = false)
+	private String firstname;
 	
 	@Column(name = "adress", nullable = false)
 	private String adress;
@@ -46,6 +64,11 @@ public class User {
 	@Column(name = "uloga", nullable = false)
 	private String uloga;
 	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "user_authority", 
+				joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+				inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+	private List<Authority> authorities;
 	//POJMA NEMAM STA OVO ZNACI
 //	@OneToOne//(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	private Pacijent pacijent;
@@ -76,6 +99,8 @@ public class User {
 	}
 
 	public void setPassword(String password) {
+		java.sql.Timestamp now = new java.sql.Timestamp(DateTime.now().getMillis());
+		this.setLastPasswordResetDate(now);
 		this.password = password;
 	}
 
@@ -87,13 +112,6 @@ public class User {
 		this.lastname = lastname;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public String getAdress() {
 		return adress;
@@ -134,13 +152,55 @@ public class User {
 	public void setUloga(String uloga) {
 		this.uloga = uloga;
 	}
-
-//	public Pacijent getPacijent() {
-//		return pacijent;
-//	}
-//
-//	public void setPacijent(Pacijent pacijent) {
-//		this.pacijent = pacijent;
-//	}
 	
+	public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities(){
+		return this.authorities;
+	}
+	
+	public java.sql.Timestamp getLastPasswordResetDate() {
+        return lastPasswordResetDate;
+    }
+	public void setLastPasswordResetDate(java.sql.Timestamp now) {
+        this.lastPasswordResetDate = now;
+    }
+	
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	@JsonIgnore
+	@Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return this.enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 }

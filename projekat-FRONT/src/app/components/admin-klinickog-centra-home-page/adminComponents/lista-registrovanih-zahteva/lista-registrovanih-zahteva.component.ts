@@ -29,7 +29,7 @@ export class ListaRegistrovanihZahtevaComponent implements OnInit {
         pacijent=>{
           //console.log(pacijent);
           for(let zaBrisanje of this.model){
-              if(models.email === zaBrisanje.email){
+              if(models.username === zaBrisanje.username){
                 this.model.splice(this.model.indexOf(zaBrisanje), 1);
                 break;
               }
@@ -49,14 +49,14 @@ export class ListaRegistrovanihZahtevaComponent implements OnInit {
         //     alert('Uspesno obrisan zahtev!');
         //   }
         // );
-        let params = new HttpParams().set("email", models.email)
+        let params = new HttpParams().set("username", models.username)
         this.http.delete('http://localhost:8088/obrisiZahtev', {params: params}).subscribe(
           data=>{
             alert('Zahtev uspesno obrisan!');
           }
         );
         for (let user of this.model) {                  //OVAJ DIO JE SAMO ZA BRISANJE IZGLEDA (u suprotnom bi trebalo ponovo 
-            if (models.email === user.email) {          //dobavljati iz baze)
+            if (models.username === user.username) {          //dobavljati iz baze)
                 this.model.splice(this.model.indexOf(user), 1);
                 break;
             }
