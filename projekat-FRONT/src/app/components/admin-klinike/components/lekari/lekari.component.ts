@@ -17,11 +17,11 @@ import { User } from 'src/app/models/user.model';
 export class LekariComponent implements OnInit {
   idAdmina: number;
   klinika: Klinika;
-  search:string;
+  search: string;
   user: User = new User();
-  lekariFullList: Lekar[] = [{ radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, username: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", email: "" }, opis: "", slika: "", specijalizacija: "" }]
-  lekariSearchedList:Lekar[] = [{ radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, username: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", email: "" }, opis: "", slika: "", specijalizacija: "" }]
-  
+  lekariFullList: Lekar[] = [{ firstLogin:false,radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, username: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", email: "" }, opis: "", specijalizacija: "" }]
+  lekariSearchedList: Lekar[] = [{ firstLogin:false,radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, username: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", email: "" }, opis: "", specijalizacija: "" }]
+
   constructor(private route: ActivatedRoute, private lekarService: LekarService, public dialog: MatDialog,
     private adminKlinikeService: AdminKlinikeService, public userService: RegisterServiceService) {
     this.lekarService.getLekari().subscribe(
@@ -64,7 +64,7 @@ export class LekariComponent implements OnInit {
     }
     )
   };
-  
+
   private openDeleteDialog(lekar: Lekar) {
     const flag: number = 1;
     const dialogRef = this.dialog.open(LekariDialogComponent, {

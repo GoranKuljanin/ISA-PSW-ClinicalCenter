@@ -32,7 +32,7 @@ export class TipoviPregledaDialogComponent implements OnInit {
   }
 
   private addTipPregleda() {
-    if(this.naziv=='' || this.opis=='') {
+    //if(this.naziv=='' || this.opis=='') {
     this.tipPregleda.naziv = this.naziv;
     this.tipPregleda.opis= this.opis;
     let res = this.service.addTipPregleda(this.tipPregleda);
@@ -46,11 +46,11 @@ export class TipoviPregledaDialogComponent implements OnInit {
     });
     this.dialogRef.close();
     window.location.href = this.rout.url;
-  } else 
-    this.snackBar.open('Popunite sva polja', 'U redu', { duration: 5000 });
+  //} else 
+   // this.snackBar.open('Popunite sva polja', 'U redu', { duration: 5000 });
   }
   private updateTipPregleda() {
-    if(this.naziv=='' || this.opis=='') {
+    //if(this.naziv.length()==0 || this.opis=='') {
     console.log(this.naziv);
     this.tipPregleda.naziv = this.naziv;
     this.tipPregleda.opis= this.opis;
@@ -65,8 +65,8 @@ export class TipoviPregledaDialogComponent implements OnInit {
     });
     this.dialogRef.close();
     window.location.href = this.rout.url;
-  } else 
-  this.snackBar.open('Popunite sva polja', 'U redu', { duration: 5000 });
+  //} else 
+  //this.snackBar.open('Popunite sva polja', 'U redu', { duration: 5000 });
   }
 
   private deleteTipPregleda() {

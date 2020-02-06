@@ -12,8 +12,8 @@ import { SaleService } from 'src/app/services/sale.service';
 })
 export class SaleDialogComponent implements OnInit {
   private sala: Sala = new Sala();
-  private naziv:string;
-  private broj:string;
+  naziv:string;
+  broj:string;
   constructor(
     public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<SaleDialogComponent>,
@@ -33,7 +33,7 @@ export class SaleDialogComponent implements OnInit {
     this.snackBar.open('Odustali ste!', 'U redu', { duration: 2000 });
   }
 
-  private addSala() {
+  public addSala() {
     this.sala.klinika=this.data.klinika;
     this.sala.name = this.naziv;
     this.sala.brojsale= this.broj;

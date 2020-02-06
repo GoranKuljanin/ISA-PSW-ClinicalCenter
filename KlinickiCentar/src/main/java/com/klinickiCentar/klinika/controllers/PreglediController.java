@@ -77,6 +77,21 @@ public class PreglediController {
     
 	}
 	
+	@PostMapping("/zapocniPregled")
+	public ResponseEntity<Pregled> zapocniPregled(@RequestParam String email, @RequestBody Long id){
+		
+		User u = userService.findUserByEmail(email);
+		Pacijent p = pacijentService.getPacijentByUser(u.getId());
+		Pregled pp = preglediService.getById(id);
+		
+		//p.getZakazaniPregledi().add(pp);
+		pp.setPacijent(p);
+		pp = preglediService.save(pp);
+		
+		
+		return new ResponseEntity<Pregled>(pp, HttpStatus.OK);
+	}
+	
 	@PostMapping("/zakaziPregled")
 	public ResponseEntity<Pregled> zakaziPregled(@RequestParam String email, @RequestBody Long id){
 		
