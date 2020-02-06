@@ -30,14 +30,12 @@ import { EditProfilDialogComponent } from './components/pacijent-home-page/podac
 import { LekarComponent } from './components/lekar/lekar.component';
 import { ZapocniPregledComponent } from './components/lekar/components/zapocni-pregled/zapocni-pregled.component';
 import { RadniKalendarComponent } from './components/lekar/components/radni-kalendar/radni-kalendar.component';
-import { ZakaziPregledComponent } from './components/lekar/components/zakazi-pregled/zakazi-pregled.component';
 import { ZahtevZaGodisnjiComponent } from './components/lekar/components/zahtev-za-godisnji/zahtev-za-godisnji.component';
 import { ProfilComponent } from './components/lekar/components/profil/profil.component';
 import { PacijentiComponent } from './components/lekar/components/pacijenti/pacijenti.component';
 import { PrikazPacijentaComponent } from './components/lekar/components/prikaz-pacijenta/prikaz-pacijenta.component';
 import { ListaPregledaComponent } from './components/pacijent-home-page/lista-pregleda/lista-pregleda.component';
 import { ZdravstveniKartonComponent } from './components/pacijent-home-page/zdravstveni-karton/zdravstveni-karton.component';
-import { PregledaniPacijentComponent } from './components/lekar/components/prikaz-pacijenta/pregledani-pacijent/pregledani-pacijent.component';
 import { OsnovniPodaciComponent } from './components/admin-klinike/components/osnovni-podaci/osnovni-podaci.component';
 import { SlobodniTerminiPregledaComponent } from './components/admin-klinike/components/slobodni-termini-pregleda/slobodni-termini-pregleda.component';
 import { LekariComponent } from './components/admin-klinike/components/lekari/lekari.component';
@@ -53,6 +51,7 @@ import { AkEditPasswordDialogComponent } from './components/admin-klinike/compon
 import { LekariDialogComponent } from './components/admin-klinike/components/lekari/lekari-dialog/lekari-dialog.component';
 import { SaleDialogComponent } from './components/admin-klinike/components/lista-sala/sale-dialog/sale-dialog.component';
 import { TipoviPregledaDialogComponent } from './components/admin-klinike/components/tipovi-pregleda/tipovi-pregleda-dialog/tipovi-pregleda-dialog.component';
+import { ProfilDialogComponent } from './components/lekar/components/profil/profil-dialog/profil-dialog.component';
 
 @NgModule({
   declarations: [
@@ -71,14 +70,12 @@ import { TipoviPregledaDialogComponent } from './components/admin-klinike/compon
     LekarComponent,
     ZapocniPregledComponent,
     RadniKalendarComponent,
-    ZakaziPregledComponent,
     ZahtevZaGodisnjiComponent,
     ProfilComponent,
     PacijentiComponent,
     PrikazPacijentaComponent,
     ListaPregledaComponent,
     ZdravstveniKartonComponent,
-    PregledaniPacijentComponent,
     AdminKlinikeComponent,
     ListaSalaComponent,
     OsnovniPodaciComponent,
@@ -95,7 +92,8 @@ import { TipoviPregledaDialogComponent } from './components/admin-klinike/compon
     AkEditPasswordDialogComponent,
     LekariDialogComponent,
     SaleDialogComponent,
-    TipoviPregledaDialogComponent
+    TipoviPregledaDialogComponent,
+    ProfilDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +105,7 @@ import { TipoviPregledaDialogComponent } from './components/admin-klinike/compon
     FormsModule, 
     ReactiveFormsModule 
   ],
-  entryComponents: [TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent],
+  entryComponents: [ProfilDialogComponent, TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent],
   providers: [KorisnikService, RegisterServiceService, LoginService, AdminKlinickogCentraService, PacijentService, PregledService],
   bootstrap: [AppComponent]
 })

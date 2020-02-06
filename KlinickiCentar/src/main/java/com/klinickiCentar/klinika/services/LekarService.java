@@ -33,6 +33,10 @@ public class LekarService {
 		lekarRepository.save(lekar);
 	}
 	
+	public void updateLekar(Lekar lekar) {
+		lekarRepository.save(lekar);
+	}
+	
 	public Lekar deleteLekar(Long idl) {
 		try {
 		Lekar l =lekarRepository.getOne(idl);

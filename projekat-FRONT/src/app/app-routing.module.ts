@@ -15,7 +15,6 @@ import { PacijentHomePageComponent } from './components/pacijent-home-page/pacij
 import { LekarComponent } from './components/lekar/lekar.component';
 import { ZapocniPregledComponent } from './components/lekar/components/zapocni-pregled/zapocni-pregled.component';
 import { RadniKalendarComponent } from './components/lekar/components/radni-kalendar/radni-kalendar.component';
-import { ZakaziPregledComponent } from './components/lekar/components/zakazi-pregled/zakazi-pregled.component';
 import { ZahtevZaGodisnjiComponent } from './components/lekar/components/zahtev-za-godisnji/zahtev-za-godisnji.component';
 import { ProfilComponent } from './components/lekar/components/profil/profil.component';
 import { PacijentiComponent } from './components/lekar/components/pacijenti/pacijenti.component';
@@ -69,7 +68,6 @@ const routes: Routes = [
     { path: 'pacijenti', component: PacijentiComponent },
     { path: 'zapocniPregled/:id', component: ZapocniPregledComponent },
     { path: 'radniKalendar', component: RadniKalendarComponent },
-    { path: 'zakaziPregled', component: ZakaziPregledComponent },
     { path: 'noviZahtev', component: ZahtevZaGodisnjiComponent },
     { path: 'profil', component: ProfilComponent },
     { path: 'pacijent/:id', component: PrikazPacijentaComponent}

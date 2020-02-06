@@ -1,117 +1,120 @@
 import { Component, OnInit } from '@angular/core';
-import { Pacijent , PregledanPacijent} from 'src/app/models/pacijent';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table'; 
+import { Pacijent, PregledanPacijent } from 'src/app/models/pacijent';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { PacijentService } from 'src/app/services/pacijentServices/pacijent.service';
 import { Subscription } from 'rxjs';
 import { sortAscendingPriority } from '@angular/flex-layout';
 import { ActivatedRoute } from '@angular/router';
+import { LekarService } from 'src/app/services/lekar.service';
 
 /*const pacijenti:Pacijent[]=[{zdravstveniKarton:'91389',user:{username:'Marko',lastname:'Urosevic',email:'uros@gmail.com',password:'123',adress:'Bulevar Oslobodenja',city:'Novi Sad', country:'Srbija',phoneNumber:'0646662226',uloga:'pacijent'}},
                             {zdravstveniKarton:'11189',user:{username:'Mitar',lastname:'Urosevic',email:'uros@gmail.com',password:'123',adress:'Bulevar Oslobodenja',city:'Novi Sad', country:'Srbija',phoneNumber:'0646662226',uloga:'pacijent'}},
                             {zdravstveniKarton:'43189',user:{username:'Petar',lastname:'Nikolic',email:'nikola@gmail.com',password:'123',adress:'Glavna',city:'Ruma', country:'Srbija',phoneNumber:'0643452215',uloga:'pacijent'}},
                             {zdravstveniKarton:'98024',user:{username:'Darko',lastname:'Milosevic',email:'milos@gmail.com',password:'123',adress:'Petra Preradovica',city:'Sremska Mitrovica', country:'Srbija',phoneNumber:'0656785543',uloga:'pacijent'}}]
                             */
-const pregledaniPacijenti: number[]=[2,3]
+//const pregledaniPacijenti: number[] = [2, 3]
 @Component({
   selector: 'app-pacijenti',
   templateUrl: './pacijenti.component.html',
   styleUrls: ['./pacijenti.component.css']
 })
 export class PacijentiComponent implements OnInit {
-  search:string
+  search: string
   pacijenti: Pacijent[] = []
   srtByName: MatSort
-  selectedGrad:string
-  selectedStatus:string
+  selectedGrad: string
+  selectedStatus: string
   pacijentiRES: Pacijent[]
   tableSource
-  sortedData:Pacijent[]
+  sortedData: Pacijent[]
   searchData: Pacijent[]
-  lekar:number
-  gradFlag:number=0
-  pacijentFlag:number=0
+  pregledaniPacijenti: Pacijent[];
+  idLekar:number;
+  gradFlag: number = 0
+  pacijentFlag: number = 0
   states: string[] = [
     'Svi', 'Ruma', 'Novi Sad', 'Sremska Mitrovica'
   ];
   statusPacijenta: string[] = [
     'Svi', 'Pregledani'
   ];
-  displayedColumns: string[] = ['Ime', 'Prezime','JedinstveniBroj','Email','Kontakt','Adresa','Grad','Drzava','ZdravstveniKarton',' ']
-  
-  
-  constructor(private servis: PacijentService,private route: ActivatedRoute) {}
-  
-  ngOnInit() {
-    
+  displayedColumns: string[] = ['Ime', 'Prezime', 'JedinstveniBroj', 'Email', 'Kontakt', 'Adresa', 'Grad', 'Drzava', 'ZdravstveniKarton', ' ']
 
-    let res = this.servis.getPacijente().subscribe(
-      data=>{
-        this.pacijenti = data;
-        this.tableSource = new MatTableDataSource(this.pacijenti.slice())
-      this.pacijentiRES=this.pacijenti.slice()
-      this.searchData=this.pacijenti.slice()
-      }
-      
-    );
+
+  constructor(private servis: PacijentService, private route: ActivatedRoute,private lekarServis: LekarService) { }
+
+  ngOnInit() {
     this.route.parent.params.subscribe(
-      (params) => 
-      { 
-        this.lekar=params.idl; 
-       });
-    
+      (params) => {
+        this.idLekar = params.idl;
+        console.log(this.idLekar);
+        this.servis.getPacijente().subscribe(
+          data => {
+            this.pacijenti = data;
+            this.tableSource = new MatTableDataSource(this.pacijenti.slice())
+            this.pacijentiRES = this.pacijenti.slice()
+            this.searchData = this.pacijenti.slice()
+            //Prikupljanje svih pregledanih pacijenaa od strane ulogovanog
+            this.lekarServis.getPregledaniPacijentiByLekarId(this.idLekar).subscribe(
+              data => {
+                this.pregledaniPacijenti = data;
+                console.log(this.pregledaniPacijenti);
+              }
+            );
+          }
+        );
+      });
   }
 
   //Funkcije-------------------------------------
-  Search(){
-    if(this.search==""){
-      this.sortedData=this.searchData;
+  Search() {
+    if (this.search == "") {
+      this.sortedData = this.searchData;
       this.tableSource = new MatTableDataSource(this.sortedData);
     } else {
-    this.pacijentiRES=this.searchData.filter(res=>{return res.user.lastname.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) || 
-      res.user.username.toLocaleLowerCase().match(this.search.toLocaleLowerCase())});
-    this.sortedData=this.pacijentiRES;
-    this.tableSource = new MatTableDataSource(this.sortedData);
-  }
+      this.pacijentiRES = this.searchData.filter(res => {
+        return res.user.lastname.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) ||
+          res.user.username.toLocaleLowerCase().match(this.search.toLocaleLowerCase())
+      });
+      this.sortedData = this.pacijentiRES;
+      this.tableSource = new MatTableDataSource(this.sortedData);
+    }
   }
 
   FilterGrad() {
-    if(this.selectedGrad=="Svi"){
-      this.pacijentiRES=this.pacijenti.slice()
-      this.sortedData=this.pacijentiRES;
-      this.searchData=this.pacijentiRES;
+    if (this.selectedGrad == "Svi") {
+      this.pacijentiRES = this.pacijenti.slice()
+      this.sortedData = this.pacijentiRES;
+      this.searchData = this.pacijentiRES;
       this.tableSource = new MatTableDataSource(this.sortedData);
-      this.selectedStatus=""
-      this.search=""
+      this.selectedStatus = ""
+      this.search = ""
     } else {
-    this.pacijentiRES=this.pacijenti.filter(res=>{return res.user.city.toLocaleLowerCase().match(this.selectedGrad.toLocaleLowerCase())});
-    this.sortedData=this.pacijentiRES;
-    this.tableSource = new MatTableDataSource(this.sortedData);
-    this.searchData=this.pacijentiRES;
-    this.search=""
-    this.selectedStatus=""
-  }
+      this.pacijentiRES = this.pacijenti.filter(res => { return res.user.city.toLocaleLowerCase().match(this.selectedGrad.toLocaleLowerCase()) });
+      this.sortedData = this.pacijentiRES;
+      this.tableSource = new MatTableDataSource(this.sortedData);
+      this.searchData = this.pacijentiRES;
+      this.search = ""
+      this.selectedStatus = ""
+    }
   }
   FilterPacijent() {
-    if(this.selectedStatus=="Svi"){
-      this.pacijentiRES=this.pacijenti.slice()
-      this.sortedData=this.pacijentiRES;
-      this.searchData=this.pacijentiRES;
+    if (this.selectedStatus == "Svi") {
+      this.pacijentiRES = this.pacijenti.slice()
+      this.sortedData = this.pacijentiRES;
+      this.searchData = this.pacijentiRES;
       this.tableSource = new MatTableDataSource(this.sortedData);
-      this.search=""
-      this.selectedGrad=""
+      this.search = ""
+      this.selectedGrad = ""
     } else {
-    this.pacijentiRES=this.pacijenti.slice()
-    this.sortedData=[]
-    for (let i = 0; i < pregledaniPacijenti.length; i++) {
-      let pacijentPomocni=this.pacijentiRES.find(x => x.id == pregledaniPacijenti[i]);
-      this.sortedData.push(pacijentPomocni)
+      this.pacijentiRES = this.pacijenti.slice()
+      this.sortedData=this.pregledaniPacijenti;
+      this.selectedGrad = ""
+      this.tableSource = new MatTableDataSource(this.sortedData);
+      this.searchData = this.sortedData;
+      this.search = ""
     }
-    this.selectedGrad=""
-    this.tableSource = new MatTableDataSource(this.sortedData);
-    this.searchData=this.sortedData;
-    this.search=""
-  }
   }
 
   sortData(sort: MatSort) {

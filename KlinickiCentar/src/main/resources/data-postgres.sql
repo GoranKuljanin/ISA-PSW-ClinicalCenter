@@ -12,8 +12,8 @@ insert into klinika (naziv, adresa, opis) values ('Euromedic', 'Bulervar Oslobod
 insert into klinika (naziv, adresa, opis) values ('Sirius Medical', 'Ilije Ognjanovica 10', 'Nas strucni tim lekara, tehnicara i saradnika kao i celokupno osoblje ce vas srdacno docekati u prijatnom ambijentu “Sirius Medical” bolnice , biti vam uvek na usluzi i omoguciti najvisi nivo nege pacijenata.');
 
 
-insert into lekar (specijalizacija, radnovreme, opis, slika, user_id, klinika_id) values ('Hirurg', '8:00-16:00', 'Vrhunski strucnjak, poznat po minimalno invazivnim operacijama stitaste zlezde, kao i parastitastih zlezda, sa brzim i lakim oporavkom.','../../../../../assets/lekari/lekar1.jpg',5 , 1);
-insert into lekar (specijalizacija, radnovreme, opis, slika, user_id, klinika_id) values ('Kardiolog', '6:00-14:00', 'Svestrani i vrsni kardiolog, angazovan ne samo u Srbiji, vec i u regionu.','../../../../../assets/lekari/lekar2.jpg',9 , 1);
+insert into lekar (specijalizacija, radnovreme, opis, user_id, klinika_id) values ('Hirurg', '8:00-16:00', 'Vrhunski strucnjak, poznat po minimalno invazivnim operacijama stitaste zlezde, kao i parastitastih zlezda, sa brzim i lakim oporavkom.',5 , 1);
+insert into lekar (specijalizacija, radnovreme, opis, user_id, klinika_id) values ('Kardiolog', '6:00-14:00', 'Svestrani i vrsni kardiolog, angazovan ne samo u Srbiji, vec i u regionu.',9 , 1);
 
 
 insert into sala (name,brojsale,klinika_id) values ('Ordinacija','1',1);
@@ -60,8 +60,8 @@ insert into termin (datum) values ('15.02.2020');
 insert into termin (datum) values ('16.02.2020');
 
 insert into pregled (trajanje, sala_id, cena, lekar_id, pacijent_id, klinika_id, termin_id) values ('1h', 1, 1500.00, 1, 1, 1, 1);
-insert into pregled (trajanje, sala_id, cena, lekar_id, klinika_id, termin_id) values ('2h', 2, 2000.00, 1, 1, 1);
-insert into pregled (trajanje, sala_id, cena, lekar_id, klinika_id, termin_id) values ('1.5h', 3, 150.00, 1, 1, 2);
+insert into pregled (trajanje, sala_id, cena, lekar_id, pacijent_id, klinika_id, termin_id) values ('2h', 2, 2000.00, 1, 2, 1, 1);
+insert into pregled (trajanje, sala_id, cena, lekar_id, pacijent_id, klinika_id, termin_id) values ('1.5h', 3, 150.00, 1, 1, 1, 2);
 insert into pregled (trajanje, sala_id, cena, lekar_id, klinika_id, termin_id) values ('0.5h', 4, 200.00, 1, 1, 3);
 insert into pregled (trajanje, sala_id, cena, lekar_id, klinika_id, termin_id) values ('1.2h', 1, 300.00, 1, 1, 4);
 insert into pregled (trajanje, sala_id, cena, lekar_id, klinika_id, termin_id) values ('0.2h', 2, 4000.00, 1, 1, 5);
