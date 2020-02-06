@@ -10,8 +10,8 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./ak-edit-profil-dialog.component.css']
 })
 export class AkEditProfilDialogComponent implements OnInit {
-  user: User = { id: 0, username: "", lastname: "", city: "", country: "", adress: "", email: "", phoneNumber: "", password: "", uloga: "" };
-  stariUser: User = { id: 0, username: "", lastname: "", city: "", country: "", adress: "", email: "", phoneNumber: "", password: "", uloga: "" };
+  user: User = { id: 0, firstname: "", lastname: "", city: "", country: "", adress: "", username: "", phoneNumber: "", password: "", uloga: "" };
+  stariUser: User = { id: 0, firstname: "", lastname: "", city: "", country: "", adress: "", username: "", phoneNumber: "", password: "", uloga: "" };
 
   constructor(public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<AkEditProfilDialogComponent>,
@@ -29,12 +29,12 @@ export class AkEditProfilDialogComponent implements OnInit {
   }
   public update(): void {
     this.user.id = this.data.id;
-    this.user.username = this.data.username;
+    this.user.firstname = this.data.firstname;
     this.user.lastname = this.data.lastname;
     this.user.adress = this.data.adress;
     this.user.country = this.data.country;
     this.user.city = this.data.city;
-    this.user.email = this.data.email;
+    this.user.username = this.data.username;
     this.user.phoneNumber = this.data.phoneNumber;
     this.adminKlinikeService.updateUser(this.user);
     this.snackBar.open('Uspešno modifikovan profil: ', 'U redu', { duration: 2500 });

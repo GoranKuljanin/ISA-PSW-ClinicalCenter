@@ -12,16 +12,13 @@ import { SaleService } from 'src/app/services/sale.service';
 })
 export class SaleDialogComponent implements OnInit {
   private sala: Sala = new Sala();
-  naziv:string;
-  broj:string;
+
   constructor(
     public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<SaleDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private rout: Router,private salaService: SaleService) {
     if(data.flag==1 || data.flag==2) {
       this.sala=data.sala;
-      this.broj = data.brojsale;
-      this.naziv = data.name;
     }
   }
 
@@ -33,10 +30,8 @@ export class SaleDialogComponent implements OnInit {
     this.snackBar.open('Odustali ste!', 'U redu', { duration: 2000 });
   }
 
-  public addSala() {
+  private addSala() {
     this.sala.klinika=this.data.klinika;
-    this.sala.name = this.naziv;
-    this.sala.brojsale= this.broj;
     let res = this.salaService.addSala(this.sala);
     res.subscribe((res) => {
       if (res == null) {
@@ -52,8 +47,6 @@ export class SaleDialogComponent implements OnInit {
 
   private updateSala() {
     this.sala.klinika=this.data.klinika;
-    this.sala.name = this.naziv;
-    this.sala.brojsale= this.broj
     let res = this.salaService.updateSala(this.sala);
     res.subscribe((res) => {
       if (res == null) {
@@ -77,7 +70,8 @@ export class SaleDialogComponent implements OnInit {
   }
 
   private timeFormatHandler(){
-    this.broj = this.broj.replace(/\D+/,'');
+    console.log("broj");
+    this.sala.brojsale = this.sala.brojsale.replace(/\D+/,'');
   }
 
 }

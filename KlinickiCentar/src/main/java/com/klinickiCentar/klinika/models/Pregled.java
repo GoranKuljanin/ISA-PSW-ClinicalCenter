@@ -41,7 +41,6 @@ public class Pregled {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Klinika klinika;
 	
-	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY )
 	private Termin termin;
 	

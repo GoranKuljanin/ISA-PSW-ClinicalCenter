@@ -21,12 +21,12 @@ export class PodaciPacijentaComponent implements OnInit {
    }
 
   ngOnInit() {
-    //this.user = this.service.user;
+    
     this.dobaviUlogovanogPacijenta(localStorage.getItem('logedInUser'));     //prije: this.service.user.email
   }
 
-  public dobaviUlogovanogPacijenta(email:string){
-    this.pacijentService.getPacijentaIzBaze(email).subscribe(
+  public dobaviUlogovanogPacijenta(username:string){
+    this.pacijentService.getPacijentaIzBaze(username).subscribe(
       data=>{
           if(data != null){
             this.pacijent = data;
@@ -36,10 +36,10 @@ export class PodaciPacijentaComponent implements OnInit {
       }
     );
   }
-  public openDialog( id: number, username: string, lastname: string, email: string, adress: string, city: string, country: string, phoneNumber: string) {
+  public openDialog( id: number, firstname: string, lastname: string, username: string, adress: string, city: string, country: string, phoneNumber: string) {
 
     const dialogRef = this.dialog.open(EditProfilDialogComponent, {
-        data: { id: id, username: username,  lastname: lastname, email: email , adress: adress , city: city , country: country , phoneNumber: phoneNumber }
+        data: { id: id, firstname: firstname,  lastname: lastname, username: username , adress: adress , city: city , country: country , phoneNumber: phoneNumber }
     });
     dialogRef.afterClosed().subscribe(result => {
         

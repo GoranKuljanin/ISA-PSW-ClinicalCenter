@@ -28,9 +28,12 @@ export class AdminKlinickogCentraService {
     return this.http.get<Pacijent[]>('http://localhost:8088/dobaviSvePacijenteIzBaze');
   }
 
-  public deleteRequest(email:string){
+  public deleteRequest(username:string){
     // let params = new HttpParams().set("email", email)
     // this.http.delete('http://localhost:8088/deletePacijent', {params: params});
   }
 
+  public aktivirajNalog(id: number){
+    return this.http.post('http://localhost:8088/auth/aktivirajNalog', id);
+  }
 }

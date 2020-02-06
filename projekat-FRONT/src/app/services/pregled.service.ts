@@ -1,3 +1,4 @@
+import { PutanjaService } from './../putanje/putanje.service';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -8,7 +9,7 @@ import { Pregled } from '../models/pacijent';
 })
 export class PregledService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private putanjaService: PutanjaService) { }
 
   public getAllPregledi():Observable<Pregled[]>{
       return this.http.get<Pregled[]>('http://localhost:8088/getAllPregledi');
@@ -18,28 +19,27 @@ export class PregledService {
       let header = new HttpHeaders();
       header.append('Content-Type', 'application/json');
       let params = new HttpParams().set("datum", datum);
-      return this.http.get<Pregled[]>('http://localhost:8088/getPreglediByDatum/' + id, {headers: header, params: params});
+      return this.http.get<Pregled[]>('http://localhost:8088/pregledi/getPreglediByDatum/' + id, {headers: header, params: params});
   }
 
-  public zakaziPregledZaPacijenta(idd: any, email: string){
-    //let body = 'id=idd&email=email';
+  public zakaziPregledZaPacijenta(idd: any, username: string){
     let header = new HttpHeaders();
     header.append('Content-Type', 'application/json');
-    let params = new HttpParams().set('email', email);
-    return this.http.post('http://localhost:8088/zakaziPregled', idd, {headers: header, params: params});
+    let params = new HttpParams().set('username', username);
+    return this.http.post('http://localhost:8088/pregledi/zakaziPregled', idd, {headers: header, params: params});
   }
 
   public odjaviPregled(id: number){
     let header = new HttpHeaders();
     header.append('Content-Type', 'application/json');
-    this.http.post('http://localhost:8088/odjaviPregled', id, {headers: header}).subscribe();
+    this.http.post(this.putanjaService.odjaviPregled, id, {headers: header}).subscribe();
   }
 
-  public zakazaniPregledi(email: string):Observable<Pregled[]>{
+  public zakazaniPregledi(username: string):Observable<Pregled[]>{
     let header = new HttpHeaders();
     header.append('Content-Type', 'application/json');
-    let params = new HttpParams().set('email', email);
-    return this.http.get<Pregled[]>('http://localhost:8088/zakazaniPregledi', {headers: header, params: params});
+    //let params = new HttpParams().set('username', username);
+    return this.http.get<Pregled[]>(this.putanjaService.zakazaniPregledi, {headers: header});
   }
 
 }

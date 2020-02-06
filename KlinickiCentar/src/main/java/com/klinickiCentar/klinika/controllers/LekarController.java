@@ -1,6 +1,5 @@
 package com.klinickiCentar.klinika.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +10,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.klinickiCentar.klinika.models.AdministratorKlinike;
 import com.klinickiCentar.klinika.models.Klinika;
 import com.klinickiCentar.klinika.models.Lekar;
-import com.klinickiCentar.klinika.models.Pacijent;
-import com.klinickiCentar.klinika.models.Pregled;
 import com.klinickiCentar.klinika.models.User;
 import com.klinickiCentar.klinika.services.LekarService;
-import com.klinickiCentar.klinika.services.PreglediService;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -31,27 +26,10 @@ public class LekarController {
 	@Autowired
 	private LekarService lekarService;
 	
-	@Autowired
-	private PreglediService pregledService;
-	
 	@GetMapping(value = "lekari")
 	public ResponseEntity<List<Lekar>> getLekari() {
 		List<Lekar> listaLekara = lekarService.getLekari();
 		return new ResponseEntity<List<Lekar>>(listaLekara, HttpStatus.OK);
-	}
-	
-	@GetMapping(value = "/lekar/{id}/pregledaniPacijenti")
-	public ResponseEntity<List<Pacijent>> getPregledaniPacijentiByLekarId(@PathVariable ("id") Long id) {
-		List<Pregled> sviPregledi = pregledService.getAllPregledi();
-		List<Pacijent> pregledaniPacijenti = new ArrayList<Pacijent>();
-		System.out.print(sviPregledi.size());
-		for(int i = 0 ; i<sviPregledi.size();i++){
-			if(sviPregledi.get(i).getLekar().getId() == id) {
-				if(!pregledaniPacijenti.contains(sviPregledi.get(i).getPacijent()) && sviPregledi.get(i).getPacijent()!=null)
-					pregledaniPacijenti.add(sviPregledi.get(i).getPacijent());
-			}
-		};
-		return new ResponseEntity<List<Pacijent>>(pregledaniPacijenti, HttpStatus.OK);
 	}
 	
 	@GetMapping("/lekar/{id}")
@@ -66,20 +44,15 @@ public class LekarController {
 		return new ResponseEntity<>(lekar, HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value = "/lekar/{id}")
-	public ResponseEntity<Lekar> deleteLekar(@PathVariable ("id") Long id){
-		Lekar res=lekarService.deleteLekar(id);
+	@DeleteMapping(value = "/lekar/{idl}")
+	public ResponseEntity<Lekar> deleteLekar(@PathVariable ("idl") Long idl){
+		//String[] s = idl.split("a");
+		//lekarService.deleteLekar(Long.parseLong(s[0]),Long.parseLong(s[1]));
+		Lekar res=lekarService.deleteLekar(idl);
 		if(res!=null)
 			return new ResponseEntity<Lekar>(res, HttpStatus.OK);
 		else
 			return null;
-	}
-	
-	@PutMapping("/lekar")
-	@CrossOrigin
-	public ResponseEntity<Lekar> updateLekar(@RequestBody Lekar lekar){
-		lekarService.updateLekar(lekar);
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

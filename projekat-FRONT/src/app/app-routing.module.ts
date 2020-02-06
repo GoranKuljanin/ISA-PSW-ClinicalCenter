@@ -1,3 +1,6 @@
+import { ActivacionPageComponent } from './activacion-page/activacion-page.component';
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
+import { PacijentGuard } from './guards/pacijent.guard';
 import { ListaSalaComponent } from './components/admin-klinike/components/lista-sala/lista-sala.component';
 import { AdminKlinikeComponent } from './components/admin-klinike/admin-klinike.component';
 import { ListaRegistrovanihZahtevaComponent } from './components/admin-klinickog-centra-home-page/adminComponents/lista-registrovanih-zahteva/lista-registrovanih-zahteva.component';
@@ -15,6 +18,7 @@ import { PacijentHomePageComponent } from './components/pacijent-home-page/pacij
 import { LekarComponent } from './components/lekar/lekar.component';
 import { ZapocniPregledComponent } from './components/lekar/components/zapocni-pregled/zapocni-pregled.component';
 import { RadniKalendarComponent } from './components/lekar/components/radni-kalendar/radni-kalendar.component';
+import { ZakaziPregledComponent } from './components/lekar/components/zakazi-pregled/zakazi-pregled.component';
 import { ZahtevZaGodisnjiComponent } from './components/lekar/components/zahtev-za-godisnji/zahtev-za-godisnji.component';
 import { ProfilComponent } from './components/lekar/components/profil/profil.component';
 import { PacijentiComponent } from './components/lekar/components/pacijenti/pacijenti.component';
@@ -53,14 +57,15 @@ const routes: Routes = [
          { path: 'izvestajPoslovanja', component: IzvestajPoslovanjaComponent }
         ]
   },
-  { path: 'pacijentHomePage', component: PacijentHomePageComponent ,
+  { path: 'pacijentHomePage', 
+    component: PacijentHomePageComponent, canActivate: [PacijentGuard] ,
         children: [
-          { path: 'podaciPacijenta', component: PodaciPacijentaComponent },
-          { path: 'zakazaniPregledi', component: ZakazaniPreglediComponent },
-          { path: 'zdravstveniKarton', component: ZdravstveniKartonComponent },
-          { path: 'istorijaPregleda', component: ListaPregledaComponent },
-          { path: 'clinics', component: ListaKlinikaComponent },
-          { path: 'clinic/:id', component: PrikazKlinikeComponent }
+          { path: 'podaciPacijenta', component: PodaciPacijentaComponent, canActivate: [PacijentGuard] },
+          { path: 'zakazaniPregledi', component: ZakazaniPreglediComponent, canActivate: [PacijentGuard] },
+          { path: 'zdravstveniKarton', component: ZdravstveniKartonComponent, canActivate: [PacijentGuard] },
+          { path: 'istorijaPregleda', component: ListaPregledaComponent, canActivate: [PacijentGuard] },
+          { path: 'clinics', component: ListaKlinikaComponent, canActivate: [PacijentGuard] },
+          { path: 'clinic/:id', component: PrikazKlinikeComponent, canActivate: [PacijentGuard] }
         ]
   },
   { path: 'lekarHomePage/:idl', component: LekarComponent ,
@@ -68,11 +73,20 @@ const routes: Routes = [
     { path: 'pacijenti', component: PacijentiComponent },
     { path: 'zapocniPregled/:id', component: ZapocniPregledComponent },
     { path: 'radniKalendar', component: RadniKalendarComponent },
+    { path: 'zakaziPregled', component: ZakaziPregledComponent },
     { path: 'noviZahtev', component: ZahtevZaGodisnjiComponent },
     { path: 'profil', component: ProfilComponent },
     { path: 'pacijent/:id', component: PrikazPacijentaComponent}
   ] 
-}
+  },
+  {
+    path: '403',
+    component: ForbiddenComponent
+  },
+  {
+    path: 'activateAccount/:id',
+    component: ActivacionPageComponent
+  }
 ];
 
 @NgModule({

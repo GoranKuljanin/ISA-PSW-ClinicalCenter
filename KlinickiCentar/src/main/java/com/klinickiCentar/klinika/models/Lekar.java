@@ -34,6 +34,9 @@ public class Lekar {
 	@Column(name = "opis")
 	private String opis;
 	
+	@Column(name = "slika")
+	private String slika;
+	
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -53,8 +56,6 @@ public class Lekar {
 	@Column(name = "radnovreme")
 	private String radnovreme;
 	
-	@Column(columnDefinition = "boolean default true")
-    private Boolean firstLogin;
 
 	public Lekar() {
 		super();
@@ -91,6 +92,14 @@ public class Lekar {
 
 	public void setOpis(String opis) {
 		this.opis = opis;
+	}
+
+	public String getSlika() {
+		return slika;
+	}
+
+	public void setSlika(String slika) {
+		this.slika = slika;
 	}
 	
 	public String getRadnovreme() {
@@ -130,14 +139,6 @@ public class Lekar {
 
 	public void setZahteviZaZakazivanje(Set<ZahtevZaZakazivanje> zahteviZaZakazivanje) {
 		this.zahteviZaZakazivanje = zahteviZaZakazivanje;
-	}
-	
-	public Boolean getFirstLogin() {
-		return firstLogin;
-	}
-
-	public void setFirstLogin(Boolean firstLogin) {
-		this.firstLogin = firstLogin;
 	}
 	
 }
