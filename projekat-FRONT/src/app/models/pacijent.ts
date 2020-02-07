@@ -25,7 +25,7 @@ export class Pregled {
     cena: number;
     lekar: Lekar;
     pacijent: Pacijent;
-    termin: string;
+    termin: Termin;
 
 }
 

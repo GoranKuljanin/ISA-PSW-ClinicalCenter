@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.klinickiCentar.klinika.models.Authority;
 import com.klinickiCentar.klinika.models.Pacijent;
 import com.klinickiCentar.klinika.models.User;
+import com.klinickiCentar.klinika.services.AuthorityService;
+import com.klinickiCentar.klinika.services.EmailService;
 import com.klinickiCentar.klinika.services.PacijentService;
 import com.klinickiCentar.klinika.services.UserService;
 
@@ -27,18 +30,32 @@ public class AdminKlinickogCentraController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AuthorityService authService;
 
+	@Autowired
+	private EmailService emailService;
+	
 	@PostMapping("/dodajPacijentaUBazuPacijenata")
 	public ResponseEntity<Pacijent> dodajPacijentaUBazu(@RequestBody User u){
 		
-		User user = userService.findUserByEmail(u.getEmail());
+		User user = userService.findByUsername(u.getUsername());
 		Pacijent p = new Pacijent();
-		//p.setZdravstveniKarton("ZdravstveniKarton");
+		//user.setNalogAktiviran(true);			//onda kada aktivira preko linka
 		user.setUloga("PACIJENT");
 		p.setUser(user);
-		//user.setPacijent(p);
+		
+		List<Authority> auth = authService.findByname("ROLE_PACIJENT");
+		user.setAuthorities(auth);
 		
 		Pacijent succ = pacijentService.dodajPacijentaUBazu(p);
+		
+		try {
+			emailService.sendNotification(u);
+		} catch (Exception e) {
+			System.out.println("Greska prilikom slanja maila!" + e.getMessage());
+		}
 		
 		return new ResponseEntity<Pacijent>(succ, HttpStatus.OK);
 //		User user = userService.findUserByEmail(u.getEmail());
@@ -63,7 +80,7 @@ public class AdminKlinickogCentraController {
 	
 	@DeleteMapping(value = "/obrisiZahtev")
 	public ResponseEntity<Void> deleteZahtev(@RequestParam String email){
-		User u = userService.findUserByEmail(email);
+		User u = userService.findByUsername(email);
 		userService.remove(u);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

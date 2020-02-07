@@ -8,8 +8,9 @@ import com.klinickiCentar.klinika.models.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
-	User findByEmailAndPasswordAllIgnoringCase(String email, String password);
-	User findOneByEmail(String email);
+	//User findByEmailAndPasswordAllIgnoringCase(String email, String password);
+	//User findOneByEmail(String email);
 	List<User> findAllByUloga(String uloga);
 	
+	User findByUsername(String username);	
 }

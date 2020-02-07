@@ -7,7 +7,7 @@
         </mat-grid-tile>
         <!-- Naziv klinike -->
         <mat-grid-tile [colspan]="2" [rowspan]="1">
-          <mat-card-title style="font-size: 24px;">{{lekar.user.username}} {{lekar.user.lastname}}
+          <mat-card-title style="font-size: 24px;">{{lekar.user.firstname}} {{lekar.user.lastname}}
           </mat-card-title>
         </mat-grid-tile>
         <!-- Razmak -->
@@ -34,7 +34,7 @@
           <p style="font-size: 18px;">Grad: {{lekar.user.city}}</p>
           <p style="font-size: 18px;">Drzava: {{lekar.user.country}}</p>
           <p style="font-size: 18px;">Broj: {{lekar.user.phoneNumber}}</p>
-          <p style="font-size: 18px;">Email: {{lekar.user.email}}</p>
+          <p style="font-size: 18px;">Email: {{lekar.user.username}}</p>
         </mat-tab>
       </mat-tab-group>
       <hr>

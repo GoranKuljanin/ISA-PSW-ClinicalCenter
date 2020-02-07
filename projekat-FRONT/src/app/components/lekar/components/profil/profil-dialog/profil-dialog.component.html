@@ -6,7 +6,7 @@
         <form class="form" #formControl="ngForm">
             <mat-card-content>
                 <mat-form-field class="full-width">
-                    <input matInput placeholder="Ime" [(ngModel)]="lekar.user.username" [ngModelOptions]="{standalone: true}" required>
+                    <input matInput placeholder="Ime" [(ngModel)]="lekar.user.firstname" [ngModelOptions]="{standalone: true}" required>
                 </mat-form-field>
                 <mat-form-field class="full-width">
                     <input matInput placeholder="Prezime" [(ngModel)]="lekar.user.lastname" [ngModelOptions]="{standalone: true}" required>
@@ -18,7 +18,7 @@
                     <input matInput placeholder="Opis" [(ngModel)]="lekar.opis" [ngModelOptions]="{standalone: true}" required>
                 </mat-form-field>
                 <mat-form-field class="full-width">
-                    <input matInput placeholder="Email" [(ngModel)]="lekar.user.email" [ngModelOptions]="{standalone: true}" disabled>
+                    <input matInput placeholder="Email" [(ngModel)]="lekar.user.username" [ngModelOptions]="{standalone: true}" disabled>
                 </mat-form-field>
                 <mat-form-field class="full-width">
                     <input matInput placeholder="Telefon" [(ngModel)]="lekar.user.phoneNumber" [ngModelOptions]="{standalone: true}" required>

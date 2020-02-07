@@ -84,7 +84,7 @@ export class ZakazaniPreglediComponent implements OnInit {
     switch(sort.active){
       //case 'Datum': return compare(a.datum, b.datum, isAsc);
       case 'Trajanje': return compare(a.trajanje, b.trajanje, isAsc);
-      case 'Lekar': return compare(a.lekar.user.username, b.lekar.user.username, isAsc);
+      case 'Lekar': return compare(a.lekar.user.firstname, b.lekar.user.firstname, isAsc);
       case 'Cena': return compare(a.cena, b.cena, isAsc);
       case 'Sala': return compare(a.sala.name, b.sala.name, isAsc);
       default: return 0;
@@ -96,7 +96,8 @@ export class ZakazaniPreglediComponent implements OnInit {
     if(this.search == ""){
       this.sortedData.data = this.zakazaniPregledi;
     }else{
-      this.preglediRES = this.zakazaniPregledi.filter( res=>{ return res.trajanje.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) || res.lekar.user.username.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) || 
+      this.preglediRES = this.zakazaniPregledi.filter( res=>{ return res.trajanje.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) || 
+        res.lekar.user.firstname.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) || 
       res.sala.name.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) || res.cena.toString().match(this.search.toLocaleLowerCase()) } );
        this.sortedData.data = this.preglediRES;
     }

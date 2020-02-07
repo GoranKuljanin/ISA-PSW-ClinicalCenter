@@ -20,13 +20,7 @@ export class OsnovniPodaciDialogComponent implements OnInit {
   }
   public update(): void {
     this.adminKlinikeService.updateKliniku(this.data);
-    // this.pacijentService.azurirajPacijenta(this.data).subscribe(
-    //     res=>{
-    //       this.data = res;
-    //     }
-    // );
     this.snackBar.open('Uspešno modifikovan profil: ', 'U redu', { duration: 2500 });
-    //this.rout.navigate('/podaciPacijenta');
     window.location.href = this.rout.url;
   }
   public cancel(): void {

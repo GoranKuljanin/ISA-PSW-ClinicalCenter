@@ -1,3 +1,6 @@
+import { ActivacionPageComponent } from './activacion-page/activacion-page.component';
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
+import { PacijentGuard } from './guards/pacijent.guard';
 import { ListaSalaComponent } from './components/admin-klinike/components/lista-sala/lista-sala.component';
 import { AdminKlinikeComponent } from './components/admin-klinike/admin-klinike.component';
 import { ListaRegistrovanihZahtevaComponent } from './components/admin-klinickog-centra-home-page/adminComponents/lista-registrovanih-zahteva/lista-registrovanih-zahteva.component';
@@ -29,6 +32,8 @@ import { IzvestajPoslovanjaComponent } from './components/admin-klinike/componen
 import { LekariComponent } from './components/admin-klinike/components/lekari/lekari.component';
 import { ProfilAdminaKlinikeComponent } from './components/admin-klinike/components/profil-admina-klinike/profil-admina-klinike.component';
 import { ZahteviZakazivanjaPregledaComponent } from './components/admin-klinike/components/zahtevi-zakazivanja-pregleda/zahtevi-zakazivanja-pregleda.component';
+import { AdminKlinikeGuard } from './guards/adminKlinike.guard';
+import { LekarGuard } from './guards/lekar.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -40,39 +45,49 @@ const routes: Routes = [
          { path: 'listaPacijenata', component: ListaPacijenataComponent }
         ]
   },
-  { path: 'adminKHomePage/:ida', component: AdminKlinikeComponent,
+  { path: 'adminKHomePage', component: AdminKlinikeComponent, canActivate: [AdminKlinikeGuard],
         children: [
-         { path: 'zakazivanjePregleda', component: ZahteviZakazivanjaPregledaComponent },
-         { path: 'sale', component: ListaSalaComponent },
-         { path: 'lekari', component: LekariComponent },
-         { path: 'osnovniPodaciKlinike', component: OsnovniPodaciComponent },
-         { path: 'slobodniTerminiPregleda', component: SlobodniTerminiPregledaComponent },
-         { path: 'cenovnik', component: CenovnikComponent },
-         { path: 'tipoviPregleda', component: TipoviPregledaComponent },
-         { path: 'profil', component: ProfilAdminaKlinikeComponent },
-         { path: 'izvestajPoslovanja', component: IzvestajPoslovanjaComponent }
+         { path: 'zakazivanjePregleda', component: ZahteviZakazivanjaPregledaComponent, canActivate: [AdminKlinikeGuard] },
+         { path: 'sale', component: ListaSalaComponent, canActivate: [AdminKlinikeGuard] },
+         { path: 'lekari', component: LekariComponent , canActivate: [AdminKlinikeGuard]},
+         { path: 'osnovniPodaciKlinike', component: OsnovniPodaciComponent, canActivate: [AdminKlinikeGuard] },
+         { path: 'slobodniTerminiPregleda', component: SlobodniTerminiPregledaComponent, canActivate: [AdminKlinikeGuard] },
+         { path: 'cenovnik', component: CenovnikComponent , canActivate: [AdminKlinikeGuard]},
+         { path: 'tipoviPregleda', component: TipoviPregledaComponent , canActivate: [AdminKlinikeGuard]},
+         { path: 'profil', component: ProfilAdminaKlinikeComponent, canActivate: [AdminKlinikeGuard] },
+         { path: 'izvestajPoslovanja', component: IzvestajPoslovanjaComponent, canActivate: [AdminKlinikeGuard] }
         ]
   },
-  { path: 'pacijentHomePage', component: PacijentHomePageComponent ,
+
+  { path: 'pacijentHomePage', 
+    component: PacijentHomePageComponent, canActivate: [PacijentGuard] ,
         children: [
-          { path: 'podaciPacijenta', component: PodaciPacijentaComponent },
-          { path: 'zakazaniPregledi', component: ZakazaniPreglediComponent },
-          { path: 'zdravstveniKarton', component: ZdravstveniKartonComponent },
-          { path: 'istorijaPregleda', component: ListaPregledaComponent },
-          { path: 'clinics', component: ListaKlinikaComponent },
-          { path: 'clinic/:id', component: PrikazKlinikeComponent }
+          { path: 'podaciPacijenta', component: PodaciPacijentaComponent, canActivate: [PacijentGuard] },
+          { path: 'zakazaniPregledi', component: ZakazaniPreglediComponent, canActivate: [PacijentGuard] },
+          { path: 'zdravstveniKarton', component: ZdravstveniKartonComponent, canActivate: [PacijentGuard] },
+          { path: 'istorijaPregleda', component: ListaPregledaComponent, canActivate: [PacijentGuard] },
+          { path: 'clinics', component: ListaKlinikaComponent, canActivate: [PacijentGuard] },
+          { path: 'clinic/:id', component: PrikazKlinikeComponent, canActivate: [PacijentGuard] },
         ]
   },
-  { path: 'lekarHomePage/:idl', component: LekarComponent ,
+  { path: 'lekarHomePage', component: LekarComponent, canActivate: [LekarGuard] ,
   children: [
-    { path: 'pacijenti', component: PacijentiComponent },
-    { path: 'zapocniPregled/:id', component: ZapocniPregledComponent },
-    { path: 'radniKalendar', component: RadniKalendarComponent },
-    { path: 'noviZahtev', component: ZahtevZaGodisnjiComponent },
-    { path: 'profil', component: ProfilComponent },
-    { path: 'pacijent/:id', component: PrikazPacijentaComponent}
+    { path: 'pacijenti', component: PacijentiComponent , canActivate: [LekarGuard] },
+    { path: 'zapocniPregled/:id', component: ZapocniPregledComponent , canActivate: [LekarGuard] },
+    { path: 'radniKalendar', component: RadniKalendarComponent, canActivate: [LekarGuard]  },
+    { path: 'noviZahtev', component: ZahtevZaGodisnjiComponent, canActivate: [LekarGuard]  },
+    { path: 'profil', component: ProfilComponent, canActivate: [LekarGuard]  },
+    { path: 'pacijent/:id', component: PrikazPacijentaComponent, canActivate: [LekarGuard] }
   ] 
-}
+  },
+  {
+    path: '403',
+    component: ForbiddenComponent
+  },
+  {
+    path: 'activateAccount/:id',
+    component: ActivacionPageComponent
+  }
 ];
 
 @NgModule({

@@ -1,19 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Pacijent, PregledanPacijent } from 'src/app/models/pacijent';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { Pacijent , PregledanPacijent} from 'src/app/models/pacijent';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table'; 
 import { PacijentService } from 'src/app/services/pacijentServices/pacijent.service';
 import { Subscription } from 'rxjs';
 import { sortAscendingPriority } from '@angular/flex-layout';
 import { ActivatedRoute } from '@angular/router';
 import { LekarService } from 'src/app/services/lekar.service';
-
-/*const pacijenti:Pacijent[]=[{zdravstveniKarton:'91389',user:{username:'Marko',lastname:'Urosevic',email:'uros@gmail.com',password:'123',adress:'Bulevar Oslobodenja',city:'Novi Sad', country:'Srbija',phoneNumber:'0646662226',uloga:'pacijent'}},
-                            {zdravstveniKarton:'11189',user:{username:'Mitar',lastname:'Urosevic',email:'uros@gmail.com',password:'123',adress:'Bulevar Oslobodenja',city:'Novi Sad', country:'Srbija',phoneNumber:'0646662226',uloga:'pacijent'}},
-                            {zdravstveniKarton:'43189',user:{username:'Petar',lastname:'Nikolic',email:'nikola@gmail.com',password:'123',adress:'Glavna',city:'Ruma', country:'Srbija',phoneNumber:'0643452215',uloga:'pacijent'}},
-                            {zdravstveniKarton:'98024',user:{username:'Darko',lastname:'Milosevic',email:'milos@gmail.com',password:'123',adress:'Petra Preradovica',city:'Sremska Mitrovica', country:'Srbija',phoneNumber:'0656785543',uloga:'pacijent'}}]
-                            */
-//const pregledaniPacijenti: number[] = [2, 3]
 @Component({
   selector: 'app-pacijenti',
   templateUrl: './pacijenti.component.html',
@@ -42,29 +35,38 @@ export class PacijentiComponent implements OnInit {
   displayedColumns: string[] = ['Ime', 'Prezime', 'JedinstveniBroj', 'Email', 'Kontakt', 'Adresa', 'Grad', 'Drzava', 'ZdravstveniKarton', ' ']
 
 
-  constructor(private servis: PacijentService, private route: ActivatedRoute,private lekarServis: LekarService) { }
-
-  ngOnInit() {
-    this.route.parent.params.subscribe(
-      (params) => {
-        this.idLekar = params.idl;
-        console.log(this.idLekar);
-        this.servis.getPacijente().subscribe(
+  constructor(private pacijentService: PacijentService, private route: ActivatedRoute,private service: LekarService) {
+    this.dobaviUlogovanogLekara();
+    this.pacijentService.getPacijente().subscribe(
+      data => {
+        this.pacijenti = data;
+        this.tableSource = new MatTableDataSource(this.pacijenti.slice())
+        this.pacijentiRES = this.pacijenti.slice()
+        this.searchData = this.pacijenti.slice()
+        //Prikupljanje svih pregledanih pacijenaa od strane ulogovanog
+        this.service.getPregledaniPacijentiByLekarId(this.idLekar).subscribe(
           data => {
-            this.pacijenti = data;
-            this.tableSource = new MatTableDataSource(this.pacijenti.slice())
-            this.pacijentiRES = this.pacijenti.slice()
-            this.searchData = this.pacijenti.slice()
-            //Prikupljanje svih pregledanih pacijenaa od strane ulogovanog
-            this.lekarServis.getPregledaniPacijentiByLekarId(this.idLekar).subscribe(
-              data => {
-                this.pregledaniPacijenti = data;
-                console.log(this.pregledaniPacijenti);
-              }
-            );
+            this.pregledaniPacijenti = data;
+            console.log(this.pregledaniPacijenti);
           }
         );
-      });
+      }
+    );
+   }
+
+  ngOnInit() {
+  }
+
+  public dobaviUlogovanogLekara() {
+    this.service.getLekaraIzBaze().subscribe(
+      data => {
+        if (data != null) {
+          this.idLekar = data.id;
+        } else {
+          alert('Niste uneli odgovarajuce parametre!');
+        }
+      }
+    );
   }
 
   //Funkcije-------------------------------------
@@ -74,8 +76,8 @@ export class PacijentiComponent implements OnInit {
       this.tableSource = new MatTableDataSource(this.sortedData);
     } else {
       this.pacijentiRES = this.searchData.filter(res => {
-        return res.user.lastname.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) ||
-          res.user.username.toLocaleLowerCase().match(this.search.toLocaleLowerCase())
+        return ( res.user.username.toLocaleLowerCase() + ' ' + res.user.lastname.toLocaleLowerCase()).match(this.search.toLocaleLowerCase()) ||
+          res.id.toString().toLocaleLowerCase().match(this.search.toLocaleLowerCase())
       });
       this.sortedData = this.pacijentiRES;
       this.tableSource = new MatTableDataSource(this.sortedData);
@@ -129,9 +131,9 @@ export class PacijentiComponent implements OnInit {
     this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'Ime': return compare(a.user.username, b.user.username, isAsc);
+        case 'Ime': return compare(a.user.firstname, b.user.firstname, isAsc);
         case 'Prezime': return compare(a.user.lastname, b.user.lastname, isAsc);
-        case 'Email': return compare(a.user.email, b.user.email, isAsc);
+        case 'Email': return compare(a.user.username, b.user.username, isAsc);
         case 'Kontakt': return compare(a.user.phoneNumber, b.user.phoneNumber, isAsc);
         case 'Adresa': return compare(a.user.adress, b.user.adress, isAsc);
         case 'Grad': return compare(a.user.city, b.user.city, isAsc);

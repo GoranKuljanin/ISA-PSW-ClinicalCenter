@@ -75,7 +75,7 @@ export class ZapocniPregledComponent implements OnInit {
     let day = this.datum.getDate();
     let year = this.datum.getFullYear();
     let dateString = `${month}.${day}.${year}`;
-    this.izvestaj.pregled.termin = dateString;
+    //this.izvestaj.pregled.termin = dateString;
     console.log(this.izvestaj);
   }
 }

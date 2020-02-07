@@ -1,4 +1,4 @@
-<div *ngIf="firstLogin==false">
+<div *ngIf="firstLogin==true">
         <mat-toolbar color="primary" class="app-header">
                 <div><a href="lekarHomePage" class="navlogo">Klinicki Centar</a></div>
                 <span class="nav-tool-items">
@@ -6,7 +6,7 @@
                         <a mat-button routerLink="radniKalendar" routerLinkActive="active">Radni Kalendar</a>
                         <a mat-button routerLink="noviZahtev" routerLinkActive="active">Novi Zahtev</a>
                         <a mat-button routerLink="profil" routerLinkActive="active">Profil</a>
-                        <a mat-button mat-raised-button routerLink="/" routerLinkActive="active">Odjavi Me</a>
+                        <a mat-button mat-raised-button routerLinkActive="active" (click)="odjaviMe()">Odjavi Me</a>
                 </span>
         </mat-toolbar>
 
@@ -15,7 +15,7 @@
         </div>
 </div>
 <!-- Prvo logovanje -->
-<div *ngIf="firstLogin==true" class="blackBG">
+<div *ngIf="firstLogin==false" class="blackBG">
         <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center margin-top"
                 style="margin-top: 110px;margin-bottom: 0;">
                 <mat-card style="height: 35vh;">

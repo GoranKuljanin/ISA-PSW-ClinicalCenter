@@ -17,16 +17,16 @@ export class LekariDialogComponent implements OnInit {
   public lekar: Lekar = new Lekar();
   public user: User = new User();
   klinika: Klinika;
-  
+
   constructor(public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<LekariDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,public lekarService: LekarService,
+    @Inject(MAT_DIALOG_DATA) public data: any, public lekarService: LekarService,
     public service: AdminKlinikeService, private rout: Router) {
-      console.log(data);
+    console.log(data);
     if (data.flag == 1) {
       this.lekar = data.lekar;
       this.user = this.lekar.user;
-    } else if (data.flag==0) {
+    } else if (data.flag == 0) {
       this.lekar.user = this.user;
     }
   }
@@ -34,7 +34,7 @@ export class LekariDialogComponent implements OnInit {
   ngOnInit() {
   }
   public addLekar(): void {
-    this.lekar.klinika=this.data.klinika;
+    this.lekar.klinika = this.data.klinika;
     this.lekar.user = this.user;
     let res = this.lekarService.addUser(this.lekar);
     res.subscribe((res) => {
@@ -46,7 +46,6 @@ export class LekariDialogComponent implements OnInit {
         window.location.href = this.rout.url;
       }
     });
-    console.log(res);
     this.dialogRef.close();
     this.snackBar.open('Lekar dodat.', 'U redu', { duration: 1000 });
   }

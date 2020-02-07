@@ -1,4 +1,4 @@
-<mat-sidenav-container *ngIf="firstLogin==false" class="admin">
+<mat-sidenav-container *ngIf="firstLogin==true" class="admin">
   <mat-sidenav opened mode="side" class="sidemenu">
   <mat-accordion>
     <div>
@@ -41,7 +41,7 @@
     </mat-nav-list>
     <hr/>
     <mat-nav-list>
-      <a class="sidemenu" mat-button routerLink="/" routerLinkActive="active">Odjavi Me</a>
+      <a class="sidemenu" mat-button routerLinkActive="active" (click)="odjaviMe()">Odjavi Me</a>
     </mat-nav-list>
   </mat-accordion>
 </mat-sidenav>
@@ -52,7 +52,7 @@
 </div>
 </mat-sidenav-content>
 </mat-sidenav-container>
-<div *ngIf="firstLogin==true" class="blackBG">
+<div *ngIf="firstLogin==false" class="blackBG">
 <div  class="login-wrapper" fxLayout="row" fxLayoutAlign="center margin-top" style="margin-top: 110px;margin-bottom: 0;">
   <mat-card style="height: 35vh;">
     <mat-card-header>

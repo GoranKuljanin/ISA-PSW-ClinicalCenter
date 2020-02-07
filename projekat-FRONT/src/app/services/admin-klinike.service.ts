@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Sala } from '../models/Sala.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Klinika } from '../models/klinika.model';
 import { AdminKlinike } from '../models/adminKlinike.model';
 import { Cena } from '../models/cena.model';
@@ -14,6 +14,11 @@ export class AdminKlinikeService {
 
   constructor(private http: HttpClient) { }
 
+  public getAdminaIzBaze():Observable<AdminKlinike>{
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'application/json');
+    return this.http.get<AdminKlinike>('http://localhost:8088/getAdminaKlinike/', {headers: header});
+  }
   public getSveSale(id:number):Observable<Sala[]>{
     return this.http.get<Sala[]>('http://localhost:8088/klinika/'+id+'/sale');
   }
@@ -36,8 +41,8 @@ export class AdminKlinikeService {
   public updateAdminaK(admin: AdminKlinike): void {
     this.http.put('http://localhost:8088/adminKlinike', admin).subscribe();
   }
-  public updateUser(admin: User): void {
-    this.http.put('http://localhost:8088/user', admin).subscribe();
+  public updateUser(user: User): void {
+    this.http.put('http://localhost:8088/useraAdminaKlinike', user).subscribe();
   }
   public getUserById(id:number):Observable<User>{
     return this.http.get<User>('http://localhost:8088/user/'+id);
