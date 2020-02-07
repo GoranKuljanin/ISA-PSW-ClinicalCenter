@@ -1,10 +1,12 @@
 package com.klinickiCentar.klinika.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,8 +53,9 @@ public class ZdravstveniKartonController {
 //	}
 
 	@GetMapping("/getZdravstveniKarton")
-	public ResponseEntity<ZdravstveniKarton> getZdravstveniKarton(@RequestParam String email){
-		User u = userService.findUserByEmail(email);
+	@PreAuthorize("hasRole('ROLE_PACIJENT')")					//@RequestParam String email
+	public ResponseEntity<ZdravstveniKarton> getZdravstveniKarton(Principal currUser){
+		User u = userService.findByUsername(currUser.getName());
 		Pacijent p = pacijentService.getPacijentByUser(u.getId());
 		ZdravstveniKarton karton = p.getZdravstveniKarton();
 		return new ResponseEntity<ZdravstveniKarton>(karton, HttpStatus.OK);

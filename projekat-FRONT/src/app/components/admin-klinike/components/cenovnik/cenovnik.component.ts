@@ -12,29 +12,32 @@ import { Klinika } from 'src/app/models/klinika.model';
   styleUrls: ['./cenovnik.component.css']
 })
 export class CenovnikComponent implements OnInit {
-  idAdmina:number
-  admin:AdminKlinike
-  cene:Cena[]
-  klinika:Klinika={id:0,naziv:"",opis:"",adresa:""}
-  constructor(private route: ActivatedRoute,private adminKlinikeService: AdminKlinikeService) { 
-    this.route.parent.params.subscribe(
-      (params)=>{
-        this.idAdmina=params.ida;
-      });
-      this.adminKlinikeService.getAdmin(this.idAdmina).subscribe(data=>{
-        this.admin=data;
-        this.klinika=this.admin.klinika;
-        console.log(this.klinika)
-        console.log(this.admin);
-        this.adminKlinikeService.getSveCene(this.klinika.id).subscribe(data=>{
-          this.cene=data;
-        });
-      });
-      
+  idAdmina: number
+  admin: AdminKlinike
+  cene: Cena[]
+  klinika: Klinika = { id: 0, naziv: "", opis: "", adresa: "" }
+  constructor(private route: ActivatedRoute, private adminKlinikeService: AdminKlinikeService) {
+    this.dobaviUlogovanogAdminaKLinike();
   }
 
   ngOnInit() {
-    
+
+  }
+
+  public dobaviUlogovanogAdminaKLinike() {
+    this.adminKlinikeService.getAdminaIzBaze().subscribe(
+      data => {
+        if (data != null) {
+          this.admin = data;
+          this.klinika = this.admin.klinika;
+          this.adminKlinikeService.getSveCene(this.klinika.id).subscribe(data => {
+            this.cene = data;
+          });
+        } else {
+          alert('Niste uneli odgovarajuce parametre!');
+        }
+      }
+    );
   }
 
 }

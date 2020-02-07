@@ -34,7 +34,9 @@ export class AkEditPasswordDialogComponent implements OnInit {
       if (this.newPassword.length > 7) {
         if (this.newPassword == this.repeatNewPassword) {
           this.user.password = this.newPassword;
+          
           this.adminKlinikeService.updateUser(this.user);
+
           this.snackBar.open('Uspešno modifikovana lozinka. ', 'U redu', { duration: 10000 });
           window.location.href = this.rout.url;
         } else {

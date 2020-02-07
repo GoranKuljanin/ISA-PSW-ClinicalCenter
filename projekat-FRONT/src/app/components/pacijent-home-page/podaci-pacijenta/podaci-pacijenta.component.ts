@@ -16,50 +16,34 @@ export class PodaciPacijentaComponent implements OnInit {
   //user: User;
   pacijent: Pacijent;
 
-  constructor(private pacijentService: PacijentService, private service: LoginService,public dialog: MatDialog) {
-    
-   }
+  constructor(private pacijentService: PacijentService, private service: LoginService, public dialog: MatDialog) {
+
+  }
 
   ngOnInit() {
-    //this.user = this.service.user;
+
     this.dobaviUlogovanogPacijenta(localStorage.getItem('logedInUser'));     //prije: this.service.user.email
   }
 
-  public dobaviUlogovanogPacijenta(email:string){
-    this.pacijentService.getPacijentaIzBaze(email).subscribe(
-      data=>{
-          if(data != null){
-            this.pacijent = data;
-          }else{
-            alert('Niste uneli odgovarajuce parametre!');
-          }
+  public dobaviUlogovanogPacijenta(username: string) {
+    this.pacijentService.getPacijentaIzBaze(username).subscribe(
+      data => {
+        if (data != null) {
+          this.pacijent = data;
+        } else {
+          alert('Niste uneli odgovarajuce parametre!');
+        }
       }
     );
   }
-  public openDialog( id: number, username: string, lastname: string, email: string, adress: string, city: string, country: string, phoneNumber: string) {
+  public openDialog(id: number, firstname: string, lastname: string, username: string, adress: string, city: string, country: string, phoneNumber: string) {
 
     const dialogRef = this.dialog.open(EditProfilDialogComponent, {
-        data: { id: id, username: username,  lastname: lastname, email: email , adress: adress , city: city , country: country , phoneNumber: phoneNumber }
+      data: { id: id, firstname: firstname, lastname: lastname, username: username, adress: adress, city: city, country: country, phoneNumber: phoneNumber }
     });
     dialogRef.afterClosed().subscribe(result => {
-        
+
     });
 
-}
-  //Za izmenu podataka o pacijentu, na server se salje izmenjeni pacijent
-  //public onSubmit(){
-
-      //PROBLEM => Stalno vraca null
-
-      // let res = this.pacijentService.updatePacijenta(this.pacijent.user.email, this.pacijent.user.username).subscribe(
-      //   data=>{
-      //     if(data == null){
-      //       alert('Vec postoji pacijent sa tim podacima, unesite druge parametre!');
-      //     }else{
-      //       this.pacijent.user = data;
-      //       console.log(this.pacijent);
-      //     }
-      //   }
-      // );
-  //}
+  }
 }

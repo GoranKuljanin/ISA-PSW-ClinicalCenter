@@ -14,16 +14,20 @@ export class OsnovniPodaciComponent implements OnInit {
   klinika: Klinika = { id: 0, naziv: "", opis: "", adresa: "" }
   idAdmina: number
   constructor(private route: ActivatedRoute, private adminKlinikeService: AdminKlinikeService, public dialog: MatDialog) {
-    this.route.parent.params.subscribe(
-      (params) => {
-        this.idAdmina = params.ida;
-      });
+    this.dobaviUlogovanogLekara();
   }
 
   ngOnInit() {
-    this.adminKlinikeService.getKlinikaByAdminId(this.idAdmina).subscribe(
+  }
+
+  public dobaviUlogovanogLekara() {
+    this.adminKlinikeService.getAdminaIzBaze().subscribe(
       data => {
-        this.klinika = data;
+        if (data != null) {
+          this.klinika = data.klinika;
+        } else {
+          alert('Niste uneli odgovarajuce parametre!');
+        }
       }
     );
   }

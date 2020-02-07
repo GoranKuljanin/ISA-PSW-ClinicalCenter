@@ -1,100 +1,62 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center margin-top" style="margin-top: 110px;">
+  <mat-card class="paper">
+    <mat-card-header>
+      <mat-card-title style="font-size: 30px;" *ngIf="klinika">Klinika {{klinika.naziv}}</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+      <mat-tab-group style="margin-top: 30px;margin-bottom: 50px;" [selectedIndex]="selectedIndexForTab.value"
+        (selectedIndexChange)="selectedIndexForTab.setValue($event)">
+        <mat-tab label="Termini">
+          <p style="font-size: 18px;">Odaberite Datum Za Pregled.</p>
+          <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="selectedDate($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+          </mat-form-field>
+        </mat-tab>
 
-  <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center margin-top" style="margin-top: 110px;">
+        <mat-tab #pregledi label="Pregledi">
+          <p style="font-size: 18px;">Slobodni Pregledi:</p>
+          <table mat-table [dataSource]="preglediSource" class="mat-elevation-z8">
 
-    
-    <mat-card class="paper">
-      <mat-card-header>
-        <mat-card-title style="font-size: 30px;" *ngIf="klinika">Klinika {{klinika.naziv}}</mat-card-title>
-      </mat-card-header>
-      <hr>
-      <mat-card-content>
-        <mat-tab-group style="margin-top: 30px;margin-bottom: 50px;" [selectedIndex]="selectedIndexForTab.value" (selectedIndexChange)="selectedIndexForTab.setValue($event)">
-          <mat-tab label="Termini" >
-            <p style="font-size: 18px;">Odaberite Datum Za Pregled.</p>
-            <mat-form-field class="example-full-width">
-              <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="selectedDate($event)">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker touchUi #picker></mat-datepicker>
-            </mat-form-field>
-          </mat-tab>
+            <ng-container matColumnDef="datum">
+              <th mat-header-cell *matHeaderCellDef> Datum </th>
+              <td mat-cell *matCellDef="let element">{{element.termin.datum}} </td>
+            </ng-container>
 
-          <mat-tab #pregledi label="Pregledi">                               
-            <p style="font-size: 18px;">Slobodni Pregledi:</p>
-            <table mat-table [dataSource]="preglediSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="trajanje">
+              <th mat-header-cell *matHeaderCellDef> Trajanje </th>
+              <td mat-cell *matCellDef="let element">{{element.trajanje}} </td>
+            </ng-container>
 
-              <ng-container matColumnDef="datum">
-                <th mat-header-cell *matHeaderCellDef > Datum </th>
-                <td mat-cell *matCellDef="let element">{{element.termin.datum}} </td>
-              </ng-container>
-            
-              <ng-container matColumnDef="trajanje">
-                <th mat-header-cell *matHeaderCellDef > Trajanje </th>
-                <td mat-cell *matCellDef="let element">{{element.trajanje}} </td>
-              </ng-container>
+            <ng-container matColumnDef="lekar">
+              <th mat-header-cell *matHeaderCellDef> Lekar </th>
+              <td mat-cell *matCellDef="let element">{{element.lekar.user.firstname}} {{element.lekar.user.lastname}}
+              </td>
+            </ng-container>
 
-              <ng-container matColumnDef="lekar">
-                <th mat-header-cell *matHeaderCellDef > Lekar </th>
-                <td mat-cell *matCellDef="let element">{{element.lekar.user.username}} {{element.lekar.user.lastname}} </td>
-              </ng-container>
+            <ng-container matColumnDef="cena">
+              <th mat-header-cell *matHeaderCellDef> Cena </th>
+              <td mat-cell *matCellDef="let element">{{element.cena}} </td>
+            </ng-container>
 
-              <ng-container matColumnDef="cena">
-                <th mat-header-cell *matHeaderCellDef > Cena </th>
-                <td mat-cell *matCellDef="let element">{{element.cena}} </td>
-              </ng-container>
+            <ng-container matColumnDef="sala">
+              <th mat-header-cell *matHeaderCellDef> Sala </th>
+              <td mat-cell *matCellDef="let element">{{element.sala.name}} </td>
+            </ng-container>
 
-              <ng-container matColumnDef="sala">
-                <th mat-header-cell *matHeaderCellDef > Sala </th>
-                <td mat-cell *matCellDef="let element">{{element.sala.name}} </td>
-              </ng-container>
+            <ng-container matColumnDef="zakazi">
+              <th mat-header-cell *matHeaderCellDef> Zakazi Termin </th>
+              <td mat-cell *matCellDef="let element"> <button mat-button (click)="zakaziPregled(element.id)">Zakazi
+                  Pregled</button> </td>
+            </ng-container>
 
-              <ng-container matColumnDef="zakazi">
-                <th mat-header-cell *matHeaderCellDef > Zakazi Termin </th>
-                <td mat-cell *matCellDef="let element"> <button mat-button (click)="zakaziPregled(element.id)" >Zakazi Pregled</button> </td>
-              </ng-container>
-            
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-          </mat-tab>  
-          <!-- <mat-tab label="Lekari">
-              <p style="font-size: 18px;">Spisak svih lekara:</p>
-            <mat-accordion *ngFor="let lekar of lekari">
-              
-              <mat-expansion-panel (opened)="panelOpenState = true"
-                                   (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    {{lekar.name}}
-                  </mat-panel-title>
-                  <mat-panel-description>
-                    
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-                {{lekar.opis}}
-              </mat-expansion-panel>
-            </mat-accordion>
-          </mat-tab> -->
-          
-          <!-- <mat-tab label="O nama">
-              <p style="font-size: 18px;margin-top: 50px;">Adresa: {{clinic.adresa}}</p>
-              <p style="font-size: 18px;">Opis: {{clinic.opis}}</p>
-          </mat-tab>
-          <mat-tab label="Cenovnik" >
-              <p style="font-size: 18px;">U prilogu su prikazane cene usluga koje pruza klinika:</p>
-              <table mat-table [dataSource]="dataSource1" matSort class="mat-elevation-z8">
-                  <ng-container matColumnDef="opis">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Opis </th>
-                      <td mat-cell *matCellDef="let element">{{element.opis}} </td>
-                    </ng-container>
-                  <ng-container matColumnDef="vrednost">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
-                    <td mat-cell *matCellDef="let element">{{element.vrednost}} </td>
-                  </ng-container>
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
-                </table>
-          </mat-tab> -->
-        </mat-tab-group> 
-      </mat-card-content>
-    </mat-card>
-  </div>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>

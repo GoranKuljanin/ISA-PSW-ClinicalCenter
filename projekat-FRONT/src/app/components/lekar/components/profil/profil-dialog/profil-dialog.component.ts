@@ -27,8 +27,8 @@ export class ProfilDialogComponent implements OnInit {
   ngOnInit() {
   }
   public updateLekar(): void {
-    this.service.updatelekar(this.lekar);
     this.service.updateUser(this.lekar.user);
+    this.service.updatelekar(this.lekar);
     this.snackBar.open('Uspešno modifikovan profil: ', 'U redu', { duration: 2500 });
     window.location.href = this.rout.url;
   }

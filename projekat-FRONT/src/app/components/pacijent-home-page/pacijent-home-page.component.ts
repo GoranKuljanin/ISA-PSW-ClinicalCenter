@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/authService/auth.service';
 import { PacijentService } from './../../services/pacijentServices/pacijent.service';
 import { User } from './../../models/user.model';
 import { LoginService } from './../../services/login.service';
@@ -12,7 +13,7 @@ import { Pacijent } from 'src/app/models/pacijent';
 export class PacijentHomePageComponent implements OnInit {
 
 
-  constructor(private service: LoginService, private pacijentService: PacijentService) { 
+  constructor( private authService: AuthService, private service: LoginService, private pacijentService: PacijentService) { 
   }
 
   ngOnInit() {
@@ -34,5 +35,9 @@ export class PacijentHomePageComponent implements OnInit {
   //       }
   //     );
   // }
+
+  onOdjaviMe(){
+    this.authService.logout();
+  }
 
 }

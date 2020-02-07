@@ -20,14 +20,14 @@ export class TipoviPregledaComponent implements OnInit {
         this.listSource = data;
       }
     );
-   }
+  }
 
   ngOnInit() {
   }
   private openAddDialog() {
     const flag: number = 0;
     const dialogRef = this.dialog.open(TipoviPregledaDialogComponent, {
-      data: { flag: flag}
+      data: { flag: flag }
     });
     dialogRef.afterClosed().subscribe(result => {
     }
@@ -37,7 +37,7 @@ export class TipoviPregledaComponent implements OnInit {
   private openDeleteDialog(tipPregleda: TipPregleda) {
     const flag: number = 1;
     const dialogRef = this.dialog.open(TipoviPregledaDialogComponent, {
-      data: { flag: flag,tipPregleda:tipPregleda}
+      data: { flag: flag, tipPregleda: tipPregleda }
     });
     dialogRef.afterClosed().subscribe(result => {
     }
@@ -47,7 +47,7 @@ export class TipoviPregledaComponent implements OnInit {
   private openEditDialog(tipPregleda: TipPregleda) {
     const flag: number = 2;
     const dialogRef = this.dialog.open(TipoviPregledaDialogComponent, {
-      data: { flag: flag, tipPregleda:tipPregleda}
+      data: { flag: flag, tipPregleda: tipPregleda }
     });
     dialogRef.afterClosed().subscribe(result => {
     }
@@ -59,7 +59,7 @@ export class TipoviPregledaComponent implements OnInit {
       this.listSource = this.tipoviPregleda;
     } else {
       this.listSource = this.listSource.filter(res => {
-        return res.naziv.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) 
+        return res.naziv.toLocaleLowerCase().match(this.search.toLocaleLowerCase())
       });
     }
   }

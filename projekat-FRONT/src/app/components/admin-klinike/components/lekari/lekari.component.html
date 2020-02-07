@@ -32,7 +32,8 @@
                   <div style="margin-bottom:15px;padding: 5px; border-radius:2%;border: rgb(184, 184, 184) 1px solid; background-color: rgb(241, 246, 255);"
                         *ngFor="let lekar of lekariSearchedList">
                         <mat-grid-list cols="15" rowHeight="3:2">
-                              <mat-grid-tile *ngIf="lekar.slika==null" style="text-align: left;" [colspan]="14" [rowspan]="3">
+                              <mat-grid-tile *ngIf="lekar.slika==null" style="text-align: left;" [colspan]="14"
+                                    [rowspan]="3">
                                     <mat-card-title style="font-size: 24px;">{{lekar.user.username}}
                                           {{lekar.user.lastname}}
                                     </mat-card-title>
@@ -46,7 +47,7 @@
                               </mat-grid-tile>
                         </mat-grid-list>
                         <hr>
-                        <p style="font-size: 18px;margin-top: 50px;">Email: {{lekar.user.email}}</p>
+                        <p style="font-size: 18px;margin-top: 50px;">Email: {{lekar.user.username}}</p>
                         <p style="font-size: 18px;">Specijalizacija: {{lekar.specijalizacija}}</p>
                         <p style="font-size: 18px;">Opis: {{lekar.opis}}</p>
                   </div>
