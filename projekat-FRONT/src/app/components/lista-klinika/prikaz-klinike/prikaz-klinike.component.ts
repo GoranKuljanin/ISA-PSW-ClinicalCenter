@@ -27,7 +27,7 @@ export class PrikazKlinikeComponent implements OnInit {
   clinic: Klinika
   displayedColumns: string[] = ['trajanje', 'lekar', 'cena', 'sala', 'zakazi']
   displayedColumns1: string[] = ['opis', 'vrednost']
-  termin: Termin[] = [{ id: 1, datum: '22.2.2' }]
+  termin: Termin[] = [{ id: 1, datum: '22.2.2' ,vreme:'14:00'}]
   cene: Cena[] = [{ id: 1, vrednost: 100, opis: 'Pregled' }]
   selectedIndexForTab = new FormControl(0);
   dataSource

@@ -52,4 +52,10 @@ export class LekarService {
   public updateUser(user: User): void {
     this.http.put('http://localhost:8088/updateUseraLekara', user).subscribe();
   }
+
+  public getLekariByIdKlinike(id:number):Observable<Lekar[]>{
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'application/json');
+    return this.http.get<Lekar[]>('http://localhost:8088/getLekariByIdKlinike/'+id, {headers: header});
+  }
 }

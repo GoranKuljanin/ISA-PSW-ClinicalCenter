@@ -39,9 +39,28 @@ public class UserService {
 	public User findById(Long id) {
 		return userRepository.findById(id).orElseGet(null);
 	}
+	
+	//Za azuriranje Korisnika
 	public User updateUser(User user) {
-		userRepository.save(user);
-		return null;
+		
+		User u = userRepository.findByUsername(user.getUsername());
+		u.setFirstname(user.getFirstname());
+		u.setLastname(user.getLastname());
+		u.setAdress(user.getAdress());
+		u.setCity(user.getCity());
+		u.setCountry(user.getCountry());
+		u.setPhoneNumber(user.getPhoneNumber());
+//		if(!passwordEncoder.matches(user.getPassword(), u.getPassword())) {
+//			u.setPassword(passwordEncoder.encode(user.getPassword()));
+//		}
+		
+		User changed = userRepository.save(u);
+		return changed;
+	}
+	public User promeniSifru(User user) {
+		User u = userRepository.findByUsername(user.getUsername());
+		u.setPassword(passwordEncoder.encode(user.getPassword()));
+		return userRepository.save(u);
 	}
 	
 	public void addUser(Lekar lekar) {
@@ -81,6 +100,7 @@ public class UserService {
 		return userRepository.findAllByUloga(uloga);
 	}
 	
+	//Za Registraciju
 	public User saveUser(User user) {
 		
 		User u = userRepository.findByUsername(user.getUsername());		//Username => mail

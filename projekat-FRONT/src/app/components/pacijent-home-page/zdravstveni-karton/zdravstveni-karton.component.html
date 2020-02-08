@@ -7,12 +7,11 @@
       <hr>
       <mat-card-content>
           
-            <p>
-              Dioptrija: {{karton.dioptrija}}
-              <br>
-              Alergija: {{karton.alergija}}
-              <br>
-            </p>
+            <p style="font-size: 18px;">Dioptrija: {{karton.dioptrija}} </p>
+            <p style="font-size: 18px;">Visina: {{karton.visina}}</p>
+            <p style="font-size: 18px;">Tezina: {{karton.tezina}}</p>
+            <p style="font-size: 18px;">Krvna Grupa: {{karton.krvna_grupa}}</p>
+            <p style="font-size: 18px;">Alergija: {{karton.alergija}}</p>
 
             <hr>
             <p style="font-size: 18px;">Detalji Zdravstvenih Kartona:</p>
@@ -31,6 +30,7 @@
                 </mat-expansion-panel-header>
 
                           <!-- <li>Pregled: {{karton.pregled.datum}}</li> -->
+                          <li>Klinika: {{izvestaj.pregled.lekar.klinika.naziv}}</li>
                           <li>Trajanje: {{izvestaj.pregled.trajanje}}</li>
                           <li>Cena: {{izvestaj.pregled.cena}}</li>
                           <li>Sala: {{izvestaj.pregled.sala.name}}</li>

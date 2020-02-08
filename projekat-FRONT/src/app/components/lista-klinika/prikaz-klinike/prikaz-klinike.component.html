@@ -15,7 +15,6 @@
             <mat-datepicker touchUi #picker></mat-datepicker>
           </mat-form-field>
         </mat-tab>
-
         <mat-tab #pregledi label="Pregledi">
           <p style="font-size: 18px;">Slobodni Pregledi:</p>
           <table mat-table [dataSource]="preglediSource" class="mat-elevation-z8">
@@ -56,6 +55,16 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
         </mat-tab>
+<<<<<<< HEAD
+=======
+
+        <mat-tab label="Opis Klinike">
+          <p style="font-size: 18px;" *ngIf="klinika">
+              {{klinika.opis}}
+          </p>
+        </mat-tab>
+
+>>>>>>> origin/sp2
       </mat-tab-group>
     </mat-card-content>
   </mat-card>

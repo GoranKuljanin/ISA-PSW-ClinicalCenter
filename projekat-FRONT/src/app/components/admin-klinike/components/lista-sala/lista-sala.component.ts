@@ -5,6 +5,7 @@ import { Sala, ZauzetiDatumi, SalaSaTerminom } from 'src/app/models/Sala.model';
 import { ɵangular_packages_common_common_i } from '@angular/common';
 import { MatDialog } from '@angular/material';
 import { SaleDialogComponent } from './sale-dialog/sale-dialog.component';
+import { SaleService } from 'src/app/services/sale.service';
 
 @Component({
   selector: 'app-lista-sala',
@@ -24,8 +25,8 @@ export class ListaSalaComponent implements OnInit {
   myDate = new Date();
   naziviSala: string[] = ["Sve sobe", "Laboratorija", "Ordinacija", "Kancelarija"];
   selectedNaziv: string
-  idAdmina: number
-  constructor(public dialog: MatDialog, private servis: AdminKlinikeService, private route: ActivatedRoute) {
+  idKlinike: number
+  constructor(public dialog: MatDialog, private servis: AdminKlinikeService, private route: ActivatedRoute,private salaService: SaleService) {
     this.dobaviUlogovanogAdminaKLinike();
     
   }
@@ -41,8 +42,8 @@ export class ListaSalaComponent implements OnInit {
     this.servis.getAdminaIzBaze().subscribe(
       data => {
         if (data != null) {
-          this.idAdmina = data.id;
-          this.servis.getSveSale(this.idAdmina).subscribe(
+          this.idKlinike = data.klinika.id;
+          this.salaService.getSaleByIdKlinike(this.idKlinike).subscribe(
             data => {
               this.sale = data;
               for (let i = 0; i < this.sale.length; i++) {

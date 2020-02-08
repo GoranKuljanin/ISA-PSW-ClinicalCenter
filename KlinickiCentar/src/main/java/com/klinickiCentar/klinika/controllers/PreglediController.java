@@ -2,6 +2,7 @@ package com.klinickiCentar.klinika.controllers;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -18,10 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.klinickiCentar.klinika.models.AdministratorKlinike;
+import com.klinickiCentar.klinika.models.Cena;
+import com.klinickiCentar.klinika.models.Klinika;
 import com.klinickiCentar.klinika.models.Pacijent;
 import com.klinickiCentar.klinika.models.Pregled;
 import com.klinickiCentar.klinika.models.Termin;
 import com.klinickiCentar.klinika.models.User;
+import com.klinickiCentar.klinika.services.AdminKlinikeService;
 import com.klinickiCentar.klinika.services.PacijentService;
 import com.klinickiCentar.klinika.services.PreglediService;
 import com.klinickiCentar.klinika.services.UserService;
@@ -39,6 +44,9 @@ public class PreglediController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AdminKlinikeService adminKlinikeService;
 	
 	@GetMapping("/getAllPregledi")
 	@PreAuthorize("hasRole('ADMIN')")
@@ -65,7 +73,7 @@ public class PreglediController {
 		}
 		
 		//List<Pregled> pregledi = preglediService.getAllPregledi();
-		Set<Pregled> pregledi = termin.getPregled();
+		Set<Pregled> pregledi = (Set<Pregled>) termin.getPregledi();
 		
 		List<Pregled> slobodniPregledni = new ArrayList<>();
 		for(Pregled p : pregledi) {
@@ -113,6 +121,50 @@ public class PreglediController {
 		zakazani = preglediService.save(zakazani);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@PostMapping("/addTermin")
+	public ResponseEntity<Termin> addTermin(@RequestBody Termin termin){
+		Termin t = preglediService.saveTermin(termin);
+		
+		return new ResponseEntity<Termin>(t,HttpStatus.OK);
+	}
+	
+	@PostMapping("/addPregled")
+	public ResponseEntity<Pregled> addPregled(@RequestBody Pregled pregled, Principal user){
+		User u = userService.findByUsername(user.getName());
+		Collection<AdministratorKlinike> adminikllinike = adminKlinikeService.getAdminiKlinike();
+		Klinika klinika = new Klinika();
+		for(AdministratorKlinike a : adminikllinike) {
+			if(a.getUser().getId() == u.getId()) {
+				klinika = a.getKlinika();
+			}
+		}
+		pregled.setKlinika(klinika);
+		preglediService.savePregled(pregled);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllSlobodniTerminiPregleda")
+	@CrossOrigin
+	public ResponseEntity<Collection<Pregled>> getAllSlobodniTerminiPregleda(Principal currUser){
+		User u = userService.findByUsername(currUser.getName());
+		Collection<AdministratorKlinike> adminikllinike = adminKlinikeService.getAdminiKlinike();
+		Klinika klinika = new Klinika();
+		for(AdministratorKlinike a : adminikllinike) {
+			if(a.getUser().getId() == u.getId()) {
+				klinika = a.getKlinika();
+			}
+		}
+		Collection<Pregled> pregledi = preglediService.getAllPregledi();
+		Collection<Pregled> slobodniTermini = new ArrayList<Pregled>();
+		for(Pregled p : pregledi) {
+			if (p.getPacijent()==null) {
+				slobodniTermini.add(p);
+			}
+		}
+		
+		return new ResponseEntity<Collection<Pregled>>(slobodniTermini, HttpStatus.OK);
 	}
 	
 	//Kontroler za testiranje

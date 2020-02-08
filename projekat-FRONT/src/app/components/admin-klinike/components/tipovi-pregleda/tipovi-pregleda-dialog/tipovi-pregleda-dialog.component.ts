@@ -3,6 +3,8 @@ import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TipPregleda } from 'src/app/models/tipPregleda.model';
 import { TipPregledaService } from 'src/app/services/tip-pregleda.service';
+import { AdminKlinikeService } from 'src/app/services/admin-klinike.service';
+import { Klinika } from 'src/app/models/klinika.model';
 
 @Component({
   selector: 'app-tipovi-pregleda-dialog',
@@ -13,9 +15,11 @@ export class TipoviPregledaDialogComponent implements OnInit {
   private tipPregleda: TipPregleda = new TipPregleda();
   private naziv:string;
   private opis:string;
+  klinika: Klinika = new Klinika();
   constructor(public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<TipoviPregledaDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private rout: Router,private service: TipPregledaService) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private rout: Router,private service: TipPregledaService,private adminKlinikeService: AdminKlinikeService) {
+      this.dobaviUlogovanogLekara();
       console.log(data);
       if(data.flag==1 || data.flag==2) {
         this.tipPregleda=data.tipPregleda;
@@ -31,10 +35,19 @@ export class TipoviPregledaDialogComponent implements OnInit {
     this.snackBar.open('Odustali ste!', 'U redu', { duration: 2000 });
   }
 
+  public dobaviUlogovanogLekara() {
+    this.adminKlinikeService.getAdminaIzBaze().subscribe(
+      data => {
+        this.klinika=data.klinika;
+      }
+    );
+  }
+
   private addTipPregleda() {
     //if(this.naziv=='' || this.opis=='') {
     this.tipPregleda.naziv = this.naziv;
     this.tipPregleda.opis= this.opis;
+    this.tipPregleda.klinika = this.klinika;
     let res = this.service.addTipPregleda(this.tipPregleda);
     res.subscribe((res) => {
       if (res == null) {

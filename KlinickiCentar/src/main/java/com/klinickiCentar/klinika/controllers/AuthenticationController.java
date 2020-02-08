@@ -48,7 +48,6 @@ public class AuthenticationController {
 			HttpServletResponse response) throws AuthenticationException, IOException {
 		
 		final Authentication authentication;
-		
 		try {
 			authentication = authenticationManager
 					.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));

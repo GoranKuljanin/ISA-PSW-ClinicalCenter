@@ -55,6 +55,9 @@ public class Lekar {
 	
 	@Column(columnDefinition = "boolean default true")
     private Boolean firstLogin;
+	
+	@Column(name = "prosecnaocena")
+	private int prosecnaocena;
 
 	public Lekar() {
 		super();
@@ -138,6 +141,14 @@ public class Lekar {
 
 	public void setFirstLogin(Boolean firstLogin) {
 		this.firstLogin = firstLogin;
+	}
+
+	public int getProsecnaocena() {
+		return prosecnaocena;
+	}
+
+	public void setProsecnaocena(int prosecnaocena) {
+		this.prosecnaocena = prosecnaocena;
 	}
 	
 }

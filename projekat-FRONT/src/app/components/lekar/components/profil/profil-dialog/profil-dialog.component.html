@@ -46,9 +46,6 @@
         <form class="form" #formControl="ngForm">
             <mat-card-content>
                 <mat-form-field class="full-width">
-                    <input matInput placeholder="Stara lozinka:" type="password" [(ngModel)]="oldPassword" [ngModelOptions]="{standalone: true}" required>
-                </mat-form-field>
-                <mat-form-field class="full-width">
                     <input matInput placeholder="Nova lozinka:" type="password" [(ngModel)]="newPassword" [ngModelOptions]="{standalone: true}" required>
                 </mat-form-field>
                 <mat-form-field class="full-width">

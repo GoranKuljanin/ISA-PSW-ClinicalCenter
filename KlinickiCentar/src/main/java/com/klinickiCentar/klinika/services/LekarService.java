@@ -63,14 +63,15 @@ public class LekarService {
 	
 	public void updateUseraAdminaKlinike(User u) {
 		User stari = userRepository.getOne(u.getId());
-		if(!stari.getPassword().contains(u.getPassword())) {
-			u.setPassword(passwordEncoder.encode(u.getPassword()));
-			java.sql.Timestamp now = new java.sql.Timestamp(DateTime.now().getMillis());
-			u.setLastPasswordResetDate(now);
-		}
-		u.setEnabled(true);
-		List<Authority> auth = authService.findByname("ROLE_LEKAR");
-		u.setAuthorities(auth);
-		userRepository.save(u);
+		stari.setAdress(u.getAdress());
+		stari.setCity(u.getCity());
+		stari.setCountry(u.getCountry());
+		stari.setPhoneNumber(u.getPhoneNumber());
+		stari.setFirstname(u.getFirstname());
+		stari.setLastname(u.getLastname());
+		if(!passwordEncoder.matches(u.getPassword(), stari.getPassword())) {
+			stari.setPassword(passwordEncoder.encode(u.getPassword()));
+		}										
+		userRepository.save(stari);
 	}
 }

@@ -1,3 +1,4 @@
+import { EditLozinkaComponent } from './edit-lozinka/edit-lozinka.component';
 import { LoginService } from './../../../services/login.service';
 import { PacijentService } from './../../../services/pacijentServices/pacijent.service';
 import { MatDialog } from '@angular/material';
@@ -16,7 +17,7 @@ export class PodaciPacijentaComponent implements OnInit {
   //user: User;
   pacijent: Pacijent;
 
-  constructor(private pacijentService: PacijentService, private service: LoginService, public dialog: MatDialog) {
+  constructor(private pacijentService: PacijentService, private service: LoginService, public dialog: MatDialog, public dialog2: MatDialog) {
 
   }
 
@@ -43,7 +44,17 @@ export class PodaciPacijentaComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
 
+
     });
 
+  }
+
+  public openDialogLozinka(id: number, password: string, firstname: string, lastname: string, username: string, adress: string, city: string, country: string, phoneNumber: string){
+    const dialogRef = this.dialog2.open(EditLozinkaComponent, {
+      data: { id: id, password: password, firstname: firstname, lastname: lastname, username: username, adress: adress, city: city, country: country, phoneNumber: phoneNumber }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
   }
 }

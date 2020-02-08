@@ -48,4 +48,21 @@ public class PreglediService {
 		}
 	}
 	
+	public Termin saveTermin(Termin termin) {
+		Termin t = terminRepository.saveAndFlush(termin);
+		return t;
+	}
+	
+	public void savePregled(Pregled pregled) {
+		Pregled p = new Pregled();
+		p.setKlinika(pregled.getKlinika());
+		p.setCena(pregled.getCena());
+		p.setSala(pregled.getSala());
+		p.setLekar(pregled.getLekar());
+		p.setTermin(pregled.getTermin());
+		p.setTrajanje(pregled.getTrajanje());
+		p.setTippregleda(pregled.getTippregleda());
+		preglediRepository.save(p);
+	}
+	
 }

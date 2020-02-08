@@ -1,11 +1,20 @@
 package com.klinickiCentar.klinika.models;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -22,6 +31,14 @@ public class TipPregleda {
 	
 	@Column(name = "opis")
 	private String opis;
+	
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinColumn(name = "klinika_id")
+	private Klinika klinika;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "tippregleda")
+	private Collection<Pregled> pregledi = new ArrayList<Pregled>();
 
 	public TipPregleda() {
 		super();
@@ -51,5 +68,43 @@ public class TipPregleda {
 		this.opis = opis;
 	}
 	
+	public Klinika getKlinika() {
+		return klinika;
+	}
+
+	public void setKlinika(Klinika klinika) {
+		if (sameAsOldKlinika(klinika))
+		      return ;
+		    //set new owner
+			Klinika oldKlinika = this.klinika;
+		    this.klinika = klinika;
+		    //remove from the old owner
+		    if (oldKlinika!=null)
+		    	oldKlinika.removeTipPregleda(this);
+		    //set myself into new owner
+		    if (klinika!=null)
+		    	klinika.addTipPregleda(this);
+	}
+	
+	private boolean sameAsOldKlinika(Klinika klinika) {
+	    return this.klinika==null? klinika == null : this.klinika.equals(klinika);
+	  }
+	
+	public Collection<Pregled> getPregledi() {
+		return pregledi;
+	}
+
+	public void addPregled(Pregled pregled) {
+		if (this.pregledi.contains(pregled))
+		      return ;
+		pregledi.add(pregled);
+		pregled.setTippregleda(this);
+	}
+	public void removePregled(Pregled pregled) {
+	    if (!pregledi.contains(pregled))
+	      return ;
+	    pregledi.remove(pregled);
+	    pregled.setTippregleda(null);
+	  }
 	
 }

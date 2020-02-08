@@ -127,4 +127,17 @@ public class LekarController {
 		
 		return new ResponseEntity<List<Pacijent>>(pacijenti, HttpStatus.OK);
 	}
+	
+	@GetMapping("/getLekariByIdKlinike/{id}")
+	@CrossOrigin
+	public ResponseEntity<List<Lekar>> getLekariByIdKlinike(@PathVariable ("id") Long id){
+		List<Lekar> lekari = lekarService.getLekari();
+		List<Lekar> lekariKlinike= new ArrayList<>();
+		for(Lekar l : lekari) {
+			if(l.getKlinika().getId() == id) {
+				lekariKlinike.add(l);
+			}
+		}
+		return new ResponseEntity<List<Lekar>>(lekariKlinike,HttpStatus.OK);
+	}
 }

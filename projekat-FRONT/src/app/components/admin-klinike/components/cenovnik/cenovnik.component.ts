@@ -30,7 +30,7 @@ export class CenovnikComponent implements OnInit {
         if (data != null) {
           this.admin = data;
           this.klinika = this.admin.klinika;
-          this.adminKlinikeService.getSveCene(this.klinika.id).subscribe(data => {
+          this.adminKlinikeService.getCeneByIdKlinike(this.klinika.id).subscribe(data => {
             this.cene = data;
           });
         } else {

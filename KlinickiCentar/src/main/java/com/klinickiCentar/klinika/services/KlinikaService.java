@@ -24,15 +24,6 @@ public class KlinikaService {
 	@Autowired
 	private KlinikaRepository klinikaRepository;
 	
-	@Autowired
-	private CenaRepository cenaRepository;
-	@Autowired
-	private LekarRepository lekarRepository;
-	@Autowired
-	private SalaRepository salaRepository;
-	@Autowired
-	private TerminRepository terminRepository;
-	
 	public List<Klinika> getKlinike() {
 		return klinikaRepository.findAll();
 	}
@@ -44,33 +35,5 @@ public class KlinikaService {
 	
 	public Klinika getKlinika(Long id) {
 		return klinikaRepository.getOne(id);
-	}
-	
-	public Collection<Cena> getCene(Long id) {
-		
-		Collection<Cena> cene= cenaRepository.findAll();
-		cene.removeIf((Cena c) -> c.getKlinika().getId()!=id);
-		return cene;
-	}
-	
-	public Collection<Lekar> getLekari(Long id) {
-		
-		Collection<Lekar> lekari= lekarRepository.findAll();
-		lekari.removeIf((Lekar c) -> c.getKlinika().getId()!=id);
-		return lekari;
-	}
-	
-//	public Collection<Termin> getTermini(Long id) {
-//		
-//		Collection<Termin> termini= terminRepository.findAll();
-//		termini.removeIf((Termin c) -> c.getKlinika().getId()!=id);
-//		return termini;
-//	}
-	
-	public Collection<Sala> getSale(Long id) {
-		
-		Collection<Sala> sale= salaRepository.findAll();
-		sale.removeIf((Sala c) -> c.getKlinika().getId()!=id);
-		return sale;
 	}
 }
