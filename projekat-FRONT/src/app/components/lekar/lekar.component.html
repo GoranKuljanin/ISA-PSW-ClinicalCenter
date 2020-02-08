@@ -1,4 +1,4 @@
-<div *ngIf="firstLogin==true">
+<div *ngIf="firstLogin==false">
         <mat-toolbar color="primary" class="app-header">
                 <div><a href="lekarHomePage" class="navlogo">Klinicki Centar</a></div>
                 <span class="nav-tool-items">
@@ -15,7 +15,7 @@
         </div>
 </div>
 <!-- Prvo logovanje -->
-<div *ngIf="firstLogin==false" class="blackBG">
+<div *ngIf="firstLogin==true" class="blackBG">
         <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center margin-top"
                 style="margin-top: 110px;margin-bottom: 0;">
                 <mat-card style="height: 35vh;">

@@ -6,6 +6,7 @@ import { Klinika } from '../models/klinika.model';
 import { AdminKlinike } from '../models/adminKlinike.model';
 import { Cena } from '../models/cena.model';
 import { User } from '../models/user.model';
+import { Pregled } from '../models/pacijent';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,19 @@ export class AdminKlinikeService {
   }
   public getUserById(id:number):Observable<User>{
     return this.http.get<User>('http://localhost:8088/user/'+id);
+  }
+
+  public getCeneByIdKlinike(id:number):Observable<Cena[]>{
+    return this.http.get<Cena[]>('http://localhost:8088/getCeneByIdKlinike/'+id);
+  }
+  public getAllSlobodniTerminiPregleda():Observable<Pregled[]>{
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'application/json');
+    return this.http.get<Pregled[]>('http://localhost:8088/pregledi/getAllSlobodniTerminiPregleda/',{headers: header});
+  }
+  public checkOldPassword(u: User):Observable<User>{
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'application/json');
+    return this.http.post<User>('http://localhost:8088/checkOldPassword', u, {headers: header});
   }
 }

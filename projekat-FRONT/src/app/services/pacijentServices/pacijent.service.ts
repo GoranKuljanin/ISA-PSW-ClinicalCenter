@@ -26,6 +26,12 @@ public azurirajPacijenta(user: User):Observable<User> {
   let header = new HttpHeaders();
   header.append('Content-Type', 'application/json');
   return this.http.post<User>('http://localhost:8088/pacijent/updatePacijent', user, {headers: header});
+
+}
+public azurirajSifraPacijenta(user: User):Observable<User> {
+  let header = new HttpHeaders();
+  header.append('Content-Type', 'application/json');
+  return this.http.post<User>(this.putanjaService.azurirajSifraPacijent, user, {headers: header});
 }
 
 public getPacijente():Observable<Pacijent[]>{
@@ -44,11 +50,5 @@ public getZdravstveniKarton(username: string):Observable<ZdravstveniKarton>{
 public getPreglede():Observable<Pregled[]>{
   return this.http.get<Pregled[]>('http://localhost:8088/getAllPregledi');
 }
-  //
-  // public updatePacijenta(email: string, username: string):Observable<User>{
-  //   let header = new HttpHeaders();
-  //   header.append('Content-Type', 'application/json');
-  //   let params = new HttpParams().set("email", email).set("username", username);
-  //     return this.http.post<User>('http://localhost:8088/updatePacijent', {headers: header ,params: params});
-  // }
+  
 }

@@ -16,6 +16,6 @@ export class KlinikaService {
   }
 
   public getCeneKlinike(id:number):Observable<Cena[]>{
-    return this.http.get<Cena[]>('http://localhost:8088/klinika'+id+'/cene');
+    return this.http.get<Cena[]>('http://localhost:8088/getCeneByIdKlinike'+id);
   }
 }

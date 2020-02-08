@@ -9,4 +9,5 @@ export class Lekar{
     klinika: Klinika;
     radnovreme:string;
     firstLogin: boolean;
+    prosecnaocena: number;
 }

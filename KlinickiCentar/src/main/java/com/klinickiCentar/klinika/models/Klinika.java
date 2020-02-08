@@ -52,6 +52,10 @@ public class Klinika {
 	private Collection<Sala> sale = new ArrayList<Sala>();
 	
 	@JsonIgnore
+	@OneToMany(mappedBy = "klinika")
+	private Collection<TipPregleda> tipoviPregleda = new ArrayList<TipPregleda>();
+	
+	@JsonIgnore
 	@OneToOne
 	private Cena cene;
 	
@@ -59,8 +63,9 @@ public class Klinika {
 	@OneToMany(mappedBy = "klinika", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<AdministratorKlinike> adminiKlinike = new HashSet<AdministratorKlinike>();
 	
-	@OneToMany(mappedBy = "klinika", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Pregled> pregled = new HashSet<>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "klinika")
+	private Collection<Pregled> pregledi = new ArrayList<Pregled>();
 	
 //	@OneToMany(mappedBy = "pacijent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	private Set<Pregled> listaPregleda = new HashSet<Pregled>();
@@ -148,6 +153,24 @@ public class Klinika {
 	    sale.remove(sala);
 	    sala.setKlinika(null);
 	  }
+	//TipoviPregleda----------------------------------------
+	
+		public Collection<TipPregleda> getTipoviPregleda() {
+			return tipoviPregleda;
+		}
+
+		public void addTipPregleda(TipPregleda tipPregleda) {
+			if (this.tipoviPregleda.contains(tipPregleda))
+			      return ;
+			tipoviPregleda.add(tipPregleda);
+			tipPregleda.setKlinika(this);
+		}
+		public void removeTipPregleda(TipPregleda tipPregleda) {
+		    if (!tipoviPregleda.contains(tipPregleda))
+		      return ;
+		    tipoviPregleda.remove(tipPregleda);
+		    tipPregleda.setKlinika(null);
+		  }
 	//Cene----------------------------------------
 	public Cena getCene() {
 		return cene;
@@ -165,4 +188,21 @@ public class Klinika {
 	public void setAdministratoriKlinike(Set<AdministratorKlinike> adminiKlinike) {
 		this.adminiKlinike = adminiKlinike;
 	}
+	
+	public Collection<Pregled> getPregledi() {
+		return pregledi;
+	}
+
+	public void addPregled(Pregled pregled) {
+		if (this.pregledi.contains(pregled))
+		      return ;
+		pregledi.add(pregled);
+		pregled.setKlinika(this);
+	}
+	public void removePregled(Pregled pregled) {
+	    if (!pregledi.contains(pregled))
+	      return ;
+	    pregledi.remove(pregled);
+	    pregled.setKlinika(null);
+	  }
 }

@@ -30,6 +30,7 @@ export class LekarComponent implements OnInit {
         if (data != null) {
           this.lekar = data;
           this.firstLogin=data.firstLogin;
+          console.log(this.firstLogin);
         } else {
           alert('Niste uneli odgovarajuce parametre!');
         }

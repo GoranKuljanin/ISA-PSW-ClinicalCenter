@@ -62,6 +62,10 @@ import { ProfilDialogComponent } from './components/lekar/components/profil/prof
 import { ActivacionPageComponent } from './activacion-page/activacion-page.component';
 import { AdminKlinikeGuard } from './guards/adminKlinike.guard';
 import { LekarGuard } from './guards/lekar.guard';
+import { SlobodniTerminiDialogComponent } from './components/admin-klinike/components/slobodni-termini-pregleda/slobodni-termini-dialog/slobodni-termini-dialog.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { LekarRatingComponent } from './components/pacijent-home-page/lista-pregleda/lekar-rating/lekar-rating.component';
+import { EditLozinkaComponent } from './components/pacijent-home-page/podaci-pacijenta/edit-lozinka/edit-lozinka.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +112,9 @@ import { LekarGuard } from './guards/lekar.guard';
     ProfilDialogComponent,
     ForbiddenComponent,
     ActivacionPageComponent,
+    SlobodniTerminiDialogComponent,
+    LekarRatingComponent,
+    EditLozinkaComponent,
   ],
   imports: [
     BrowserModule,
@@ -118,8 +125,10 @@ import { LekarGuard } from './guards/lekar.guard';
     FlexLayoutModule, 
     FormsModule, 
     ReactiveFormsModule, 
+    NgxMaterialTimepickerModule,
   ],
-  entryComponents: [ProfilDialogComponent, TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent],
+  entryComponents: [SlobodniTerminiDialogComponent, ProfilDialogComponent, TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent],
+
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,

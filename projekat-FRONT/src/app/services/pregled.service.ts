@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Pregled } from '../models/pacijent';
+import { Termin } from '../models/termin.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +42,15 @@ export class PregledService {
     //let params = new HttpParams().set('username', username);
     return this.http.get<Pregled[]>(this.putanjaService.zakazaniPregledi, {headers: header});
   }
+  public addPregled(pregled: Pregled):Observable<Pregled>{
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'application/json');
+    return this.http.post<Pregled>('http://localhost:8088/pregledi/addPregled', pregled, {headers: header});
+  }
 
+  public addTermin(termin: Termin):Observable<Termin>{
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'application/json');
+    return this.http.post<Termin>('http://localhost:8088/pregledi/addTermin', termin, {headers: header});
+  }
 }

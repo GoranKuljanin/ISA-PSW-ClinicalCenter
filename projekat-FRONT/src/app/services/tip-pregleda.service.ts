@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TipPregleda } from '../models/tipPregleda.model';
 
@@ -23,5 +23,10 @@ export class TipPregledaService {
 
   public deleteTipPregleda(idSala: number){
     return this.http.delete('http://localhost:8088/tipPregleda/'+ idSala);
+  }
+  public getTipoviPregledaByIdKlinike(id:number):Observable<TipPregleda[]>{
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'application/json');
+    return this.http.get<TipPregleda[]>('http://localhost:8088/getTipoviPregledaByIdKlinike/'+id, {headers: header});
   }
 }

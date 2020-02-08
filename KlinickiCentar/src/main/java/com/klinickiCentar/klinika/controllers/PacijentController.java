@@ -1,10 +1,9 @@
 package com.klinickiCentar.klinika.controllers;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.klinickiCentar.klinika.models.Klinika;
+import com.klinickiCentar.klinika.models.Lekar;
+import com.klinickiCentar.klinika.models.OcenaLekar;
 import com.klinickiCentar.klinika.models.Pacijent;
 import com.klinickiCentar.klinika.models.User;
+import com.klinickiCentar.klinika.services.LekarService;
+import com.klinickiCentar.klinika.services.OcenaLekarService;
 import com.klinickiCentar.klinika.services.PacijentService;
 import com.klinickiCentar.klinika.services.UserService;
 
@@ -36,6 +36,12 @@ public class PacijentController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private OcenaLekarService ocenaLekarService;
+	
+	@Autowired
+	private LekarService lekarService;
 	
 	@GetMapping("/getPacijentInfo")
 	@PreAuthorize("hasRole('ROLE_PACIJENT')")
@@ -70,27 +76,35 @@ public class PacijentController {
 		Pacijent pacijent= pacijentService.getPacijent(id);
 		return new ResponseEntity<Pacijent>(pacijent, HttpStatus.OK);
 	}
-	//NAPRAVITI POSEBAN UPIT IZ BAZE KOJI CE AUTOMATSKI SPAJATI TABELU User I Pacijent
-	//DA SE NE DOBAVLJAJU PODACI IZ OBE TABELE
+	
+	//Menjanje podataka pacijenta
 	@PostMapping(value = "/updatePacijent")
-	public ResponseEntity<User> updatePacijenta(@RequestBody User u){
+	@PreAuthorize("hasRole('ROLE_PACIJENT')")
+	public ResponseEntity<?> updatePacijenta(@RequestBody User u){
 			User user = userService.findByUsername(u.getUsername());
-			//String user = u.getEmail();
-//			if( user == null ) {
-//				return new ResponseEntity<Pacijent>(null);
-//			}
-//			user.setUsername(p.getUser().getUsername());
-//			User sacuvano = userService.updateUser(user);
-//			Pacijent newPacijent = new Pacijent();
-//			newPacijent.setId(p.getId());
-//			newPacijent.setZakazaniPregledi(p.getZakazaniPregledi());
-//			newPacijent.setZdravstveniKarton(p.getZdravstveniKarton());
-//			newPacijent.setUser(user);
-			u.setPassword(user.getPassword());
-			u.setUloga(user.getUloga());
-			User newUser = userService.saveUser(u);
 			
-			return new ResponseEntity<User>(user, HttpStatus.OK);
+			if(user == null) {
+				return new ResponseEntity<>("Error", HttpStatus.NOT_FOUND);
+			}
+			
+			user = userService.updateUser(u);
+			
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		
+	}
+	//Menjanje sifre
+	@PostMapping(value = "/updateSifraPacijent")
+	@PreAuthorize("hasRole('ROLE_PACIJENT')")
+	public ResponseEntity<?> updateSifruPacijenta(@RequestBody User u){
+			User user = userService.findByUsername(u.getUsername());
+			
+			if(user == null) {
+				return new ResponseEntity<>("Error", HttpStatus.NOT_FOUND);
+			}
+			
+			user = userService.promeniSifru(u);
+			
+			return new ResponseEntity<>(user, HttpStatus.OK);
 		
 	}
 	
@@ -105,6 +119,53 @@ public class PacijentController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
+	@GetMapping("/oceniLekare")
+	@PreAuthorize("hasRole('ROLE_PACIJENT')")
+	public ResponseEntity<List<Lekar>> getLekarForOcena(Principal currUser){
+		User u = userService.findByUsername(currUser.getName());
+		Pacijent p = pacijentService.getPacijentByUser(u.getId());
+		List<OcenaLekar> oceneLekara = ocenaLekarService.getAllOcenaLekarForPacijent(p.getId());
+	
+		List<Lekar> lekari = new ArrayList<>();
+		
+		for(OcenaLekar ol : oceneLekara) {
+			if(ol.getPacijent() != null) {
+				if(ol.getPacijent().getId() != p.getId()) {
+					lekari.add(ol.getLekar());
+				}
+			}else {
+				lekari.add(ol.getLekar());
+			}
+		}
+		
+		return new ResponseEntity<List<Lekar>>(lekari, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/unesiOcenuLekara/{id}")
+	@PreAuthorize("hasRole('ROLE_PACIJENT')")
+	public ResponseEntity<?> unesiOcenuLekara(@RequestBody int ocenaLekara, @PathVariable ("id") Long id, Principal currUser){
+		User user = userService.findByUsername(currUser.getName());
+		Pacijent p = pacijentService.getPacijentByUser(user.getId());
+		Lekar l = lekarService.getLekar(id);
+		
+		OcenaLekar ocenaLekar = new OcenaLekar();
+		ocenaLekar.setLekar(l);
+		ocenaLekar.setPacijent(p);
+		ocenaLekar.setOcena(ocenaLekara);
+		ocenaLekarService.saveOcenaLekar(ocenaLekar);
+		
+		List<OcenaLekar> oceneLekara = ocenaLekarService.findOceneByLekar(id);
+		int prosek = 0;
+		for(OcenaLekar o : oceneLekara) {
+			prosek += o.getOcena();
+		}
+		prosek = (prosek / (oceneLekara.size()));
+		l.setProsecnaocena(prosek);
+		lekarService.updateLekar(l);
+		
+		return new ResponseEntity<Lekar>(l, HttpStatus.OK);
+		
+	}
 	
 	//Greska, ovo treba u ADMIN (za zahteve)
 //	@DeleteMapping(value = "/deletePacijent")

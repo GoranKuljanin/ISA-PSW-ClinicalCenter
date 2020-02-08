@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +37,9 @@ public class AdminKlinikeController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	/*public ResponseEntity<?> getAdminInfo(Principal p){
 		User u = userservice.getlogen(p.getName());
 		Admin a = adminservic.getByUser(u.getId());
@@ -48,7 +53,7 @@ public class AdminKlinikeController {
 	
 	@GetMapping("/getAdminaKlinike")
 	public AdministratorKlinike getAdminaKlinike(Principal principal) {
-		
+		System.out.println("\n\n\nUlogovan " + principal.getName() + "\n\n\n");
 		List<AdministratorKlinike> admini = adminKlinikeService.getAdminiKlinike();
 		User u = userService.findByUsername(principal.getName());
 		
@@ -89,5 +94,6 @@ public class AdminKlinikeController {
 		adminKlinikeService.updateUseraAdminaKlinike(user);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-
+	
+	
 }

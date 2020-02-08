@@ -44,17 +44,18 @@ public class AdminKlinikeService {
 	
 	public void updateUseraAdminaKlinike(User u) {
 		User stari = userRepository.getOne(u.getId());
-		System.out.print("Stara sifra: "+ stari.getPassword() + ", nova sifra: " + u.getPassword());
-		System.out.print("Stara data: "+ stari.getLastPasswordResetDate() + ", nova data: " + u.getLastPasswordResetDate());
-		if(!stari.getPassword().contains(u.getPassword())) {
-			System.out.print("\n menja pw\n");
-			u.setPassword(passwordEncoder.encode(u.getPassword()));
-			java.sql.Timestamp now = new java.sql.Timestamp(DateTime.now().getMillis());
-			u.setLastPasswordResetDate(now);
-		} else {System.out.print("\nelseeeeeeeeeeeeeeeeee\n");}
-		u.setEnabled(true);
-		List<Authority> auth = authService.findByname("ROLE_ADMIN");
-		u.setAuthorities(auth);
-		userRepository.save(u);
+		stari.setAdress(u.getAdress());
+		stari.setCity(u.getCity());
+		stari.setCountry(u.getCountry());
+		stari.setPhoneNumber(u.getPhoneNumber());
+		stari.setFirstname(u.getFirstname());
+		stari.setLastname(u.getLastname());
+		if(!passwordEncoder.matches(u.getPassword(), stari.getPassword())) {
+			stari.setPassword(passwordEncoder.encode(u.getPassword()));
+		}
+		//u.setEnabled(true);
+		//List<Authority> auth = authService.findByname("ROLE_ADMIN");		//Mozda da ide u update admin 
+		//u.setAuthorities(auth);											//(ako ga kojim slucajem obrise)
+		userRepository.save(stari);
 	}
 }

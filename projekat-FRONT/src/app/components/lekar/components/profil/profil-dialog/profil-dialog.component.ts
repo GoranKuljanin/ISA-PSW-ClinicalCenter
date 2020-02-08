@@ -4,6 +4,7 @@ import { LekarService } from 'src/app/services/lekar.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { Lekar } from 'src/app/models/lekar.model';
+import { AuthService } from 'src/app/services/authService/auth.service';
 
 @Component({
   selector: 'app-profil-dialog',
@@ -19,7 +20,7 @@ export class ProfilDialogComponent implements OnInit {
   constructor(public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<ProfilDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public service: LekarService, private rout: Router) { 
+    public service: LekarService, private rout: Router,private authService: AuthService) { 
       this.lekar = data.lekar;
       this.flag=data.flag;
     }
@@ -33,11 +34,11 @@ export class ProfilDialogComponent implements OnInit {
     window.location.href = this.rout.url;
   }
   public updatePassword(): void {
-    if (this.oldPassword == this.lekar.user.password) {
       if (this.newPassword.length > 7) {
         if (this.newPassword == this.repeatNewPassword) {
           this.lekar.user.password = this.newPassword;
           this.service.updateUser(this.lekar.user);
+        this.authService.login(this.lekar.user.username, this.newPassword);
           this.snackBar.open('Uspešno modifikovana lozinka. ', 'U redu', { duration: 10000 });
           window.location.href = this.rout.url;
         } else {
@@ -46,9 +47,7 @@ export class ProfilDialogComponent implements OnInit {
       } else {
         this.snackBar.open('Nova lozinka mora da ima barem 8 karaktera.', 'U redu', { duration: 10000 });
       }
-    } else {
-      this.snackBar.open('Pogresno ste uneli staru lozinku.', 'U redu', { duration: 10000 });
-    }
+    
   }
   public cancel(): void {
     this.dialogRef.close();

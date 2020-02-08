@@ -19,8 +19,8 @@ export class LekariComponent implements OnInit {
   klinika: Klinika;
   search: string;
   user: User = new User();
-  lekariFullList: Lekar[] = [{ firstLogin: false, radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, username: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", firstname: "" }, opis: "", specijalizacija: "" }]
-  lekariSearchedList: Lekar[] = [{ firstLogin: false, radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, username: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", firstname: "" }, opis: "", specijalizacija: "" }]
+  lekariFullList: Lekar[] = [{ firstLogin: false, radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, username: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", firstname: "" }, opis: "", specijalizacija: "", prosecnaocena: 0 }]
+  lekariSearchedList: Lekar[] = [{ firstLogin: false, radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, username: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", firstname: "" }, opis: "", specijalizacija: "", prosecnaocena: 0 }]
 
   constructor(private route: ActivatedRoute, private lekarService: LekarService, public dialog: MatDialog,
     private adminKlinikeService: AdminKlinikeService, public userService: RegisterServiceService) {
