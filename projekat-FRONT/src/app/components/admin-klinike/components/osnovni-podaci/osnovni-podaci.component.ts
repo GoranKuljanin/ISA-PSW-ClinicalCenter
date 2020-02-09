@@ -11,19 +11,23 @@ import { OsnovniPodaciDialogComponent } from './osnovni-podaci-dialog/osnovni-po
   styleUrls: ['./osnovni-podaci.component.css']
 })
 export class OsnovniPodaciComponent implements OnInit {
-  klinika: Klinika = { id: 0, naziv: "", opis: "", adresa: "" }
+  klinika: Klinika = { id: 0, naziv: "", opis: "", adresa: "", ocenaklinike: 0 }
   idAdmina: number
   constructor(private route: ActivatedRoute, private adminKlinikeService: AdminKlinikeService, public dialog: MatDialog) {
-    this.route.parent.params.subscribe(
-      (params) => {
-        this.idAdmina = params.ida;
-      });
+    this.dobaviUlogovanogLekara();
   }
 
   ngOnInit() {
-    this.adminKlinikeService.getKlinikaByAdminId(this.idAdmina).subscribe(
+  }
+
+  public dobaviUlogovanogLekara() {
+    this.adminKlinikeService.getAdminaIzBaze().subscribe(
       data => {
-        this.klinika = data;
+        if (data != null) {
+          this.klinika = data.klinika;
+        } else {
+          alert('Niste uneli odgovarajuce parametre!');
+        }
       }
     );
   }

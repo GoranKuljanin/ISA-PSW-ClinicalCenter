@@ -1,5 +1,7 @@
 package com.klinickiCentar.klinika.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,9 +30,17 @@ public class Termin {
 	@Column(name = "datum", nullable = false)
 	private String datum;
 	
-	@OneToMany(mappedBy = "termin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@Column(name = "vreme", nullable = false)
+	private String vreme;
+	
+	/*@OneToMany(mappedBy = "termin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	//@JoinColumn(name = "pregled_id", referencedColumnName = "id")
-	private Set<Pregled> pregled = new HashSet<>();
+	private Set<Pregled> pregled = new HashSet<>();*/
+	@JsonIgnore
+	@OneToMany(mappedBy = "termin")
+	private Collection<Pregled> pregledi = new ArrayList<Pregled>();
+	
+	
 
 	public Termin() {
 		super();
@@ -52,16 +62,43 @@ public class Termin {
 	public void setDatum(String datum) {
 		this.datum = datum;
 	}
-
-	@JsonIgnore
-	public Set<Pregled> getPregled() {
-		return pregled;
+	
+	public String getVreme() {
+		return vreme;
 	}
 
-
-	public void setPregled(Set<Pregled> pregled) {
-		this.pregled = pregled;
+	public void setVreme(String vreme) {
+		this.vreme = vreme;
 	}
+
+//	@JsonIgnore
+//	public Set<Pregled> getPregled() {
+//		return pregled;
+//	}
+//
+//
+//	public void setPregled(Set<Pregled> pregled) {
+//		this.pregled = pregled;
+//	}
+	
+	public Collection<Pregled> getPregledi() {
+		return pregledi;
+	}
+
+	public void addPregled(Pregled pregled) {
+		if (this.pregledi.contains(pregled))
+		      return ;
+		pregledi.add(pregled);
+		pregled.setTermin(this);
+	}
+	public void removePregled(Pregled pregled) {
+	    if (!pregledi.contains(pregled))
+	      return ;
+	    pregledi.remove(pregled);
+	    pregled.setTermin(null);
+	  }
+	
+	
 	
 	
 }

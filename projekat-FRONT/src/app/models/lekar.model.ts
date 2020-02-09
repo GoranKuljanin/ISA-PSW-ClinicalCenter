@@ -5,8 +5,9 @@ export class Lekar{
     id?:number;
     specijalizacija:string;
     opis:string;
-    slika:string;
     user:User;
     klinika: Klinika;
     radnovreme:string;
+    firstLogin: boolean;
+    prosecnaocena: number;
 }

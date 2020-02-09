@@ -13,6 +13,8 @@ export class ZdravstveniKartonComponent implements OnInit {
 
   pacijent: User;
   karton: ZdravstveniKarton;
+  ucitano = false;
+  imaKarton = false;
   //pregledi: Pregled[] = [];
 
   constructor(private service: PacijentService) { }
@@ -22,7 +24,11 @@ export class ZdravstveniKartonComponent implements OnInit {
     this.service.getZdravstveniKarton(localStorage.getItem("logedInUser")).subscribe(
       data=>{
           this.karton = data;
-          console.log(data);
+          console.log(this.karton);
+          this.ucitano = true;
+          if(this.karton.izvestaj != null){
+              this.imaKarton = true;
+          }
           //this.pregledi = this.kartoni.pregled; //Nalazi se u uzvestaju
       }
     );

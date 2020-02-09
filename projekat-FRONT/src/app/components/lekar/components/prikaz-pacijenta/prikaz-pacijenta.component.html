@@ -14,7 +14,9 @@
                     <p style="font-size: 18px;">Drzava:   {{pacijent.user.country}}</p>
                     <p style="font-size: 18px;">Broj:   {{pacijent.user.phoneNumber}}</p>
               </mat-tab>
-              <mat-tab label="Zdravstveni Karton" >
+              <mat-tab label="Zdravstveni Karton" *ngIf="isPregledan==true">
+                    <p style="font-size: 18px;">{{pacijent.zdravstveniKarton.id}}</p>
+                    <p style="font-size: 18px;">{{pacijent.zdravstveniKarton.id}}</p>
                     <p style="font-size: 18px;">{{pacijent.zdravstveniKarton.id}}</p>
               </mat-tab>
               </mat-tab-group>

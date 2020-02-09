@@ -1,7 +1,7 @@
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center margin-top" style="margin-top: 110px;">
       <mat-card class="paper">
             <mat-card-header>
-                  <mat-grid-list cols="6" rowHeight="4:1">
+                  <mat-grid-list cols="6" rowHeight="4:3">
                         <!-- Razmak -->
                         <mat-grid-tile [colspan]="2" [rowspan]="1">
                         </mat-grid-tile>
@@ -31,9 +31,7 @@
                   <p style="font-size: 18px;">Drzava: {{user.country}}</p>
                   <p style="font-size: 18px;">Broj: {{user.phoneNumber}}</p>
                   <p style="font-size: 18px;">Email: {{user.username}}</p>
-                  <a style="float:right;" mat-flat-button
-                        (click)="openPasswordnDialog(user.id)"
-                        color="warn">
+                  <a style="float:right;" mat-flat-button (click)="openPasswordnDialog(user.id)" color="warn">
                         Promeni Lozinku
                   </a>
             </mat-card-content>

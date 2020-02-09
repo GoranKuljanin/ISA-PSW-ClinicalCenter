@@ -2,6 +2,7 @@ package com.klinickiCentar.klinika.models;
 
 import java.util.Collection;
 import java.util.List;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,22 +17,25 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.klinickiCentar.klinika.services.AuthorityService;
 
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
 
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "username", nullable = false)
+	@Column(name = "username", nullable = false, unique = true)
 	private String username;								//E-mail
 	
 	@Column(name = "password", nullable = false)
@@ -46,7 +50,7 @@ public class User implements UserDetails {
 	@Column(name = "lastname", nullable = false)
 	private String lastname;
 	
-	@Column(name = "firstname", unique = true, nullable = false)
+	@Column(name = "firstname", nullable = false)
 	private String firstname;
 	
 	@Column(name = "adress", nullable = false)
@@ -102,8 +106,6 @@ public class User implements UserDetails {
 	}
 
 	public void setPassword(String password) {
-		java.sql.Timestamp now = new java.sql.Timestamp(DateTime.now().getMillis());
-		this.setLastPasswordResetDate(now);
 		this.password = password;
 	}
 
@@ -169,7 +171,7 @@ public class User implements UserDetails {
         return lastPasswordResetDate;
     }
 	public void setLastPasswordResetDate(java.sql.Timestamp now) {
-        this.lastPasswordResetDate = now;
+			this.lastPasswordResetDate = now;
     }
 	
 	public String getFirstname() {

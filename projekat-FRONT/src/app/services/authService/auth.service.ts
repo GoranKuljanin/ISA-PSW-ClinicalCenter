@@ -14,9 +14,25 @@ export class AuthService{
     private access_token = null;
     responseLogin;
 
+    saveTokenInStorage(token: string){
+      window.sessionStorage.clear();
+      window.sessionStorage.setItem('Token', token);
+      //window.sessionStorage.setItem('Authorities', JSON.stringify(authorities));
+    }
+    saveAuthoritiesInStorage(authorities: string[]){
+      window.sessionStorage.setItem('Authorities', JSON.stringify(authorities));
+    }
+    getTokenFromStorage(){
+      return window.sessionStorage.getItem('Token');
+    }
+    getTokenAuthorities(){
+      return window.sessionStorage.getItem('Authorities');
+    }
+
     logout(){
-      this.access_token = null;
-      this.loginService.loggedInUser = null;
+      //this.access_token = null;
+      //this.loginService.loggedInUser = null;
+      window.sessionStorage.clear();
       this.router.navigate(['/login']);
     }
 
@@ -32,16 +48,11 @@ export class AuthService{
             'password' : password
           };
         
-        //   return this.post(this.putanje.login_url, JSON.stringify(body), loginHeaders)
-        //     .pipe(map( (res) => {
-        //         console.log('Login success!');
-        //         this.access_token = res.accessToken;
-        //     }
-        //     ));
           return this.sendPost(this.putanje.login_url, body, loginHeaders)
                 .pipe(map((res => {
                     console.log('Login success');
-                    this.access_token = res.accessToken;
+                    //this.access_token = res.accessToken;
+                    this.saveTokenInStorage(res.accessToken);
                 })));
     }
 
@@ -100,11 +111,15 @@ export class AuthService{
         throw error;
       }
 
-      tokenIsPresent() {
-        return this.access_token != undefined && this.access_token != null;
+    tokenIsPresent() {
+       // return this.access_token != undefined && this.access_token != null;
+       if(this.getTokenFromStorage() !== null && this.getTokenFromStorage() != undefined){
+          return true;
+       }
+       return false;
       }
     
-      getToken() {
-        return this.access_token;
+    getToken() {
+        return this.getTokenFromStorage();
       }
 }

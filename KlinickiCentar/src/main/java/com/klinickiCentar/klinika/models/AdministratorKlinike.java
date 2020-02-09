@@ -29,7 +29,7 @@ public class AdministratorKlinike {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Klinika klinika;
 	
-	@Column(columnDefinition = "boolean default false")
+	@Column(columnDefinition = "boolean default true")
     private Boolean firstLogin;
 	
 	public AdministratorKlinike() {

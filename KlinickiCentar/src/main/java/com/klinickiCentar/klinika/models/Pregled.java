@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -26,23 +27,30 @@ public class Pregled {
 	@Column(name = "trajanje")
 	private String trajanje;
 	
-	@OneToOne
+	@OneToOne()
 	private Sala sala;
 	
 	@Column(name = "cena")
 	private double cena;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne( cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinColumn(name = "pacijent_id")
 	private Pacijent pacijent;
 	
 	@OneToOne
 	private Lekar lekar;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne( cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	@JoinColumn(name = "klinika_id")
 	private Klinika klinika;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinColumn(name = "termin_id")
 	private Termin termin;
+	
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinColumn(name = "tippregleda_id")
+	private TipPregleda tippregleda;
 	
 	@OneToOne(mappedBy = "pregled", fetch = FetchType.LAZY)
 	private Izvestaj izvestaj;
@@ -107,21 +115,63 @@ public class Pregled {
 	public void setIzvestaj(Izvestaj izvestaj) {
 		this.izvestaj = izvestaj;
 	}
-
+	
 	public Termin getTermin() {
 		return termin;
 	}
 
 	public void setTermin(Termin termin) {
-		this.termin = termin;
+		if (sameAsOldTermin(termin))
+		      return ;
+		Termin oldTermin = this.termin;
+		    this.termin = termin;
+		    if (oldTermin!=null)
+		    	oldTermin.removePregled(this);
+		    if (termin!=null)
+		    	termin.addPregled(this);
 	}
+	
+	private boolean sameAsOldTermin(Termin termin) {
+	    return this.termin==null? termin == null : this.termin.equals(termin);
+	  }
+	
 	@JsonIgnore
 	public Klinika getKlinika() {
 		return klinika;
 	}
 
 	public void setKlinika(Klinika klinika) {
-		this.klinika = klinika;
+		if (sameAsOldKlinika(klinika))
+		      return ;
+		Klinika oldKlinika = this.klinika;
+		    this.klinika = klinika;
+		    if (oldKlinika!=null)
+		    	oldKlinika.removePregled(this);
+		    if (klinika!=null)
+		    	klinika.addPregled(this);
 	}
+	
+	private boolean sameAsOldKlinika(Klinika klinika) {
+	    return this.klinika==null? klinika == null : this.klinika.equals(klinika);
+	  }
+	
+	public TipPregleda getTippregleda() {
+		return tippregleda;
+	}
+
+	public void setTippregleda(TipPregleda tippregleda) {
+		if (sameAsOldTippregleda(tippregleda))
+		      return ;
+		TipPregleda oldTipPregleda = this.tippregleda;
+		    this.tippregleda = tippregleda;
+		    if (oldTipPregleda!=null)
+		    	oldTipPregleda.removePregled(this);
+		    if (tippregleda!=null)
+		    	tippregleda.addPregled(this);
+	}
+	
+	private boolean sameAsOldTippregleda(TipPregleda tippregleda) {
+	    return this.tippregleda==null? tippregleda == null : this.tippregleda.equals(tippregleda);
+	  }
 	
 }

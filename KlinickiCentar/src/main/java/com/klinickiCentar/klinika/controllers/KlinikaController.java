@@ -40,28 +40,4 @@ public class KlinikaController {
 		klinikaService.updateKlinika(klinika);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
-	@GetMapping(value = "klinika/{id}/cene")
-	public Collection<Cena> getCene(@PathVariable ("id") Long id) {
-		Collection<Cena> listaCena = klinikaService.getCene(id);
-		return listaCena;
-	}
-	
-	@GetMapping(value = "klinika/{id}/lekari")
-	public Collection<Lekar> getLekari(@PathVariable ("id") Long id) {
-		Collection<Lekar> listaLekara = klinikaService.getLekari(id);
-		return listaLekara;
-	}
-	
-	@GetMapping(value = "klinika/{id}/sale")
-	public Collection<Sala> getSale(@PathVariable ("id") Long id) {
-		Collection<Sala> listaSala = klinikaService.getSale(id);
-		return listaSala;
-	}
-	
-//	@GetMapping(value = "klinika/{id}/termini")
-//	public Collection<Termin> getTermini(@PathVariable ("id") Long id) {
-//		Collection<Termin> listaTermina = klinikaService.getTermini(id);
-//		return listaTermina;
-//	}
 }

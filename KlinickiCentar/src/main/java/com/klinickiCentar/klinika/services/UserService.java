@@ -2,6 +2,7 @@ package com.klinickiCentar.klinika.services;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,9 +39,28 @@ public class UserService {
 	public User findById(Long id) {
 		return userRepository.findById(id).orElseGet(null);
 	}
+	
+	//Za azuriranje Korisnika
 	public User updateUser(User user) {
-		userRepository.save(user);
-		return null;
+		
+		User u = userRepository.findByUsername(user.getUsername());
+		u.setFirstname(user.getFirstname());
+		u.setLastname(user.getLastname());
+		u.setAdress(user.getAdress());
+		u.setCity(user.getCity());
+		u.setCountry(user.getCountry());
+		u.setPhoneNumber(user.getPhoneNumber());
+//		if(!passwordEncoder.matches(user.getPassword(), u.getPassword())) {
+//			u.setPassword(passwordEncoder.encode(user.getPassword()));
+//		}
+		
+		User changed = userRepository.save(u);
+		return changed;
+	}
+	public User promeniSifru(User user) {
+		User u = userRepository.findByUsername(user.getUsername());
+		u.setPassword(passwordEncoder.encode(user.getPassword()));
+		return userRepository.save(u);
 	}
 	
 	public void addUser(Lekar lekar) {
@@ -51,12 +71,20 @@ public class UserService {
 		u.setCountry("");
 		u.setPhoneNumber("");
 		u.setUloga("LEKAR");
+		u.setEnabled(true);
+		u.setNalogAktiviran(true);
+		java.sql.Timestamp now = new java.sql.Timestamp(DateTime.now().getMillis());
+		u.setLastPasswordResetDate(now);
+		u.setPassword(passwordEncoder.encode(lekar.getUser().getPassword()));
+		List<Authority> auth = authService.findByname("ROLE_LEKAR");
+		u.setAuthorities(auth);
 		userRepository.save(u);
 		Lekar l = new Lekar();
-		l.setUser(lekar.getUser());
+		l.setUser(u);
 		//lekar.getKlinika().addLekar(l);
 		l.setRadnovreme(lekar.getRadnovreme());
 		lekarRepository.save(l);
+		l.setFirstLogin(true);
 		l.setKlinika(lekar.getKlinika());
 		System.out.print(l.getKlinika().getNaziv());
 		lekarRepository.save(l);
@@ -72,6 +100,7 @@ public class UserService {
 		return userRepository.findAllByUloga(uloga);
 	}
 	
+	//Za Registraciju
 	public User saveUser(User user) {
 		
 		User u = userRepository.findByUsername(user.getUsername());		//Username => mail

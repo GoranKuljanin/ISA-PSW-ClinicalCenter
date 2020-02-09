@@ -1,3 +1,4 @@
+import { EditLozinkaComponent } from './edit-lozinka/edit-lozinka.component';
 import { LoginService } from './../../../services/login.service';
 import { PacijentService } from './../../../services/pacijentServices/pacijent.service';
 import { MatDialog } from '@angular/material';
@@ -16,50 +17,44 @@ export class PodaciPacijentaComponent implements OnInit {
   //user: User;
   pacijent: Pacijent;
 
-  constructor(private pacijentService: PacijentService, private service: LoginService,public dialog: MatDialog) {
-    
-   }
+  constructor(private pacijentService: PacijentService, private service: LoginService, public dialog: MatDialog, public dialog2: MatDialog) {
+
+  }
 
   ngOnInit() {
-    
+
     this.dobaviUlogovanogPacijenta(localStorage.getItem('logedInUser'));     //prije: this.service.user.email
   }
 
-  public dobaviUlogovanogPacijenta(username:string){
+  public dobaviUlogovanogPacijenta(username: string) {
     this.pacijentService.getPacijentaIzBaze(username).subscribe(
-      data=>{
-          if(data != null){
-            this.pacijent = data;
-          }else{
-            alert('Niste uneli odgovarajuce parametre!');
-          }
+      data => {
+        if (data != null) {
+          this.pacijent = data;
+        } else {
+          alert('Niste uneli odgovarajuce parametre!');
+        }
       }
     );
   }
-  public openDialog( id: number, firstname: string, lastname: string, username: string, adress: string, city: string, country: string, phoneNumber: string) {
+  public openDialog(id: number, firstname: string, lastname: string, username: string, adress: string, city: string, country: string, phoneNumber: string) {
 
     const dialogRef = this.dialog.open(EditProfilDialogComponent, {
-        data: { id: id, firstname: firstname,  lastname: lastname, username: username , adress: adress , city: city , country: country , phoneNumber: phoneNumber }
+      data: { id: id, firstname: firstname, lastname: lastname, username: username, adress: adress, city: city, country: country, phoneNumber: phoneNumber }
     });
     dialogRef.afterClosed().subscribe(result => {
-        
+
+
     });
 
-}
-  //Za izmenu podataka o pacijentu, na server se salje izmenjeni pacijent
-  //public onSubmit(){
+  }
 
-      //PROBLEM => Stalno vraca null
+  public openDialogLozinka(id: number, password: string, firstname: string, lastname: string, username: string, adress: string, city: string, country: string, phoneNumber: string){
+    const dialogRef = this.dialog2.open(EditLozinkaComponent, {
+      data: { id: id, password: password, firstname: firstname, lastname: lastname, username: username, adress: adress, city: city, country: country, phoneNumber: phoneNumber }
+    });
+    dialogRef.afterClosed().subscribe(result => {
 
-      // let res = this.pacijentService.updatePacijenta(this.pacijent.user.email, this.pacijent.user.username).subscribe(
-      //   data=>{
-      //     if(data == null){
-      //       alert('Vec postoji pacijent sa tim podacima, unesite druge parametre!');
-      //     }else{
-      //       this.pacijent.user = data;
-      //       console.log(this.pacijent);
-      //     }
-      //   }
-      // );
-  //}
+    });
+  }
 }

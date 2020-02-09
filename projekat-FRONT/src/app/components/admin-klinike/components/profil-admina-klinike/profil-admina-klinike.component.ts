@@ -14,33 +14,23 @@ import { AkEditPasswordDialogComponent } from './dialog/ak-edit-password-dialog/
 })
 export class ProfilAdminaKlinikeComponent implements OnInit {
   idAdmina: number;
-  admin : AdminKlinike;
+  admin: AdminKlinike;
   user: User;
 
-  constructor(private route: ActivatedRoute, private adminKlinikeService: AdminKlinikeService,public dialog: MatDialog) {
-    this.route.parent.params.subscribe(
-      (params) => 
-      { 
-        this.idAdmina=params.ida; 
-        this.adminKlinikeService.getAdmin(this.idAdmina).subscribe(
-          data=>{
-            this.admin = data;
-            this.user = this.admin.user;
-          }
-        );
-       });
-   
-   }
+  constructor(private route: ActivatedRoute, private adminKlinikeService: AdminKlinikeService, public dialog: MatDialog) {
+    this.dobaviUlogovanogAdminaKLinike();
+
+  }
 
   ngOnInit() {
   }
-  public openDialog(id:number, firstname: string, lastname: string, adress: string, city:string, country:string, username:string, phoneNumber:string ) {
+  public openDialog(id: number, firstname: string, lastname: string, adress: string, city: string, country: string, username: string, phoneNumber: string) {
 
     const dialogRef = this.dialog.open(AkEditProfilDialogComponent, {
-        data: {id:id, firstname: firstname, lastname: lastname,  adress: adress,  city: city,  country: country,  username: username, phoneNumber: phoneNumber}
+      data: { id: id, firstname: firstname, lastname: lastname, adress: adress, city: city, country: country, username: username, phoneNumber: phoneNumber }
     });
     dialogRef.afterClosed().subscribe(result => {
-        
+
     });
 
   }
@@ -48,11 +38,24 @@ export class ProfilAdminaKlinikeComponent implements OnInit {
   public openPasswordnDialog(id: number) {
 
     const dialogRef = this.dialog.open(AkEditPasswordDialogComponent, {
-        data: {id:id}
+      data: { id: id }
     });
     dialogRef.afterClosed().subscribe(result => {
-        
+
     });
 
+  }
+
+  public dobaviUlogovanogAdminaKLinike() {
+    this.adminKlinikeService.getAdminaIzBaze().subscribe(
+      data => {
+        if (data != null) {
+          this.admin = data;
+          this.user = this.admin.user;
+        } else {
+          alert('Niste uneli odgovarajuce parametre!');
+        }
+      }
+    );
   }
 }

@@ -17,31 +17,35 @@ import { User } from 'src/app/models/user.model';
 export class LekariComponent implements OnInit {
   idAdmina: number;
   klinika: Klinika;
-  search:string;
+  search: string;
   user: User = new User();
-  lekariFullList: Lekar[] = [{ radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, firstname: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", username: "" }, opis: "", slika: "", specijalizacija: "" }]
-  lekariSearchedList:Lekar[] = [{ radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "" }, user: { id: 0, firstname: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", username: "" }, opis: "", slika: "", specijalizacija: "" }]
-  
+  lekariFullList: Lekar[] = [{ firstLogin: false, radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "", ocenaklinike: 0 }, user: { id: 0, username: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", firstname: "" }, opis: "", specijalizacija: "", prosecnaocena: 0 }]
+  lekariSearchedList: Lekar[] = [{ firstLogin: false, radnovreme: "", klinika: { id: 0, naziv: "", adresa: "", opis: "", ocenaklinike: 0 }, user: { id: 0, username: "", lastname: "", adress: "", city: "", country: "", phoneNumber: "", uloga: "", password: "", firstname: "" }, opis: "", specijalizacija: "", prosecnaocena: 0 }]
+
   constructor(private route: ActivatedRoute, private lekarService: LekarService, public dialog: MatDialog,
     private adminKlinikeService: AdminKlinikeService, public userService: RegisterServiceService) {
+    this.dobaviUlogovanogAdminaKLinike();
     this.lekarService.getLekari().subscribe(
       data => {
         this.lekariFullList = data;
         this.lekariSearchedList = data;
-        this.route.parent.params.subscribe(
-          (params) => {
-            this.idAdmina = params.ida;
-            this.adminKlinikeService.getKlinikaByAdminId(this.idAdmina).subscribe(
-              data => {
-                this.klinika = data;
-              }
-            );
-          });
       }
     );
   }
 
   ngOnInit() {
+  }
+
+  public dobaviUlogovanogAdminaKLinike() {
+    this.adminKlinikeService.getAdminaIzBaze().subscribe(
+      data => {
+        if (data != null) {
+          this.klinika = data.klinika;
+        } else {
+          alert('Niste uneli odgovarajuce parametre!');
+        }
+      }
+    );
   }
 
   Search() {
@@ -64,7 +68,7 @@ export class LekariComponent implements OnInit {
     }
     )
   };
-  
+
   private openDeleteDialog(lekar: Lekar) {
     const flag: number = 1;
     const dialogRef = this.dialog.open(LekariDialogComponent, {

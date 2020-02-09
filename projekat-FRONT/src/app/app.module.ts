@@ -14,7 +14,6 @@ import { RegisterServiceService } from './services/register-service.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularMaterialModule } from './angular-material.module';
-
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -58,7 +57,19 @@ import { AkEditProfilDialogComponent } from './components/admin-klinike/componen
 import { AkEditPasswordDialogComponent } from './components/admin-klinike/components/profil-admina-klinike/dialog/ak-edit-password-dialog/ak-edit-password-dialog.component';
 import { LekariDialogComponent } from './components/admin-klinike/components/lekari/lekari-dialog/lekari-dialog.component';
 import { SaleDialogComponent } from './components/admin-klinike/components/lista-sala/sale-dialog/sale-dialog.component';
+import { TipoviPregledaDialogComponent } from './components/admin-klinike/components/tipovi-pregleda/tipovi-pregleda-dialog/tipovi-pregleda-dialog.component';
+import { ProfilDialogComponent } from './components/lekar/components/profil/profil-dialog/profil-dialog.component';
 import { ActivacionPageComponent } from './activacion-page/activacion-page.component';
+import { AdminKlinikeGuard } from './guards/adminKlinike.guard';
+import { LekarGuard } from './guards/lekar.guard';
+import { SlobodniTerminiDialogComponent } from './components/admin-klinike/components/slobodni-termini-pregleda/slobodni-termini-dialog/slobodni-termini-dialog.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { LekarRatingComponent } from './components/pacijent-home-page/lista-pregleda/lekar-rating/lekar-rating.component';
+import { EditLozinkaComponent } from './components/pacijent-home-page/podaci-pacijenta/edit-lozinka/edit-lozinka.component';
+import { ZahteviZakazivanjaDialogComponent } from './components/admin-klinike/components/zahtevi-zakazivanja-pregleda/zahtevi-zakazivanja-dialog/zahtevi-zakazivanja-dialog.component';
+import { KlinikaRatingComponent } from './components/pacijent-home-page/lista-pregleda/klinika-rating/klinika-rating.component';
+import { OdbijZahtevDialogComponent } from './components/admin-klinickog-centra-home-page/odbij-zahtev-dialog/odbij-zahtev-dialog.component';
+import { OceneLekariKlinikeComponent } from './components/pacijent-home-page/ocene-lekari-klinike/ocene-lekari-klinike.component';
 
 @NgModule({
   declarations: [
@@ -101,8 +112,17 @@ import { ActivacionPageComponent } from './activacion-page/activacion-page.compo
     AkEditPasswordDialogComponent,
     LekariDialogComponent,
     SaleDialogComponent,
+    TipoviPregledaDialogComponent,
+    ProfilDialogComponent,
     ForbiddenComponent,
-    ActivacionPageComponent
+    ActivacionPageComponent,
+    SlobodniTerminiDialogComponent,
+    LekarRatingComponent,
+    EditLozinkaComponent,
+    ZahteviZakazivanjaDialogComponent,
+    KlinikaRatingComponent,
+    OdbijZahtevDialogComponent,
+    OceneLekariKlinikeComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,9 +132,11 @@ import { ActivacionPageComponent } from './activacion-page/activacion-page.compo
     AngularMaterialModule,
     FlexLayoutModule, 
     FormsModule, 
-    ReactiveFormsModule 
+    ReactiveFormsModule, 
+    NgxMaterialTimepickerModule,
   ],
-  entryComponents: [SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent],
+  entryComponents: [ZahteviZakazivanjaDialogComponent,SlobodniTerminiDialogComponent, ProfilDialogComponent, TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent, EditLozinkaComponent, OdbijZahtevDialogComponent],
+
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
@@ -129,7 +151,9 @@ import { ActivacionPageComponent } from './activacion-page/activacion-page.compo
   PutanjaService,
   AuthService,
   ApiService,
-  PacijentGuard
+  PacijentGuard,
+  AdminKlinikeGuard,
+  LekarGuard
 ],
   bootstrap: [AppComponent]
 })

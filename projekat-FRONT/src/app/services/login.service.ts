@@ -10,6 +10,7 @@ import { filter, map, catchError} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class LoginService {
+
   //user: User;   //Korisceno kod logovanja kao pacijent, da se zapamti koji korisnik je logovan
                     //Stanje podeseno u login.component.ts
 
@@ -21,8 +22,16 @@ export class LoginService {
     return this.get(this.putanjaService.userInfo)
     .pipe(map(user =>{
         this.loggedInUser = user;
+        this.saveAuthoritiesInStorage(user.authorities);
         return user;
     }))
+  }
+
+  saveAuthoritiesInStorage(authorities: string[]){
+    window.sessionStorage.setItem('Authorities', JSON.stringify(authorities));
+  }
+  getTokenAuthorities(){
+    return window.sessionStorage.getItem('Authorities');
   }
 
   get(path: string, args?: any): Observable<any> {

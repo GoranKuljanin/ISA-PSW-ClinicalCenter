@@ -1,5 +1,7 @@
 package com.klinickiCentar.klinika.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,11 +37,14 @@ public class Pacijent {
 	@JoinColumn(name = "zdravstveni_karton_id")
 	private ZdravstveniKarton zdravstveniKarton;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "pacijent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Pregled> zakazaniPregledi = new HashSet<Pregled>();
 	
-	@OneToMany(mappedBy = "pacijent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<ZahtevZaZakazivanje> zahteviZaZakazivanje = new HashSet<ZahtevZaZakazivanje>();
+	/*@JsonIgnore
+	@OneToMany(mappedBy = "pacijent")
+	private Collection<ZahtevZaZakazivanje> zahteviZakazivanja = new ArrayList<ZahtevZaZakazivanje>();*/
+
 	
 	public Pacijent() {
 		super();
@@ -78,12 +83,21 @@ public class Pacijent {
 		this.zakazaniPregledi = zakazaniPregledi;
 	}
 	
-	@JsonIgnore
-	public Set<ZahtevZaZakazivanje> getZahteviZaZakazivanje() {
-		return zahteviZaZakazivanje;
+	/*@JsonIgnore
+	public Collection<ZahtevZaZakazivanje> getZakazivanje() {
+		return zahteviZakazivanja;
 	}
 
-	public void setZahteviZaZakazivanje(Set<ZahtevZaZakazivanje> zahteviZaZakazivanje) {
-		this.zahteviZaZakazivanje = zahteviZaZakazivanje;
+	public void addZakazivanje(ZahtevZaZakazivanje zahtevZakazivanja) {
+		if (this.zahteviZakazivanja.contains(zahtevZakazivanja))
+		      return ;
+		zahteviZakazivanja.add(zahtevZakazivanja);
+		zahtevZakazivanja.setPacijent(this);
 	}
+	public void removeZakazivanje(ZahtevZaZakazivanje zahtevZakazivanja) {
+	    if (!zahteviZakazivanja.contains(zahtevZakazivanja))
+	      return ;
+	    zahteviZakazivanja.remove(zahtevZakazivanja);
+	    zahtevZakazivanja.setPacijent(null);
+	  }*/
 }

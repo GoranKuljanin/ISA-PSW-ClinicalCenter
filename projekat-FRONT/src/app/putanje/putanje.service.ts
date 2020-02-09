@@ -14,6 +14,16 @@ export class PutanjaService {
         return this._application_pacijent_url;
     }
 
+    private _azurirajPacijenta_url = this._application_pacijent_url + '/updatePacijent';
+
+    get azurirajPacijenta(): string{
+        return this._azurirajPacijenta_url;
+    }
+    private _azurirajSifraPacijent_url = this._application_pacijent_url + '/updateSifraPacijent';
+    get azurirajSifraPacijent(): string{
+        return this._azurirajSifraPacijent_url;
+    }
+
     private _login_url = this._authentication_url + '/login';
 
     get login_url(): string {
@@ -30,6 +40,15 @@ export class PutanjaService {
 
     get pacijentInfo(): string{
         return this._pacijent_info_url;
+    }
+
+    private _pacijent_ocena_url = this._application_pacijent_url + '/unesiOcenuLekara/';
+    get oceniPacijenta(): string{
+        return this._pacijent_ocena_url;
+    }
+    private _klinika_ocena_url = this._application_pacijent_url + '/unesiOcenuKlinike/';
+    get oceniKliniku(): string{
+        return this._klinika_ocena_url;
     }
 
     private _zakazani_pregledi = this._application_pregledi_url + '/zakazaniPregledi'

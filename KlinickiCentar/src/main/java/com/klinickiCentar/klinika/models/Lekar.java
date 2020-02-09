@@ -1,5 +1,7 @@
 package com.klinickiCentar.klinika.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,9 +36,6 @@ public class Lekar {
 	@Column(name = "opis")
 	private String opis;
 	
-	@Column(name = "slika")
-	private String slika;
-	
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -45,16 +44,18 @@ public class Lekar {
 	@JoinColumn(name="klinika_id")
 	private Klinika klinika;*/
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "klinika_id")
 	private Klinika klinika;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "lekar", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<ZahtevZaZakazivanje> zahteviZaZakazivanje = new HashSet<ZahtevZaZakazivanje>();
-	
 	@Column(name = "radnovreme")
 	private String radnovreme;
+	
+	@Column(columnDefinition = "boolean default true")
+    private Boolean firstLogin;
+	
+	@Column(name = "prosecnaocena")
+	private int prosecnaocena;
 	
 
 	public Lekar() {
@@ -93,14 +94,6 @@ public class Lekar {
 	public void setOpis(String opis) {
 		this.opis = opis;
 	}
-
-	public String getSlika() {
-		return slika;
-	}
-
-	public void setSlika(String slika) {
-		this.slika = slika;
-	}
 	
 	public String getRadnovreme() {
 		return radnovreme;
@@ -132,13 +125,54 @@ public class Lekar {
 	    return this.klinika==null? klinika == null : this.klinika.equals(klinika);
 	  }
 	
-	@JsonIgnore
-	public Set<ZahtevZaZakazivanje> getZahteviZaZakazivanje() {
-		return zahteviZaZakazivanje;
+	public Boolean getFirstLogin() {
+		return firstLogin;
 	}
 
-	public void setZahteviZaZakazivanje(Set<ZahtevZaZakazivanje> zahteviZaZakazivanje) {
-		this.zahteviZaZakazivanje = zahteviZaZakazivanje;
+	public void setFirstLogin(Boolean firstLogin) {
+		this.firstLogin = firstLogin;
 	}
+
+	public int getProsecnaocena() {
+		return prosecnaocena;
+	}
+
+	public void setProsecnaocena(int prosecnaocena) {
+		this.prosecnaocena = prosecnaocena;
+	}
+	/*@JsonIgnore
+	public Collection<ZahtevZaZakazivanje> getZahteviZaZakazivanje() {
+		return zahteviZakazivanja;
+	}
+
+	public void addZahteviZaZakazivanje(ZahtevZaZakazivanje zahtevZakazivanja) {
+		if (this.zahteviZakazivanja.contains(zahtevZakazivanja))
+		      return ;
+		zahteviZakazivanja.add(zahtevZakazivanja);
+		zahtevZakazivanja.setLekar(this);
+	}
+	public void removeZahteviZaZakazivanje(ZahtevZaZakazivanje zahtevZakazivanja) {
+	    if (!zahteviZakazivanja.contains(zahtevZakazivanja))
+	      return ;
+	    zahteviZakazivanja.remove(zahtevZakazivanja);
+	    zahtevZakazivanja.setLekar(null);
+	}*/
+	
+//	public Collection<ZahtevZaZakazivanje> getZakazivanje() {
+//		return zahteviZakazivanja;
+//	}
+
+//	public void addZakazivanje(ZahtevZaZakazivanje zahtevZakazivanja) {
+//		if (this.zahteviZakazivanja.contains(zahtevZakazivanja))
+//		      return ;
+//		zahteviZakazivanja.add(zahtevZakazivanja);
+//		zahtevZakazivanja.setLekar(this);
+//	}
+//	public void removeZakazivanje(ZahtevZaZakazivanje zahtevZakazivanja) {
+//	    if (!zahteviZakazivanja.contains(zahtevZakazivanja))
+//	      return ;
+//	    zahteviZakazivanja.remove(zahtevZakazivanja);
+//	    zahtevZakazivanja.setLekar(null);
+//	}
 	
 }

@@ -3,9 +3,12 @@ package com.klinickiCentar.klinika.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.klinickiCentar.klinika.models.Authority;
 import com.klinickiCentar.klinika.models.Klinika;
 import com.klinickiCentar.klinika.models.Lekar;
 import com.klinickiCentar.klinika.models.User;
@@ -21,6 +24,12 @@ public class LekarService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private AuthorityService authService;
+	
 	public List<Lekar> getLekari() {
 		return lekarRepository.findAll();
 	}
@@ -30,6 +39,10 @@ public class LekarService {
 	}
 	
 	public void addLekar(Lekar lekar) {
+		lekarRepository.save(lekar);
+	}
+	
+	public void updateLekar(Lekar lekar) {
 		lekarRepository.save(lekar);
 	}
 	
@@ -46,5 +59,19 @@ public class LekarService {
 		} catch(Exception e) {
 			return null;
 		}
+	}
+	
+	public void updateUseraAdminaKlinike(User u) {
+		User stari = userRepository.getOne(u.getId());
+		stari.setAdress(u.getAdress());
+		stari.setCity(u.getCity());
+		stari.setCountry(u.getCountry());
+		stari.setPhoneNumber(u.getPhoneNumber());
+		stari.setFirstname(u.getFirstname());
+		stari.setLastname(u.getLastname());
+		if(!passwordEncoder.matches(u.getPassword(), stari.getPassword())) {
+			stari.setPassword(passwordEncoder.encode(u.getPassword()));
+		}										
+		userRepository.save(stari);
 	}
 }

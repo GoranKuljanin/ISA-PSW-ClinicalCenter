@@ -1,5 +1,6 @@
 package com.klinickiCentar.klinika.controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -53,5 +54,18 @@ public class TipPregledaController {
 	public ResponseEntity<TipPregleda> deleteTipPregleda(@PathVariable ("id") Long id) {
 		tipPregledaService.deleteTipPregleda(id);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/getTipoviPregledaByIdKlinike/{id}")
+	@CrossOrigin
+	public ResponseEntity<Collection<TipPregleda>> getTipoviPregledaByIdKlinike(@PathVariable ("id") Long id){
+		Collection<TipPregleda> tipoviPregleda = tipPregledaService.getTipoviPregleda();
+		Collection<TipPregleda> tipoviPregledaKlinike= new ArrayList<>();
+		for(TipPregleda t : tipoviPregleda) {
+			if(t.getKlinika().getId() == id) {
+				tipoviPregledaKlinike.add(t);
+			}
+		}
+		return new ResponseEntity<Collection<TipPregleda>>(tipoviPregledaKlinike,HttpStatus.OK);
 	}
 }

@@ -1,5 +1,6 @@
 package com.klinickiCentar.klinika.controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -53,5 +54,18 @@ public class SalaController {
 	public ResponseEntity<Sala> getLekari(@PathVariable ("id") Long id) {
 		salaService.deleteSala(id);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/getSaleByIdKlinike/{id}")
+	@CrossOrigin
+	public ResponseEntity<List<Sala>> getLekariByIdKlinike(@PathVariable ("id") Long id){
+		List<Sala> sale = salaService.getSale();
+		List<Sala> saleKlinike= new ArrayList<>();
+		for(Sala s : sale) {
+			if(s.getKlinika().getId() == id) {
+				saleKlinike.add(s);
+			}
+		}
+		return new ResponseEntity<List<Sala>>(saleKlinike,HttpStatus.OK);
 	}
 }
