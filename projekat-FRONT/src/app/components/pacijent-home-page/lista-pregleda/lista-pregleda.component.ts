@@ -17,6 +17,7 @@ import { MatSnackBar } from '@angular/material';
 export class ListaPregledaComponent implements OnInit {
 
   displayedColumns: string[] = ['termin', 'firstname', 'lastname', 'specijalizacija', 'prosecnaocena', 'klinika'];
+
   search: string;
   sortedData = new MatTableDataSource<Pregled>();
 
@@ -50,7 +51,13 @@ export class ListaPregledaComponent implements OnInit {
             this.snackBar.open('Hvala Vam sto doprinosite unapredjenju nase usluge ocenjivanjem naseg lekara!', 'U redu', { duration: 15000 });
           }
         );
+
       }
+
+      
+  
+
+
   }
   ratingComponentClickKlinike(clickObj: any): void{
     const klinika = this.lekariOcenePregled.find(((i: any) => i.lekar.klinika.id === clickObj.klinikaId));
@@ -88,8 +95,6 @@ export class ListaPregledaComponent implements OnInit {
     });
     }
 
-
-  
 
     Search(){
       if(this.search == ""){
