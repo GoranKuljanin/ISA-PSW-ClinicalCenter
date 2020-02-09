@@ -74,7 +74,7 @@ public class PreglediController {
 
 	
 	@GetMapping("/getAllPregledi")
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<Pregled>> getAllPregledi(){
 		List<Pregled> pregledi = preglediService.getAllPregledi();
 		

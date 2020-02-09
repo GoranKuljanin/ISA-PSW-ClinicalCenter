@@ -22,6 +22,7 @@ export class ListaPregledaComponent implements OnInit {
 
   lekariOcenePregled: Pregled[] = [];
   imaKarton = false;
+
   constructor(private http: HttpClient, private putanja: PutanjaService, public snackBar: MatSnackBar) {
     this.sortedData.data = this.lekariOcenePregled.slice();
    }
@@ -35,6 +36,7 @@ export class ListaPregledaComponent implements OnInit {
         this.imaKarton = true;
       }
     );    
+
   }
   getPregledi(): Observable<Pregled[]>{
     return this.http.get<Pregled[]>('http://localhost:8088/pregledi/istorijaPregleda');
@@ -81,6 +83,52 @@ export class ListaPregledaComponent implements OnInit {
         case 'prezime': return compare(a.lekar.user.lastname, b.lekar.user.firstname, isAsc);
         case 'specijalizacija': return compare(a.lekar.specijalizacija, b.lekar.specijalizacija, isAsc);
         case 'prosecnaocena': return compare(a.lekar.prosecnaocena, b.lekar.prosecnaocena, isAsc);
+        default: return 0;
+      }
+    });
+    }
+
+  ratingComponentClick(clickObj: any):void{
+      const lekar = this.lekariOcenePregled.find(((i: any) => i.lekar.id === clickObj.lekarId));
+      if( lekar) {
+        this.postZahtev(lekar.id, clickObj.ocena, this.putanja.oceniPacijenta).subscribe(
+          data => {
+            this.snackBar.open('Hvala Vam sto doprinosite unapredjenju nase usluge ocenjivanjem naseg lekara!', 'U redu', { duration: 15000 });
+          }
+        );
+      }
+  }
+  ratingComponentClickKlinike(clickObj: any): void{
+    const klinika = this.lekariOcenePregled.find(((i: any) => i.lekar.klinika.id === clickObj.klinikaId));
+    if(klinika){
+      this.postZahtev(klinika.id, clickObj.ocenaKlinika, this.putanja.oceniKliniku).subscribe(
+        data => {
+          this.snackBar.open('Hvala Vam sto doprinosite unapredjenju nase usluge ocenjivanjem nase klinike!', 'U redu', { duration: 15000 });
+        }
+      );
+    }
+  }
+
+  postZahtev(id: number, novaOcena: number, putanja: string){
+     let header = new HttpHeaders();
+     header.append('Content-Type', 'application/json');
+      return this.http.post(putanja + id, novaOcena, {headers: header} );
+  }
+
+  sortData(sort: MatSort){
+    const data = this.lekariOcenePregled.slice();
+    if( !sort.active || sort.direction === ''){
+      this.sortedData.data = data;
+      return;
+    }
+    this.sortedData.data = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch(sort.active){
+        //case 'Datum': return compare(a.datum, b.datum, isAsc);
+        case 'Ime': return compare(a.lekar.user.firstname, b.lekar.user.firstname, isAsc);
+        case 'Prezime': return compare(a.lekar.user.lastname, b.lekar.user.firstname, isAsc);
+        case 'Specijalizacija': return compare(a.lekar.specijalizacija, b.lekar.specijalizacija, isAsc);
+        case 'Prosecna Ocena': return compare(a.lekar.prosecnaocena, b.lekar.prosecnaocena, isAsc);
         default: return 0;
       }
     });

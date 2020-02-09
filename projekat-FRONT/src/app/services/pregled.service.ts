@@ -34,6 +34,7 @@ export class PregledService {
     let header = new HttpHeaders();
     header.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:8088/pregledi/zakaziPregled', idd, {headers: header});
+
   }
 
   public odjaviPregled(id: number){

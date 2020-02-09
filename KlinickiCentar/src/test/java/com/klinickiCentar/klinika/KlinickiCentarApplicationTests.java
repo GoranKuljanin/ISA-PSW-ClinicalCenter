@@ -82,7 +82,7 @@ class KlinickiCentarApplicationTests {
 	@Test
 	public void sacuvaj() throws Exception{
 		User u = new User();
-		u.setFirstname("Goran");;
+		u.setFirstname("Goran");
 		u.setPassword("123");
 		u.setLastname("Kuljanin");
 		u.setUsername("goku@gmail.com");;

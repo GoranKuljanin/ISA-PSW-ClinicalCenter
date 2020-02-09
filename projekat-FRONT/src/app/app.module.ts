@@ -137,6 +137,7 @@ import { OceneLekariKlinikeComponent } from './components/pacijent-home-page/oce
   ],
   entryComponents: [ZahteviZakazivanjaDialogComponent,SlobodniTerminiDialogComponent, ProfilDialogComponent, TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent, EditLozinkaComponent, OdbijZahtevDialogComponent],
 
+
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
