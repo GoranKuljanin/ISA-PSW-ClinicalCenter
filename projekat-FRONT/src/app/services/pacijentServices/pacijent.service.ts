@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Pacijent,Pregled,ZdravstveniKarton } from 'src/app/models/pacijent';
+import { OcenaLekar } from 'src/app/components/pacijent-home-page/ocene-lekari-klinike/ocene-lekari-klinike.component';
 
 @Injectable({
   providedIn: 'root'
@@ -47,8 +48,12 @@ public getZdravstveniKarton(username: string):Observable<ZdravstveniKarton>{
   return this.http.get<ZdravstveniKarton>(this.putanjaService.zdravstveniKarton,{headers: header});
 }
 
+//Izgleda da se ne koristi nigde
 public getPreglede():Observable<Pregled[]>{
   return this.http.get<Pregled[]>('http://localhost:8088/getAllPregledi');
 }
   
+public oceneLekara(): Observable<OcenaLekar[]>{
+  return this.http.get<OcenaLekar[]>('http://localhost:8088/pacijent/mojeOceneLekari');
+}
 }

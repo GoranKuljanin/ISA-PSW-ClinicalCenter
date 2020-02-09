@@ -24,4 +24,8 @@ public class TipPregledaService {
 	public void deleteTipPregleda(Long id) {
 		tipPregledaRepository.deleteById(id);
 	}
+	
+	public TipPregleda findByNaziv(String naziv){
+		return tipPregledaRepository.findByNaziv(naziv);
+	}
 }

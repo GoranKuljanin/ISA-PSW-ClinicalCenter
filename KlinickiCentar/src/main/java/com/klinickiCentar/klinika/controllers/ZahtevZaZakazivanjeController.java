@@ -1,5 +1,7 @@
 package com.klinickiCentar.klinika.controllers;
 
+import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.klinickiCentar.klinika.models.AdministratorKlinike;
+import com.klinickiCentar.klinika.models.Klinika;
+import com.klinickiCentar.klinika.models.Pregled;
 import com.klinickiCentar.klinika.models.User;
 import com.klinickiCentar.klinika.models.ZahtevZaZakazivanje;
 import com.klinickiCentar.klinika.services.ZahtevZaZakazivanjeService;
@@ -30,17 +35,13 @@ public class ZahtevZaZakazivanjeController {
 		List<ZahtevZaZakazivanje> zahtevi = service.getAll();
 		return ( new ResponseEntity<>(zahtevi, HttpStatus.OK) );
 	}
-	//Create
+
 	@PostMapping("/ZahteviZaZakazivanje")
-	public ResponseEntity<ZahtevZaZakazivanje> noviZahtev(@RequestBody ZahtevZaZakazivanje zahtev){
-		try {
+	@CrossOrigin
+	public ResponseEntity<ZahtevZaZakazivanje> addPregled(@RequestBody ZahtevZaZakazivanje zahtev){
+		System.out.print(zahtev.getDatum()+"CONTRLLER\n\n\n");
 		service.create(zahtev);
-		return new ResponseEntity<>(HttpStatus.OK);
-		} catch(Exception e) {
-			return new ResponseEntity<>(zahtev, HttpStatus.BAD_REQUEST);
-		}
-		
-		
+		return new ResponseEntity<ZahtevZaZakazivanje>(zahtev,HttpStatus.OK);
 	}
 	//Remove
 	@DeleteMapping("/ZahteviZaZakazivanje")

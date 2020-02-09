@@ -1,3 +1,4 @@
+import { PutanjaService } from './../../../putanje/putanje.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -6,6 +7,7 @@ import { Lekar } from 'src/app/models/lekar.model';
 import { Pregled } from './../../../models/pacijent';
 import { PacijentService } from './../../../services/pacijentServices/pacijent.service';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-lista-pregleda',
@@ -14,48 +16,58 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaPregledaComponent implements OnInit {
 
-  displayedColumns: string[] = ['firstname', 'lastname', 'specijalizacija', 'prosecnaocena'];
+  displayedColumns: string[] = ['firstname', 'lastname', 'specijalizacija', 'prosecnaocena', 'klinika'];
   search: string;
-  sortedData = new MatTableDataSource<Lekar>();
+  sortedData = new MatTableDataSource<Pregled>();
 
-  lekariOcene: Lekar[] = [];
+  lekariOcenePregled: Pregled[] = [];
 
-  constructor(private http: HttpClient) {
-    this.sortedData.data = this.lekariOcene.slice();
+  constructor(private http: HttpClient, private putanja: PutanjaService, public snackBar: MatSnackBar) {
+    this.sortedData.data = this.lekariOcenePregled.slice();
    }
 
   ngOnInit() {
-    this.getLekari().subscribe(
+    this.getPregledi().subscribe(
       data => {
-        this.lekariOcene = data;
+        this.lekariOcenePregled = data;
         this.sortedData.data = data;
-        console.log(this.lekariOcene);
+        console.log(this.lekariOcenePregled);
       }
     );    
   }
-  getLekari(): Observable<Lekar[]>{
-    return this.http.get<Lekar[]>('http://localhost:8088/pacijent/oceniLekare');
+  getPregledi(): Observable<Pregled[]>{
+    return this.http.get<Pregled[]>('http://localhost:8088/pregledi/istorijaPregleda');
   }
 
   ratingComponentClick(clickObj: any):void{
-      const lekar = this.lekariOcene.find(((i: any) => i.id === clickObj.lekarId));
+      const lekar = this.lekariOcenePregled.find(((i: any) => i.lekar.id === clickObj.lekarId));
       if( lekar) {
-        this.postZahtev(lekar.id, clickObj.ocena).subscribe(
+        this.postZahtev(lekar.id, clickObj.ocena, this.putanja.oceniPacijenta).subscribe(
           data => {
-            console.log('Uspesno savucana nova ocena!');
+            this.snackBar.open('Hvala Vam sto doprinosite unapredjenju nase usluge ocenjivanjem naseg lekara!', 'U redu', { duration: 15000 });
           }
         );
       }
   }
+  ratingComponentClickKlinike(clickObj: any): void{
+    const klinika = this.lekariOcenePregled.find(((i: any) => i.lekar.klinika.id === clickObj.klinikaId));
+    if(klinika){
+      this.postZahtev(klinika.id, clickObj.ocenaKlinika, this.putanja.oceniKliniku).subscribe(
+        data => {
+          this.snackBar.open('Hvala Vam sto doprinosite unapredjenju nase usluge ocenjivanjem nase klinike!', 'U redu', { duration: 15000 });
+        }
+      );
+    }
+  }
 
-  postZahtev(idLekara: number, novaOcena: number){
+  postZahtev(id: number, novaOcena: number, putanja: string){
      let header = new HttpHeaders();
      header.append('Content-Type', 'application/json');
-      return this.http.post('http://localhost:8088/pacijent/unesiOcenuLekara/' + idLekara,novaOcena, {headers: header} );
+      return this.http.post(putanja + id, novaOcena, {headers: header} );
   }
 
   sortData(sort: MatSort){
-    const data = this.lekariOcene.slice();
+    const data = this.lekariOcenePregled.slice();
     if( !sort.active || sort.direction === ''){
       this.sortedData.data = data;
       return;
@@ -64,10 +76,10 @@ export class ListaPregledaComponent implements OnInit {
       const isAsc = sort.direction === 'asc';
       switch(sort.active){
         //case 'Datum': return compare(a.datum, b.datum, isAsc);
-        case 'Ime': return compare(a.user.firstname, b.user.firstname, isAsc);
-        case 'Prezime': return compare(a.user.lastname, b.user.firstname, isAsc);
-        case 'Specijalizacija': return compare(a.specijalizacija, b.specijalizacija, isAsc);
-        case 'Prosecna Ocena': return compare(a.prosecnaocena, b.prosecnaocena, isAsc);
+        case 'Ime': return compare(a.lekar.user.firstname, b.lekar.user.firstname, isAsc);
+        case 'Prezime': return compare(a.lekar.user.lastname, b.lekar.user.firstname, isAsc);
+        case 'Specijalizacija': return compare(a.lekar.specijalizacija, b.lekar.specijalizacija, isAsc);
+        case 'Prosecna Ocena': return compare(a.lekar.prosecnaocena, b.lekar.prosecnaocena, isAsc);
         default: return 0;
       }
     });
@@ -75,14 +87,14 @@ export class ListaPregledaComponent implements OnInit {
 
     Search(){
       if(this.search == ""){
-        this.sortedData.data = this.lekariOcene;
+        this.sortedData.data = this.lekariOcenePregled;
       }else{
-          this.sortedData.data = this.lekariOcene.filter(
+          this.sortedData.data = this.lekariOcenePregled.filter(
             res => {
-              return res.user.firstname.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) ||
-                res.user.lastname.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) ||
-                res.specijalizacija.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) ||
-                res.prosecnaocena.toString().match(this.search.toLocaleLowerCase());
+              return res.lekar.user.firstname.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) ||
+                res.lekar.user.lastname.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) ||
+                res.lekar.specijalizacija.toLocaleLowerCase().match(this.search.toLocaleLowerCase()) ||
+                res.lekar.prosecnaocena.toString().match(this.search.toLocaleLowerCase());
             }
           );
       }

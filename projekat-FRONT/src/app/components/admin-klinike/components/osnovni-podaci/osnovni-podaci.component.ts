@@ -11,7 +11,7 @@ import { OsnovniPodaciDialogComponent } from './osnovni-podaci-dialog/osnovni-po
   styleUrls: ['./osnovni-podaci.component.css']
 })
 export class OsnovniPodaciComponent implements OnInit {
-  klinika: Klinika = { id: 0, naziv: "", opis: "", adresa: "" }
+  klinika: Klinika = { id: 0, naziv: "", opis: "", adresa: "", ocenaklinike: 0 }
   idAdmina: number
   constructor(private route: ActivatedRoute, private adminKlinikeService: AdminKlinikeService, public dialog: MatDialog) {
     this.dobaviUlogovanogLekara();

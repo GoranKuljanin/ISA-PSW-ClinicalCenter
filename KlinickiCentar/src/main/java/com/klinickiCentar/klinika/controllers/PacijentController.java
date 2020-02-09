@@ -17,11 +17,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.klinickiCentar.klinika.models.Klinika;
 import com.klinickiCentar.klinika.models.Lekar;
+import com.klinickiCentar.klinika.models.OcenaKlinika;
 import com.klinickiCentar.klinika.models.OcenaLekar;
 import com.klinickiCentar.klinika.models.Pacijent;
 import com.klinickiCentar.klinika.models.User;
+import com.klinickiCentar.klinika.services.KlinikaService;
 import com.klinickiCentar.klinika.services.LekarService;
+import com.klinickiCentar.klinika.services.OcenaKlinikaService;
 import com.klinickiCentar.klinika.services.OcenaLekarService;
 import com.klinickiCentar.klinika.services.PacijentService;
 import com.klinickiCentar.klinika.services.UserService;
@@ -42,6 +46,12 @@ public class PacijentController {
 	
 	@Autowired
 	private LekarService lekarService;
+	
+	@Autowired
+	private KlinikaService klinikaService;
+	
+	@Autowired
+	private OcenaKlinikaService ocenaKlinikaService;
 	
 	@GetMapping("/getPacijentInfo")
 	@PreAuthorize("hasRole('ROLE_PACIJENT')")
@@ -166,20 +176,75 @@ public class PacijentController {
 		return new ResponseEntity<Lekar>(l, HttpStatus.OK);
 		
 	}
+	@PostMapping(value = "/unesiOcenuKlinike/{id}")
+	@PreAuthorize("hasRole('ROLE_PACIJENT')")
+	public ResponseEntity<?> unesiOcenuKlinike(@RequestBody int ocenaKlinike, @PathVariable ("id") Long id, Principal currUser){
+		User user = userService.findByUsername(currUser.getName());
+		Pacijent p = pacijentService.getPacijentByUser(user.getId());
+		//Lekar l = lekarService.getLekar(id);
+		Klinika k = klinikaService.getKlinika(id);
+		
+		List<OcenaKlinika> oceneKlinika = ocenaKlinikaService.findOceneKlinikaByKlinika(k.getId());
+		
+		if(oceneKlinika != null) {
+			for(OcenaKlinika ok : oceneKlinika) {
+				if(ok.getPacijent().getId() == p.getId()) {
+					ok.setOcena(ocenaKlinike);
+					ocenaKlinikaService.saveOcenaKlinika(ok);
+					
+					List<OcenaKlinika> sveOcene = ocenaKlinikaService.findOceneKlinikaByKlinika(k.getId());
+					int prosek = 0;
+					for(OcenaKlinika o : sveOcene) {
+						prosek += o.getOcena();
+					}
+					prosek = (prosek / (sveOcene.size()));
+					k.setOcenaklinike(prosek);
+					klinikaService.updateKlinika(k);
+					
+					return new ResponseEntity<>(HttpStatus.OK);
+				}
+			}
+		}
+		
+		OcenaKlinika ok = new OcenaKlinika();
+		ok.setKlinika(k);
+		ok.setPacijent(p);
+		ok.setOcena(ocenaKlinike);
+		ocenaKlinikaService.saveOcenaKlinika(ok);
+		
+		List<OcenaKlinika> ocene = ocenaKlinikaService.findOceneKlinikaByKlinika(k.getId());
+		int prosek = 0;
+		for(OcenaKlinika o : ocene) {
+			prosek += o.getOcena();
+		}
+		prosek = (prosek / (ocene.size()));
+		k.setOcenaklinike(prosek);
+		klinikaService.updateKlinika(k);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 	
-	//Greska, ovo treba u ADMIN (za zahteve)
-//	@DeleteMapping(value = "/deletePacijent")
-//	public ResponseEntity<Void> deletePacijent(@RequestParam String email){
-//		User u = userService.findUserByEmail(email);
-//		List<Pacijent> pacijenti = pacijentService.dobaviSvePacijente();
-//		
-//		for(Pacijent p : pacijenti) {
-//			if(p.getUser().getEmail().equals(u.getEmail())) {
-//				pacijentService.deletePacijent(p);
-//				return new ResponseEntity<>(HttpStatus.OK);
-//			}
-//		}
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
+	@GetMapping(value = "/mojeOceneLekari")
+	public ResponseEntity<?> mojeOceneLekari(Principal p){
+		User u = userService.findByUsername(p.getName());
+		Pacijent pac = pacijentService.getPacijentByUser(u.getId());
+		List<OcenaLekar> oceneLekara = ocenaLekarService.getAllOcenaLekarForPacijent(pac.getId());
+		
+		if(oceneLekara == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(oceneLekara, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/mojeOceneKlinike")
+	public ResponseEntity<?> mojeOceneKlinike(Principal p){
+		User u = userService.findByUsername(p.getName());
+		Pacijent pac = pacijentService.getPacijentByUser(u.getId());
+		List<OcenaLekar> oceneLekara = ocenaLekarService.getAllOcenaLekarForPacijent(pac.getId());
+		
+		if(oceneLekara == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(oceneLekara, HttpStatus.OK);
+	}
 
 }

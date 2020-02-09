@@ -4,6 +4,8 @@ import { AdminKlinickogCentraService } from './../../../../services/adminKCServi
 import { Component, OnInit } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material';
+import { OdbijZahtevDialogComponent } from '../../odbij-zahtev-dialog/odbij-zahtev-dialog.component';
 
 @Component({
   selector: 'app-lista-registrovanih-zahteva',
@@ -14,7 +16,8 @@ export class ListaRegistrovanihZahtevaComponent implements OnInit {
 
   model: User[] = [];
 
-  constructor(private service: AdminKlinickogCentraService, private http: HttpClient) { }
+  constructor(private service: AdminKlinickogCentraService, private http: HttpClient,
+            public dialog: MatDialog) { }
 
   ngOnInit() {
     let res = this.service.getListaRegistrovanih().subscribe(
@@ -39,17 +42,23 @@ export class ListaRegistrovanihZahtevaComponent implements OnInit {
   }
 
   public onOdbij(models: User) {
-    let params = new HttpParams().set("username", models.username)
-    this.http.delete('http://localhost:8088/obrisiZahtev', { params: params }).subscribe(
-      data => {
-        alert('Zahtev uspesno obrisan!');
-      }
-    );
-    for (let user of this.model) {
-      if (models.username === user.username) {
-        this.model.splice(this.model.indexOf(user), 1);
-        break;
-      }
-    }
+
+    const dialogRef = this.dialog.open(OdbijZahtevDialogComponent, {data: models});
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+
+    // let params = new HttpParams().set("username", models.username)
+    // this.http.delete('http://localhost:8088/obrisiZahtev', { params: params }).subscribe(
+    //   data => {
+    //     alert('Zahtev uspesno obrisan!');
+    //   }
+    // );
+    // for (let user of this.model) {
+    //   if (models.username === user.username) {
+    //     this.model.splice(this.model.indexOf(user), 1);
+    //     break;
+    //   }
+    // }
   }
 }

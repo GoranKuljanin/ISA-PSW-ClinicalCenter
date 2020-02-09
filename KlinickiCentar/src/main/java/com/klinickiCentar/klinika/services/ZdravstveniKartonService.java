@@ -27,6 +27,10 @@ public class ZdravstveniKartonService {
 		return zdravstveniKartonRepository.findByPacijentId(id);
 	}
 	
+	public ZdravstveniKarton save(ZdravstveniKarton s) {
+		return zdravstveniKartonRepository.save(s);
+	}
+	
 	
 	
 	

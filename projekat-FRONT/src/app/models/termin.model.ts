@@ -4,5 +4,4 @@ export class Termin{
     id:number;
     datum:string;
     vreme:string;
-    //klinika: Klinika;
 }

@@ -27,19 +27,20 @@ public class Pregled {
 	@Column(name = "trajanje")
 	private String trajanje;
 	
-	@OneToOne
+	@OneToOne()
 	private Sala sala;
 	
 	@Column(name = "cena")
 	private double cena;
 	
-	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@ManyToOne( cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinColumn(name = "pacijent_id")
 	private Pacijent pacijent;
 	
 	@OneToOne
 	private Lekar lekar;
 	
-	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@ManyToOne( cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "klinika_id")
 	private Klinika klinika;
 	
@@ -114,14 +115,6 @@ public class Pregled {
 	public void setIzvestaj(Izvestaj izvestaj) {
 		this.izvestaj = izvestaj;
 	}
-
-	/*public Termin getTermin() {
-		return termin;
-	}
-
-	public void setTermin(Termin termin) {
-		this.termin = termin;
-	}*/
 	
 	public Termin getTermin() {
 		return termin;
@@ -130,13 +123,10 @@ public class Pregled {
 	public void setTermin(Termin termin) {
 		if (sameAsOldTermin(termin))
 		      return ;
-		    //set new owner
 		Termin oldTermin = this.termin;
 		    this.termin = termin;
-		    //remove from the old owner
 		    if (oldTermin!=null)
 		    	oldTermin.removePregled(this);
-		    //set myself into new owner
 		    if (termin!=null)
 		    	termin.addPregled(this);
 	}
@@ -145,6 +135,7 @@ public class Pregled {
 	    return this.termin==null? termin == null : this.termin.equals(termin);
 	  }
 	
+	@JsonIgnore
 	public Klinika getKlinika() {
 		return klinika;
 	}
@@ -152,13 +143,10 @@ public class Pregled {
 	public void setKlinika(Klinika klinika) {
 		if (sameAsOldKlinika(klinika))
 		      return ;
-		    //set new owner
 		Klinika oldKlinika = this.klinika;
 		    this.klinika = klinika;
-		    //remove from the old owner
 		    if (oldKlinika!=null)
 		    	oldKlinika.removePregled(this);
-		    //set myself into new owner
 		    if (klinika!=null)
 		    	klinika.addPregled(this);
 	}
@@ -174,13 +162,10 @@ public class Pregled {
 	public void setTippregleda(TipPregleda tippregleda) {
 		if (sameAsOldTippregleda(tippregleda))
 		      return ;
-		    //set new owner
 		TipPregleda oldTipPregleda = this.tippregleda;
 		    this.tippregleda = tippregleda;
-		    //remove from the old owner
 		    if (oldTipPregleda!=null)
 		    	oldTipPregleda.removePregled(this);
-		    //set myself into new owner
 		    if (tippregleda!=null)
 		    	tippregleda.addPregled(this);
 	}

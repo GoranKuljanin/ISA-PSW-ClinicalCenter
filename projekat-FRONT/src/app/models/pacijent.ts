@@ -4,10 +4,12 @@ import { Sala } from './Sala.model';
 import { User } from './user.model';
 import { Klinika } from './klinika.model';
 import { TipPregleda } from './tipPregleda.model';
+
 export class Pacijent {
     id:number;
     zdravstveniKarton:ZdravstveniKarton;
     user:User;
+    krvnaGrupa: string;
 }
 
 export class ZdravstveniKarton {

@@ -34,13 +34,7 @@ export class EditLozinkaComponent implements OnInit {
         this.data.password = this.novaLozinka;
         this.service.azurirajSifraPacijenta(this.data).subscribe(
           res =>{
-            console.log(res);
             this.snackBar.open('Uspesno ste promenili Vasu sifru.', 'U redu', { duration: 10000 });
-            // this.auth.login(this.data.username, this.data.password).subscribe(
-            //   data => {
-            //     console.log('Uspesno ste se ponovo ulogovali!');
-            //   }
-            // );
           }
         );
       }

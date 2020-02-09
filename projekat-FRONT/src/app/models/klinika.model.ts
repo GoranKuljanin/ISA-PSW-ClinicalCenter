@@ -3,5 +3,6 @@ export class Klinika {
     naziv:string;
     adresa:string;
     opis:string;
+    ocenaklinike: number;
 }
 

@@ -39,6 +39,11 @@ public class TipPregleda {
 	@JsonIgnore
 	@OneToMany(mappedBy = "tippregleda")
 	private Collection<Pregled> pregledi = new ArrayList<Pregled>();
+	
+	/*@JsonIgnore
+	@OneToMany(mappedBy = "tippregleda")
+	private Collection<ZahtevZaZakazivanje> zahteviZakazivanja = new ArrayList<ZahtevZaZakazivanje>();*/
+
 
 	public TipPregleda() {
 		super();
@@ -106,5 +111,23 @@ public class TipPregleda {
 	    pregledi.remove(pregled);
 	    pregled.setTippregleda(null);
 	  }
+	
+	/*public Collection<ZahtevZaZakazivanje> getZakazivanje() {
+		return zahteviZakazivanja;
+	}
+
+	public void addZakazivanje(ZahtevZaZakazivanje zahtevZakazivanja) {
+		if (this.zahteviZakazivanja.contains(zahtevZakazivanja))
+		      return ;
+		zahteviZakazivanja.add(zahtevZakazivanja);
+		zahtevZakazivanja.setTippregleda(this);
+	}
+	public void removeZakazivanje(ZahtevZaZakazivanje zahtevZakazivanja) {
+	    if (!zahteviZakazivanja.contains(zahtevZakazivanja))
+	      return ;
+	    zahteviZakazivanja.remove(zahtevZakazivanja);
+	    zahtevZakazivanja.setTippregleda(null);
+	  }*/
+
 	
 }
