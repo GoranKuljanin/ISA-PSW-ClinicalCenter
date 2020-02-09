@@ -6,10 +6,10 @@
             <form class="form" #formControl="ngForm">
                 <mat-card-content>
                         <mat-form-field class="full-width">
-                        <input matInput placeholder="Nova Lozinka" [(ngModel)]="novaLozinka" name="Nova Lozinka"  required>
+                        <input matInput placeholder="Nova Lozinka" type="password" [(ngModel)]="novaLozinka" name="Nova Lozinka"  required>
                         </mat-form-field>
                         <mat-form-field class="full-width">
-                            <input matInput placeholder="Potvrdi Lozinku" [(ngModel)]="potvrdjenaLozinka" name="Potvrdi Lozinku"  required>
+                            <input matInput placeholder="Potvrdi Lozinku" type="password" [(ngModel)]="potvrdjenaLozinka" name="Potvrdi Lozinku"  required>
                         </mat-form-field>
                 </mat-card-content>
                 <button mat-button [type]="submit" [mat-dialog-close]="1" (click)="update()" [disabled]="!formControl.valid">Sacuvaj</button>

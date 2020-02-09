@@ -33,22 +33,9 @@ public class ZdravstveniKartonController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/getZdravstveniKartoni")
-	public ResponseEntity<List<ZdravstveniKarton>> getAllZdravstveniKarton(){
-		List<ZdravstveniKarton> kartoni = zdravstveniKartonService.getAllZdravstveniKarton();
-		return new ResponseEntity<List<ZdravstveniKarton>>(kartoni, HttpStatus.OK);
-	}
-	
-	//Ovo radi!
-//	@GetMapping("/getZdravstveniKarton/{id}")
-//	public ResponseEntity<List<ZdravstveniKarton>> getPacijentZdravstveniKarton(@PathVariable Long id){
-//		List<ZdravstveniKarton> kartoni = zdravstveniKartonService.getPacijentZdravstveniKarton(id);
-//		return new ResponseEntity<List<ZdravstveniKarton>>(kartoni, HttpStatus.OK);
-//	}
-	
-//	@GetMapping("/getZdravstveniKartonPacijenta")
-//	public ResponseEntity<List<ZdravstveniKarton>> getPacijentZdravstveniKarton(@PathVariable Long id){
-//		List<ZdravstveniKarton> kartoni = zdravstveniKartonService.getPacijentZdravstveniKarton(id);
+//	@GetMapping("/getZdravstveniKartoni")
+//	public ResponseEntity<List<ZdravstveniKarton>> getAllZdravstveniKarton(){
+//		List<ZdravstveniKarton> kartoni = zdravstveniKartonService.getAllZdravstveniKarton();
 //		return new ResponseEntity<List<ZdravstveniKarton>>(kartoni, HttpStatus.OK);
 //	}
 
@@ -58,6 +45,7 @@ public class ZdravstveniKartonController {
 		User u = userService.findByUsername(currUser.getName());
 		Pacijent p = pacijentService.getPacijentByUser(u.getId());
 		ZdravstveniKarton karton = p.getZdravstveniKarton();
+		System.out.println("Doslo je do ovde!\n\n\n");
 		return new ResponseEntity<ZdravstveniKarton>(karton, HttpStatus.OK);
 	}
 	

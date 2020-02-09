@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.klinickiCentar.klinika.models.Authority;
 import com.klinickiCentar.klinika.models.Pacijent;
 import com.klinickiCentar.klinika.models.User;
+import com.klinickiCentar.klinika.models.ZdravstveniKarton;
 import com.klinickiCentar.klinika.services.AuthorityService;
 import com.klinickiCentar.klinika.services.EmailService;
 import com.klinickiCentar.klinika.services.PacijentService;
 import com.klinickiCentar.klinika.services.UserService;
+import com.klinickiCentar.klinika.services.ZdravstveniKartonService;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -37,6 +39,9 @@ public class AdminKlinickogCentraController {
 	@Autowired
 	private EmailService emailService;
 	
+	@Autowired
+	private ZdravstveniKartonService zdrService;
+	
 	@PostMapping("/dodajPacijentaUBazuPacijenata")
 	public ResponseEntity<Pacijent> dodajPacijentaUBazu(@RequestBody User u){
 		
@@ -49,7 +54,19 @@ public class AdminKlinickogCentraController {
 		List<Authority> auth = authService.findByname("ROLE_PACIJENT");
 		user.setAuthorities(auth);
 		
+		ZdravstveniKarton karton = new ZdravstveniKarton();
+		karton.setAlergija("");
+		karton.setDioptrija("");
+		karton.setIzvestaj(null);
+		karton.setKrvnaGrupa("");
+		karton.setTezina("");
+		karton.setVisina("");
+		//karton.setPacijent(succ);
+		zdrService.save(karton);
+		
+		p.setZdravstveniKarton(karton);
 		Pacijent succ = pacijentService.dodajPacijentaUBazu(p);
+		
 		
 		try {
 			emailService.sendNotification(u);
@@ -78,10 +95,17 @@ public class AdminKlinickogCentraController {
 		return new ResponseEntity<List<Pacijent>>(pacijenti, HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value = "/obrisiZahtev")
-	public ResponseEntity<Void> deleteZahtev(@RequestParam String email){
-		User u = userService.findByUsername(email);
+	@DeleteMapping(value = "/odbijZahtev")
+	public ResponseEntity<Void> deleteZahtev(@RequestParam String username, @RequestParam String poruka){
+		User u = userService.findByUsername(username);
 		userService.remove(u);
+		try {
+			emailService.odbijZahtev(poruka, u.getUsername());
+		}catch (Exception e) {
+			System.out.println("Mail servis ne radi");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

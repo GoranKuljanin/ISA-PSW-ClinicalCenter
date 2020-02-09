@@ -16,7 +16,7 @@ export class LekarRatingComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.inputName = this.lekarId + '_ocena';
+    this.inputName = this.lekarId + '_ocena' + Math.random().toString();
   }
 
   onClick(ocena: number): void{

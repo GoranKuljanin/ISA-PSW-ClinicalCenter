@@ -1,6 +1,8 @@
 package com.klinickiCentar.klinika.controllers;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.klinickiCentar.klinika.models.AdministratorKlinike;
 import com.klinickiCentar.klinika.models.Klinika;
 import com.klinickiCentar.klinika.models.Pacijent;
+import com.klinickiCentar.klinika.models.Pregled;
 import com.klinickiCentar.klinika.models.User;
 import com.klinickiCentar.klinika.services.AdminKlinikeService;
 import com.klinickiCentar.klinika.services.KlinikaService;
+import com.klinickiCentar.klinika.services.PreglediService;
 import com.klinickiCentar.klinika.services.UserService;
 
 @RestController
@@ -36,6 +40,9 @@ public class AdminKlinikeController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PreglediService pregledService;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -79,6 +86,18 @@ public class AdminKlinikeController {
 		AdministratorKlinike admin= adminKlinikeService.getAdminaKlinike(id);
 		Klinika klinika=admin.getKlinika();
 		return new ResponseEntity<Klinika>(klinika, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getZahteviZakazivanjaByIdKlinike/{id}")
+	@CrossOrigin
+	public ResponseEntity<Collection<Pregled>> getZahteviZakazivanjaByIdKlinike(@PathVariable ("id") Long id){
+		Collection<Pregled> pregledi = pregledService.getAllPregledi();
+		Collection<Pregled> zahteviZakazivanja = new ArrayList<Pregled>();
+		for(Pregled p:pregledi) {
+			if(p.getSala()==null && p.getKlinika().getId()==id)
+				zahteviZakazivanja.add(p);
+		}
+		return new ResponseEntity<Collection<Pregled>>(zahteviZakazivanja, HttpStatus.OK);
 	}
 	
 	@PutMapping("/adminKlinike")

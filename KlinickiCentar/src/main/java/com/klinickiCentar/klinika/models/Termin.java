@@ -40,6 +40,7 @@ public class Termin {
 	@OneToMany(mappedBy = "termin")
 	private Collection<Pregled> pregledi = new ArrayList<Pregled>();
 	
+	
 
 	public Termin() {
 		super();
@@ -96,6 +97,8 @@ public class Termin {
 	    pregledi.remove(pregled);
 	    pregled.setTermin(null);
 	  }
+	
+	
 	
 	
 }

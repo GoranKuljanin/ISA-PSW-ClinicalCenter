@@ -23,6 +23,12 @@ export class AdminKlinikeService {
   public getSveSale(id:number):Observable<Sala[]>{
     return this.http.get<Sala[]>('http://localhost:8088/klinika/'+id+'/sale');
   }
+  public getZahteviZakazivanjaByIdKlinike(id:number):Observable<Pregled[]>{
+    console.log("Service: " + id);
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'application/json');
+    return this.http.get<Pregled[]>('http://localhost:8088/getZahteviZakazivanjaByIdKlinike/'+id,  {headers: header});
+  }
   public getSveCene(id:number):Observable<Cena[]>{
     return this.http.get<Cena[]>('http://localhost:8088/klinika/'+id+'/cene');
   }

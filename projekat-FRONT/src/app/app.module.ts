@@ -66,6 +66,10 @@ import { SlobodniTerminiDialogComponent } from './components/admin-klinike/compo
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { LekarRatingComponent } from './components/pacijent-home-page/lista-pregleda/lekar-rating/lekar-rating.component';
 import { EditLozinkaComponent } from './components/pacijent-home-page/podaci-pacijenta/edit-lozinka/edit-lozinka.component';
+import { ZahteviZakazivanjaDialogComponent } from './components/admin-klinike/components/zahtevi-zakazivanja-pregleda/zahtevi-zakazivanja-dialog/zahtevi-zakazivanja-dialog.component';
+import { KlinikaRatingComponent } from './components/pacijent-home-page/lista-pregleda/klinika-rating/klinika-rating.component';
+import { OdbijZahtevDialogComponent } from './components/admin-klinickog-centra-home-page/odbij-zahtev-dialog/odbij-zahtev-dialog.component';
+import { OceneLekariKlinikeComponent } from './components/pacijent-home-page/ocene-lekari-klinike/ocene-lekari-klinike.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +119,10 @@ import { EditLozinkaComponent } from './components/pacijent-home-page/podaci-pac
     SlobodniTerminiDialogComponent,
     LekarRatingComponent,
     EditLozinkaComponent,
+    ZahteviZakazivanjaDialogComponent,
+    KlinikaRatingComponent,
+    OdbijZahtevDialogComponent,
+    OceneLekariKlinikeComponent,
   ],
   imports: [
     BrowserModule,
@@ -127,7 +135,7 @@ import { EditLozinkaComponent } from './components/pacijent-home-page/podaci-pac
     ReactiveFormsModule, 
     NgxMaterialTimepickerModule,
   ],
-  entryComponents: [SlobodniTerminiDialogComponent, ProfilDialogComponent, TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent],
+  entryComponents: [ZahteviZakazivanjaDialogComponent,SlobodniTerminiDialogComponent, ProfilDialogComponent, TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent],
 
   providers: [{
     provide: HTTP_INTERCEPTORS,

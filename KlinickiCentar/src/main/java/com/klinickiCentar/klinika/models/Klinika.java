@@ -69,7 +69,10 @@ public class Klinika {
 	
 //	@OneToMany(mappedBy = "pacijent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	private Set<Pregled> listaPregleda = new HashSet<Pregled>();
-
+	
+	@Column(name = "ocenaklinike")
+	private int ocenaklinike;
+	
 	public Klinika() {
 		super();
 	}
@@ -105,18 +108,6 @@ public class Klinika {
 	public void setOpis(String opis) {
 		this.opis = opis;
 	}
-	//Termini--------------------------------
-	
-//	public Termin getTermini() {
-//		return termini;
-//	}
-//
-//	public void setTermini(Termin termini) {
-//		this.termini = termini;
-//	}
-	
-	//Lekari-------------------------------------
-	
 	
 	public Collection<Lekar> getLekari() {
 		return lekari;
@@ -205,4 +196,12 @@ public class Klinika {
 	    pregledi.remove(pregled);
 	    pregled.setKlinika(null);
 	  }
+
+	public int getOcenaklinike() {
+		return ocenaklinike;
+	}
+
+	public void setOcenaklinike(int ocenaklinike) {
+		this.ocenaklinike = ocenaklinike;
+	}
 }

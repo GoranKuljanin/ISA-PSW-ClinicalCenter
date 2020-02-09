@@ -15,7 +15,7 @@ export class CenovnikComponent implements OnInit {
   idAdmina: number
   admin: AdminKlinike
   cene: Cena[]
-  klinika: Klinika = { id: 0, naziv: "", opis: "", adresa: "" }
+  klinika: Klinika = { id: 0, naziv: "", opis: "", adresa: "", ocenaklinike: 0 }
   constructor(private route: ActivatedRoute, private adminKlinikeService: AdminKlinikeService) {
     this.dobaviUlogovanogAdminaKLinike();
   }

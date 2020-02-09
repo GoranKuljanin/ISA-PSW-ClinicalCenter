@@ -1,5 +1,7 @@
 package com.klinickiCentar.klinika.services;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -32,6 +34,16 @@ public class AdminKlinikeService {
 	
 	public List<AdministratorKlinike> getAdminiKlinike() {
 		return adminKlinikeRepository.findAll();
+	}
+	
+	public List<AdministratorKlinike> getAdminiKlinikeByIdKlinike(Long id) {
+		List<AdministratorKlinike> adminiklinike = adminKlinikeRepository.findAll();
+		List<AdministratorKlinike> adminiK = new ArrayList<AdministratorKlinike>();
+		for(AdministratorKlinike a: adminiklinike) {
+			if(a.getKlinika().getId()==id)
+				adminiK.add(a);
+		}
+		return adminiK;
 	}
 	
 	public AdministratorKlinike getAdminaKlinike(Long id) {

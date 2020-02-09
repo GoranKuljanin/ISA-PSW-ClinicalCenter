@@ -31,40 +31,46 @@ export class ZapocniPregledComponent implements OnInit {
   lekar:Lekar= new Lekar();
   user:User = new User();
   idLekar: number
-  constructor(private lekarService: LekarService , private servis: PacijentService, private salaServis: SaleService, private route: ActivatedRoute, public dialog: MatDialog) { }
-
-  ngOnInit() {
-    this.pacijent.zdravstveniKarton = this.zdravstveniKarton;
-    this.pacijent.user = this.user;
-    this.izvestaj.pregled = this.pregled;
-    this.izvestaj.dijagnoza = this.dijagnoza;
-    this.route.parent.params.subscribe(
-      (params) => {
-        this.idLekar = params.idl;
-        this.lekarService.getLekar(this.idLekar).subscribe(
-          data => {
-            this.pregled.lekar = data;
-          }
-        );
-      });
+  constructor(private lekarService: LekarService , private servis: PacijentService, private salaServis: SaleService, private route: ActivatedRoute, public dialog: MatDialog) {
+    this.dobaviUlogovanogLekara();
     let idPacijenta = parseInt(this.route.snapshot.paramMap.get('id'));
     let res = this.servis.getPacijenta(idPacijenta).subscribe(
       data => {
         this.pacijent = data;
+        this.zdravstveniKarton= data.zdravstveniKarton;
       }
     );
     this.salaServis.getSale().subscribe(data=>{
       this.sale=data;
     });
+   }
+
+  ngOnInit() {
+    
   }
 
-  public openDialog() {
+  public dobaviUlogovanogLekara() {
+    this.lekarService.getLekaraIzBaze().subscribe(
+      data => {
+        if (data != null) {
+          this.lekar = data;
+          this.user = data.user;
+        } else {
+          alert('Niste uneli odgovarajuce parametre!');
+        }
+      }
+    );
+  }
+
+  private openAddDialog() {
     const dialogRef = this.dialog.open(ZakaziPregledDialogComponent, {
-      data: {}
+      data: { lekar: this.lekar,pacijent:this.pacijent }
     });
     dialogRef.afterClosed().subscribe(result => {
-    });
-  }
+
+    }
+    )
+  };
 
   private onSubmit(){
     this.izvestaj.pregled = this.pregled;

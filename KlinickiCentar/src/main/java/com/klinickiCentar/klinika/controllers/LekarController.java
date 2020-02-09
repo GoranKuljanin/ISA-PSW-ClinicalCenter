@@ -56,7 +56,11 @@ public class LekarController {
 	public ResponseEntity<List<Pacijent>> getPregledaniPacijentiByLekarId(@PathVariable ("id") Long id) {
 		List<Pregled> sviPregledi = pregledService.getAllPregledi();
 		List<Pacijent> pregledaniPacijenti = new ArrayList<Pacijent>();
-		System.out.print(sviPregledi.size());
+//		System.out.print(sviPregledi.size()+"\n\n\n");
+//		for(Pregled p : sviPregledi) {
+//			if(p.getPacijent()!=null && p.getSala()!=null && p.getLekar().getId()==id)
+//				pregledaniPacijenti.add(p.getPacijent());
+//		}
 		for(int i = 0 ; i<sviPregledi.size();i++){
 			if(sviPregledi.get(i).getLekar().getId() == id) {
 				if(!pregledaniPacijenti.contains(sviPregledi.get(i).getPacijent()) && sviPregledi.get(i).getPacijent()!=null)

@@ -1,3 +1,4 @@
+import { OceneLekariKlinikeComponent } from './components/pacijent-home-page/ocene-lekari-klinike/ocene-lekari-klinike.component';
 import { ActivacionPageComponent } from './activacion-page/activacion-page.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { PacijentGuard } from './guards/pacijent.guard';
@@ -68,6 +69,7 @@ const routes: Routes = [
           { path: 'istorijaPregleda', component: ListaPregledaComponent, canActivate: [PacijentGuard] },
           { path: 'clinics', component: ListaKlinikaComponent, canActivate: [PacijentGuard] },
           { path: 'clinic/:id', component: PrikazKlinikeComponent, canActivate: [PacijentGuard] },
+          { path: 'mojeOcene', component: OceneLekariKlinikeComponent, canActivate: [PacijentGuard]}
         ]
   },
   { path: 'lekarHomePage', component: LekarComponent, canActivate: [LekarGuard] ,

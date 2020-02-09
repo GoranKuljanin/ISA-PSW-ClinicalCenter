@@ -42,6 +42,15 @@ export class PutanjaService {
         return this._pacijent_info_url;
     }
 
+    private _pacijent_ocena_url = this._application_pacijent_url + '/unesiOcenuLekara/';
+    get oceniPacijenta(): string{
+        return this._pacijent_ocena_url;
+    }
+    private _klinika_ocena_url = this._application_pacijent_url + '/unesiOcenuKlinike/';
+    get oceniKliniku(): string{
+        return this._klinika_ocena_url;
+    }
+
     private _zakazani_pregledi = this._application_pregledi_url + '/zakazaniPregledi'
 
     get zakazaniPregledi(): string{
