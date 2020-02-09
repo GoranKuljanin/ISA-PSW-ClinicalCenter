@@ -17,7 +17,8 @@
         </mat-tab>
         <mat-tab #pregledi label="Pregledi">
           <p style="font-size: 18px;">Slobodni Pregledi:</p>
-          <table mat-table [dataSource]="preglediSource" class="mat-elevation-z8">
+          <table mat-table (matSortChange)="sortData($event)" [dataSource]="preglediSource" matSort class="mat-elevation-z8">
+
 
             <ng-container matColumnDef="datum">
               <th mat-header-cell *matHeaderCellDef> Datum </th>

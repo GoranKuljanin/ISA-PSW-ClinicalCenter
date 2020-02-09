@@ -47,6 +47,8 @@ export class PrikazKlinikeComponent implements OnInit {
   sviPregledi: Pregled[] = []; //za datume
   sviTipoviPregleda: TipPregleda[] = [];
 
+  allpregledi: Pregled[] = []
+
   dateClass = (d: Date): MatCalendarCellCssClasses => {
     const day = d.getDay();
     const month = d.getMonth() + 1;
@@ -191,3 +193,7 @@ export class PrikazKlinikeComponent implements OnInit {
       );
   }
 }
+
+function compare(a: number | string, b: number | string, isAsc: boolean){
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
