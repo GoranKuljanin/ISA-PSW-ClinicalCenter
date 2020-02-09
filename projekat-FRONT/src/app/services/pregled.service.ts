@@ -33,8 +33,8 @@ export class PregledService {
   public zakaziPregledZaPacijenta(idd: any, username: string){
     let header = new HttpHeaders();
     header.append('Content-Type', 'application/json');
-    let params = new HttpParams().set('username', username);
-    return this.http.post('http://localhost:8088/pregledi/zakaziPregled', idd, {headers: header, params: params});
+    return this.http.post('http://localhost:8088/pregledi/zakaziPregled', idd, {headers: header});
+
   }
 
   public odjaviPregled(id: number){

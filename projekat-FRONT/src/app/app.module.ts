@@ -135,7 +135,8 @@ import { OceneLekariKlinikeComponent } from './components/pacijent-home-page/oce
     ReactiveFormsModule, 
     NgxMaterialTimepickerModule,
   ],
-  entryComponents: [ZahteviZakazivanjaDialogComponent,SlobodniTerminiDialogComponent, ProfilDialogComponent, TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent],
+  entryComponents: [ZahteviZakazivanjaDialogComponent,SlobodniTerminiDialogComponent, ProfilDialogComponent, TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent, EditLozinkaComponent, OdbijZahtevDialogComponent],
+
 
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -135,9 +135,9 @@ public class PreglediController {
 	
 	@PostMapping("/zakaziPregled")
 	@PreAuthorize("hasRole('ROLE_PACIJENT')")	
-	public ResponseEntity<?> zakaziPregled(@RequestParam String email, @RequestBody Long id){
+	public ResponseEntity<?> zakaziPregled(@RequestBody Long id, Principal pp){
 		
-		User u = userService.findByUsername(email);
+		User u = userService.findByUsername(pp.getName());
 		Pacijent p = pacijentService.getPacijentByUser(u.getId());
 		Pregled preg = preglediService.zakazi(p, id);
 		
