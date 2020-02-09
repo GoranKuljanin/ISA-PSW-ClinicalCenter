@@ -11,14 +11,20 @@ import { Pacijent } from '../models/pacijent';
 export class ZahteviZakazivanjaService {
 
   constructor(private http: HttpClient) { }
-  public getAll():Observable<ZahtevZaZakazivanje[]>{
-    return this.http.get<ZahtevZaZakazivanje[]>('http://localhost:8088/ZahteviZaZakazivanje');
+  public getAll(id:number):Observable<ZahtevZaZakazivanje[]>{
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'application/json');
+    return this.http.get<ZahtevZaZakazivanje[]>('http://localhost:8088/ZahteviZaZakazivanje/'+id,{headers: header});
   }
 
   public create(zahtev: ZahtevZaZakazivanje){
     let header = new HttpHeaders();
     header.append('Content-Type', 'application/json');
-    this.http.post('http://localhost:8088/ZahteviZaZakazivanje', zahtev,{headers: header}).subscribe();
+    this.http.put('http://localhost:8088/ZahteviZaZakazivanje', zahtev,{headers: header}).subscribe();
+  }
+
+  public remove(id: number){
+    this.http.delete('http://localhost:8088/ZahteviZaZakazivanje/'+ id).subscribe();
   }
 
   public getLekar(id:number):Observable<Lekar>{

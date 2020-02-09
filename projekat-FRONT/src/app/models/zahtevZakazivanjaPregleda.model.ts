@@ -6,11 +6,11 @@ import { TipPregleda } from './tipPregleda.model';
 
 export class ZahtevZaZakazivanje {
     id: number;
-    trajanje: string;
-    cena: number;
+    odkada: string;
+    dokada: string;
     //lekar: Lekar;
-    datum:string;
-    vreme:string;
+    opis:string;
+    lekar:Lekar;
     //pacijent: Pacijent;
     //tippregleda: TipPregleda;
 }

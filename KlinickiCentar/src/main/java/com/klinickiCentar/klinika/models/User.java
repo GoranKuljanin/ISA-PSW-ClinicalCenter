@@ -35,7 +35,7 @@ public class User implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "username", nullable = false, unique = true)
+	@Column(name = "username", nullable = false)
 	private String username;								//E-mail
 	
 	@Column(name = "password", nullable = false)
@@ -50,7 +50,7 @@ public class User implements UserDetails {
 	@Column(name = "lastname", nullable = false)
 	private String lastname;
 	
-	@Column(name = "firstname", nullable = false)
+	@Column(name = "firstname", unique = true, nullable = false)
 	private String firstname;
 	
 	@Column(name = "adress", nullable = false)

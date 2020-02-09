@@ -57,6 +57,10 @@ public class Lekar {
 	@Column(name = "prosecnaocena")
 	private int prosecnaocena;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "lekar")
+	private Collection<ZahtevZaZakazivanje> zahteviZakazivanja = new ArrayList<ZahtevZaZakazivanje>();
+	
 
 	public Lekar() {
 		super();
@@ -140,7 +144,7 @@ public class Lekar {
 	public void setProsecnaocena(int prosecnaocena) {
 		this.prosecnaocena = prosecnaocena;
 	}
-	/*@JsonIgnore
+	@JsonIgnore
 	public Collection<ZahtevZaZakazivanje> getZahteviZaZakazivanje() {
 		return zahteviZakazivanja;
 	}
@@ -156,7 +160,7 @@ public class Lekar {
 	      return ;
 	    zahteviZakazivanja.remove(zahtevZakazivanja);
 	    zahtevZakazivanja.setLekar(null);
-	}*/
+	}
 	
 //	public Collection<ZahtevZaZakazivanje> getZakazivanje() {
 //		return zahteviZakazivanja;

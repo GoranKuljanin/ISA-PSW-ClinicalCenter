@@ -35,6 +35,7 @@ import { ProfilAdminaKlinikeComponent } from './components/admin-klinike/compone
 import { ZahteviZakazivanjaPregledaComponent } from './components/admin-klinike/components/zahtevi-zakazivanja-pregleda/zahtevi-zakazivanja-pregleda.component';
 import { AdminKlinikeGuard } from './guards/adminKlinike.guard';
 import { LekarGuard } from './guards/lekar.guard';
+import { ZahteviOdsustvaComponent } from './components/admin-klinike/components/zahtevi-odsustva/zahtevi-odsustva.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -56,6 +57,7 @@ const routes: Routes = [
          { path: 'cenovnik', component: CenovnikComponent , canActivate: [AdminKlinikeGuard]},
          { path: 'tipoviPregleda', component: TipoviPregledaComponent , canActivate: [AdminKlinikeGuard]},
          { path: 'profil', component: ProfilAdminaKlinikeComponent, canActivate: [AdminKlinikeGuard] },
+         { path: 'zahteviOdsustva', component: ZahteviOdsustvaComponent, canActivate: [AdminKlinikeGuard] },
          { path: 'izvestajPoslovanja', component: IzvestajPoslovanjaComponent, canActivate: [AdminKlinikeGuard] }
         ]
   },

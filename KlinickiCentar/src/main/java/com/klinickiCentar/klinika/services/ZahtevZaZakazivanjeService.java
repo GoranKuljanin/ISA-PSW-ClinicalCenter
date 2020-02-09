@@ -21,21 +21,10 @@ public class ZahtevZaZakazivanjeService {
 	}
 	
 	public ZahtevZaZakazivanje create(ZahtevZaZakazivanje zahtev) {
-
-		System.out.print(zahtev.getDatum()+"SERVICE\n\n\n");
-		/*ZahtevZaZakazivanje p = new ZahtevZaZakazivanje();
-		p.setKlinika(zahtev.getKlinika());
-		p.setCena(zahtev.getCena());
-		p.setLekar(zahtev.getLekar());
-		p.setPacijent(zahtev.getPacijent());
-		p.setTrajanje(zahtev.getTrajanje());
-		p.setTippregleda(zahtev.getTippregleda());
-		p.setDatum(zahtev.getDatum());
-		p.setVreme(zahtev.getVreme());
-		return repo.save(zahtev);*/
-		return null;
+		zahtev.setPrihvacen(true);
+		return repo.save(zahtev);
 	}
-	public void remove(ZahtevZaZakazivanje zahtev) {
-		repo.delete(zahtev);
+	public void remove(Long id) {
+		repo.deleteById(id);
 	}
 }

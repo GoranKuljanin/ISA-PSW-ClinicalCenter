@@ -1,0 +1,65 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center margin-top" style="margin-top: 110px;">
+    <mat-card class="paper">
+      <mat-card-header>
+        <mat-card-title style="font-size: 24px;">Zahtevi odsustva</mat-card-title>
+      </mat-card-header>
+      <hr>
+      <mat-card-content>
+        <mat-grid-list cols="13" rowHeight="3:1">
+          <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
+          <!-- Pretrazivanje tipa pregleda -->
+          <mat-grid-tile [colspan]="5" [rowspan]="2">
+          </mat-grid-tile>
+          <!-- Splitter -->
+          <mat-grid-tile [colspan]="6" [rowspan]="1"></mat-grid-tile>
+        </mat-grid-list>
+        <mat-nav-list>
+          <!--HEADER-->
+          <mat-grid-list cols="5" rowHeight="3:1">
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+              <p>Od</p>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+              <p>Do</p>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+              <p>Opis</p>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <p>Lekar</p>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="1" [rowspan]="1">Prihvati/Odbij
+              </mat-grid-tile>
+          </mat-grid-list>
+          <hr>
+          <!--CONTENT-->
+          <mat-grid-list cols="5" rowHeight="3:1" *ngFor="let zahtev of zahtevi">
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+              <p>{{ zahtev.odkada}}</p>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <p>{{ zahtev.dokada}}</p>
+              </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+              <p>{{zahtev.opis}}</p>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <p>{{zahtev.lekar.user.firstname}} {{zahtev.lekar.user.firstname}}</p>
+              </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+              <span class="nav-tool-items">
+                <a mat-button (click)="prihvati(zahtev)">
+                  <i class="material-icons">done</i>
+                </a>
+              </span>
+              <span class="nav-tool-items">
+                <a mat-button (click)="odbij(zahtev.id)">
+                  <i class="material-icons">clear</i>
+                </a>
+              </span>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-nav-list>
+      </mat-card-content>
+    </mat-card>
+  </div>

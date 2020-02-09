@@ -70,6 +70,8 @@ import { ZahteviZakazivanjaDialogComponent } from './components/admin-klinike/co
 import { KlinikaRatingComponent } from './components/pacijent-home-page/lista-pregleda/klinika-rating/klinika-rating.component';
 import { OdbijZahtevDialogComponent } from './components/admin-klinickog-centra-home-page/odbij-zahtev-dialog/odbij-zahtev-dialog.component';
 import { OceneLekariKlinikeComponent } from './components/pacijent-home-page/ocene-lekari-klinike/ocene-lekari-klinike.component';
+import { ChartsModule } from 'ng2-charts';
+import { ZahteviOdsustvaComponent } from './components/admin-klinike/components/zahtevi-odsustva/zahtevi-odsustva.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +125,7 @@ import { OceneLekariKlinikeComponent } from './components/pacijent-home-page/oce
     KlinikaRatingComponent,
     OdbijZahtevDialogComponent,
     OceneLekariKlinikeComponent,
+    ZahteviOdsustvaComponent,
   ],
   imports: [
     BrowserModule,
@@ -134,9 +137,9 @@ import { OceneLekariKlinikeComponent } from './components/pacijent-home-page/oce
     FormsModule, 
     ReactiveFormsModule, 
     NgxMaterialTimepickerModule,
+    ChartsModule
   ],
-  entryComponents: [ZahteviZakazivanjaDialogComponent,SlobodniTerminiDialogComponent, ProfilDialogComponent, TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent, EditLozinkaComponent, OdbijZahtevDialogComponent],
-
+  entryComponents: [ZahteviZakazivanjaDialogComponent,SlobodniTerminiDialogComponent, ProfilDialogComponent, TipoviPregledaDialogComponent, SaleDialogComponent, LekariDialogComponent,EditProfilDialogComponent,OsnovniPodaciDialogComponent,ZakaziPregledDialogComponent,AkEditProfilDialogComponent,AkEditPasswordDialogComponent],
 
   providers: [{
     provide: HTTP_INTERCEPTORS,

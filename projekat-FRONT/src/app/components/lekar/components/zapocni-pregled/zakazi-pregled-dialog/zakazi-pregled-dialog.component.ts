@@ -79,7 +79,7 @@ export class ZakaziPregledDialogComponent implements OnInit {
     let month = this.datum.getMonth() + 1;
     let day = this.datum.getDate();
     let year = this.datum.getFullYear();
-    let dateString = `${month}.${day}.${year}`;
+    let dateString = `${day}.${month}.${year}`;
     console.log(dateString);
     this.termin.datum= dateString;
     this.termin.vreme = this.timeFrom.toString();

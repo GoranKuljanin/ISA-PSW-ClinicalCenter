@@ -1,10 +1,46 @@
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center margin-top" style="margin-top: 110px;">
-    <mat-card class="paper">
-      <mat-card-header>
-            <mat-card-title style="font-size: 24px;">Izvestaj Poslovanja</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-            Kontent
-      </mat-card-content>
-    </mat-card>
+      <mat-card class="paper">
+            <mat-card-header>
+                  <mat-card-title style="font-size: 24px;">Izvestaj Poslovanja</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                  <p style="font-size: 18px;margin-top: 50px;">Prosecna ocena klinike: {{klinika.ocenaklinike}}</p>
+                  <hr>
+                  <p style="font-size: 18px;">Ocene lekara:</p>
+                  <mat-grid-list cols="4" rowHeight="3:1">
+                  <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <p>Lekar</p>
+                  </mat-grid-tile>
+                  <mat-grid-tile [colspan]="1" [rowspan]="1">
+                        <p>Prosecna ocena</p>
+                  </mat-grid-tile>
+                  </mat-grid-list>
+                  <mat-grid-list cols="4" rowHeight="3:1" *ngFor="let lekar of lekari">
+                        <mat-grid-tile [colspan]="1" [rowspan]="1">
+                              <p>{{ lekar.user.firstname }} {{ lekar.user.lastname }}</p>
+                        </mat-grid-tile>
+                        <mat-grid-tile [colspan]="1" [rowspan]="1">
+                              <p >{{lekar.prosecnaocena}}</p>
+                        </mat-grid-tile>
+                  </mat-grid-list>
+                  <hr>
+                  <p style="font-size: 18px;">Grafik:</p>
+                  <div>
+                        <div>
+                          <div style="display: block">
+                            <canvas baseChart
+                              [datasets]="barChartData"
+                              [labels]="barChartLabels"
+                              [options]="barChartOptions"
+                              [plugins]="barChartPlugins"
+                              [legend]="barChartLegend"
+                              [chartType]="barChartType">
+                            </canvas>
+                          </div>
+                        </div>
+                      </div>
+                      <hr>
+                  <p style="font-size: 18px;">Zarada u periodu od (3.2.2020-9.2.2020): {{zarada}}</p>
+            </mat-card-content>
+      </mat-card>
 </div>

@@ -16,13 +16,11 @@ import { MatSnackBar } from '@angular/material';
 })
 export class ListaPregledaComponent implements OnInit {
 
-  displayedColumns: string[] = ['termin', 'firstname', 'lastname', 'specijalizacija', 'prosecnaocena', 'klinika'];
-
+  displayedColumns: string[] = ['firstname', 'lastname', 'specijalizacija', 'prosecnaocena', 'klinika'];
   search: string;
   sortedData = new MatTableDataSource<Pregled>();
 
   lekariOcenePregled: Pregled[] = [];
-  imaKarton = false;
 
   constructor(private http: HttpClient, private putanja: PutanjaService, public snackBar: MatSnackBar) {
     this.sortedData.data = this.lekariOcenePregled.slice();
@@ -34,10 +32,8 @@ export class ListaPregledaComponent implements OnInit {
         this.lekariOcenePregled = data;
         this.sortedData.data = data;
         console.log(this.lekariOcenePregled);
-        this.imaKarton = true;
       }
     );    
-
   }
   getPregledi(): Observable<Pregled[]>{
     return this.http.get<Pregled[]>('http://localhost:8088/pregledi/istorijaPregleda');
@@ -51,13 +47,7 @@ export class ListaPregledaComponent implements OnInit {
             this.snackBar.open('Hvala Vam sto doprinosite unapredjenju nase usluge ocenjivanjem naseg lekara!', 'U redu', { duration: 15000 });
           }
         );
-
       }
-
-      
-  
-
-
   }
   ratingComponentClickKlinike(clickObj: any): void{
     const klinika = this.lekariOcenePregled.find(((i: any) => i.lekar.klinika.id === clickObj.klinikaId));
@@ -86,15 +76,14 @@ export class ListaPregledaComponent implements OnInit {
       const isAsc = sort.direction === 'asc';
       switch(sort.active){
         //case 'Datum': return compare(a.datum, b.datum, isAsc);
-        case 'firstname': return compare(a.lekar.user.firstname, b.lekar.user.firstname, isAsc);
-        case 'lastname': return compare(a.lekar.user.lastname, b.lekar.user.firstname, isAsc);
-        case 'specijalizacija': return compare(a.lekar.specijalizacija, b.lekar.specijalizacija, isAsc);
-        case 'prosecnaocena': return compare(a.lekar.prosecnaocena, b.lekar.prosecnaocena, isAsc);
+        case 'Ime': return compare(a.lekar.user.firstname, b.lekar.user.firstname, isAsc);
+        case 'Prezime': return compare(a.lekar.user.lastname, b.lekar.user.firstname, isAsc);
+        case 'Specijalizacija': return compare(a.lekar.specijalizacija, b.lekar.specijalizacija, isAsc);
+        case 'Prosecna Ocena': return compare(a.lekar.prosecnaocena, b.lekar.prosecnaocena, isAsc);
         default: return 0;
       }
     });
     }
-
 
     Search(){
       if(this.search == ""){

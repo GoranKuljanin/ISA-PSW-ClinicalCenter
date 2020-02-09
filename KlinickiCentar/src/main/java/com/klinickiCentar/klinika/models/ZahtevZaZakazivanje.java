@@ -24,26 +24,26 @@ public class ZahtevZaZakazivanje {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "trajanje")
-	private String trajanje;
+	@Column(name = "odkada")
+	private String odkada;
 	
-	@Column(name = "cena")
-	private double cena;
+	@Column(name = "dokada")
+	private String dokada;
 	
 
-	@Column(name = "datum", nullable = false)
-	private String datum;
+	@Column(name = "opis")
+	private String opis;
 	
-	@Column(name = "vreme", nullable = false)
-	private String vreme;
+	@Column(name = "prihvacen")
+	private boolean prihvacen;
 	
 //	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 //	@JoinColumn(name = "pacijent_id")
 //	private Pacijent pacijent;
 	
-//	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "lekar_id")
-//	private Lekar lekar;
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinColumn(name = "lekar_id")
+	private Lekar lekar;
 	
 	/*@JsonIgnore
 	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
@@ -72,38 +72,40 @@ public class ZahtevZaZakazivanje {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public String getOdkada() {
+		return odkada;
+	}
+
+	public void setOdkada(String odkada) {
+		this.odkada = odkada;
+	}
+
+	public String getDokada() {
+		return dokada;
+	}
+
+	public void setDokada(String dokada) {
+		this.dokada = dokada;
+	}
+
+	public String getOpis() {
+		return opis;
+	}
+
+	public void setOpis(String opis) {
+		this.opis = opis;
+	}
+
+	public boolean isPrihvacen() {
+		return prihvacen;
+	}
+
+	public void setPrihvacen(boolean prihvacen) {
+		this.prihvacen = prihvacen;
+	}
 	
-	public String getDatum() {
-		return datum;
-	}
-
-	public void setDatum(String datum) {
-		this.datum = datum;
-	}
 	
-	public String getVreme() {
-		return vreme;
-	}
-
-	public void setVreme(String vreme) {
-		this.vreme = vreme;
-	}
-	
-	public String getTrajanje() {
-		return trajanje;
-	}
-
-	public void setTrajanje(String trajanje) {
-		this.trajanje = trajanje;
-	}
-
-	public double getCena() {
-		return cena;
-	}
-
-	public void setCena(double cena) {
-		this.cena = cena;
-	}
 	
 	/*public TipPregleda getTippregleda() {
 		return tippregleda;
@@ -122,26 +124,26 @@ public class ZahtevZaZakazivanje {
 	
 	private boolean sameAsOldTippregleda(TipPregleda tippregleda) {
 	    return this.tippregleda==null? tippregleda == null : this.tippregleda.equals(tippregleda);
-	  }
+	  }*/
 	  
-	public Pacijent getPacijent() {
-		return pacijent;
-	}
-
-	public void setPacijent(Pacijent pacijent) {
-		if (sameAsOldPacijent(pacijent))
-		      return ;
-		Pacijent oldPacijent = this.pacijent;
-		    this.pacijent = pacijent;
-		    if (oldPacijent!=null)
-		    	oldPacijent.removeZakazivanje(this);
-		    if (pacijent!=null)
-		    	pacijent.addZakazivanje(this);
-	}
-	
-	private boolean sameAsOldPacijent(Pacijent pacijent) {
-	    return this.pacijent==null? pacijent == null : this.pacijent.equals(pacijent);
-	 }
+//	public Pacijent getPacijent() {
+//		return pacijent;
+//	}
+//
+//	public void setPacijent(Pacijent pacijent) {
+//		if (sameAsOldPacijent(pacijent))
+//		      return ;
+//		Pacijent oldPacijent = this.pacijent;
+//		    this.pacijent = pacijent;
+//		    if (oldPacijent!=null)
+//		    	oldPacijent.removeZakazivanje(this);
+//		    if (pacijent!=null)
+//		    	pacijent.addZakazivanje(this);
+//	}
+//	
+//	private boolean sameAsOldPacijent(Pacijent pacijent) {
+//	    return this.pacijent==null? pacijent == null : this.pacijent.equals(pacijent);
+//	 }
 	
 	public Lekar getLekar() {
 		return lekar;
@@ -160,6 +162,6 @@ public class ZahtevZaZakazivanje {
 	
 	private boolean sameAsOldLekar(Lekar lekar) {
 	    return this.lekar==null? lekar == null : this.lekar.equals(lekar);
-	 }*/
+	 }
 
 }

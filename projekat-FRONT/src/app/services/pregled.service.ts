@@ -33,8 +33,8 @@ export class PregledService {
   public zakaziPregledZaPacijenta(idd: any, username: string){
     let header = new HttpHeaders();
     header.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:8088/pregledi/zakaziPregled', idd, {headers: header});
-
+    let params = new HttpParams().set('username', username);
+    return this.http.post('http://localhost:8088/pregledi/zakaziPregled', idd, {headers: header, params: params});
   }
 
   public odjaviPregled(id: number){
@@ -96,5 +96,16 @@ export class PregledService {
     header.append('Content-Type', 'application/json');
     let params = new HttpParams().set('datum', datum);
     return this.http.post('http://localhost:8088/pregledi/zakaziProizvoljanPregled', idLekara, {headers: header, params: params});
+  }
+
+  public getBrojPregledaPoDanu(id: number): Observable<number[]>{
+    let header = new HttpHeaders();
+      header.append('Content-Type', 'application/json');
+    return this.http.get<number[]>('http://localhost:8088/pregledi/getBrojZakazanihPreglediByKlinikaId/' + id, {headers: header});
+  }
+  public getZarada(id: number): Observable<number>{
+    let header = new HttpHeaders();
+      header.append('Content-Type', 'application/json');
+    return this.http.get<number>('http://localhost:8088/pregledi/getZarada/' + id, {headers: header});
   }
 }

@@ -105,6 +105,59 @@ public class PreglediController {
 
 	}
 	
+	@GetMapping("/getBrojZakazanihPreglediByKlinikaId/{id}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN, ROLE_PACIJENT')")
+	public ResponseEntity<List<Integer>> getAllPreglediByKlinikaId(@PathVariable ("id") Long id){
+		List<Pregled> pregledi = preglediService.findByKlinikaId(id);
+		List<Pregled> prosliPregledi = new ArrayList<>();
+		for(Pregled p : pregledi) {
+			if(p.getSala()!=null && preglediService.findPacijentByPregledId(p.getId())!=null)
+				prosliPregledi.add(p);
+		}
+		List<Integer> zarada = new ArrayList<>();
+		int dan=9;
+		
+		for(int i = 0; i < 7; i++) {
+			
+			int brojac = 0;
+			for(Pregled p:prosliPregledi) {
+				if (p.getTermin().getDatum().toString().contains(dan+".02.2020")) {
+					brojac +=1;
+				}
+				
+			}
+			dan=dan-1;
+			zarada.add(brojac);
+			
+		}
+		return new ResponseEntity<List<Integer>>(zarada, HttpStatus.OK);
+
+	}
+	
+	@GetMapping("/getZarada/{id}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN, ROLE_PACIJENT')")
+	public ResponseEntity<Integer> getZarada(@PathVariable ("id") Long id){
+		List<Pregled> pregledi = preglediService.findByKlinikaId(id);
+		List<Pregled> prosliPregledi = new ArrayList<>();
+		int zarada=0;
+		int dan=9;
+		for(Pregled p : pregledi) {
+			if(p.getSala()!=null && preglediService.findPacijentByPregledId(p.getId())!=null)
+				prosliPregledi.add(p);
+		}
+		for(int i = 0; i < 7; i++) {
+		for(Pregled p:prosliPregledi) {
+			if (p.getTermin().getDatum().contains(dan+".02.2020")) {
+				zarada = (int) (p.getCena() + zarada);
+			}
+			
+		}
+		dan=dan-1;
+		}
+		return new ResponseEntity<Integer>(zarada, HttpStatus.OK);
+
+	}
+	
 	@GetMapping("/getPreglediByDatum/{id}")	
 	@PreAuthorize("hasRole('ROLE_PACIJENT')")	
 	public ResponseEntity<List<Pregled>> getAllPreglediByDatum(@RequestParam String datum, @PathVariable ("id") Long id){
@@ -135,9 +188,9 @@ public class PreglediController {
 	
 	@PostMapping("/zakaziPregled")
 	@PreAuthorize("hasRole('ROLE_PACIJENT')")	
-	public ResponseEntity<?> zakaziPregled(@RequestBody Long id, Principal pp){
+	public ResponseEntity<?> zakaziPregled(@RequestParam String email, @RequestBody Long id){
 		
-		User u = userService.findByUsername(pp.getName());
+		User u = userService.findByUsername(email);
 		Pacijent p = pacijentService.getPacijentByUser(u.getId());
 		Pregled preg = preglediService.zakazi(p, id);
 		
@@ -172,6 +225,7 @@ public class PreglediController {
 		List<Pregled> set = preglediService.getByPacijentId(p.getId());
 		return new ResponseEntity<List<Pregled>>(set, HttpStatus.OK);
 	}
+	
 	
 	@PostMapping("/odjaviPregled")
 	@PreAuthorize("hasRole('ROLE_PACIJENT')")	
@@ -254,13 +308,13 @@ public class PreglediController {
 		Pacijent p = pacijentService.getPacijentByUser(u.getId());
 		pregled.setPacijent(p);
 		preglediService.savePregledLekar(pregled);
-		List<AdministratorKlinike> adminiklinike = adminKlinikeService.getAdminiKlinikeByIdKlinike((preglediService.findKlinikaByPregledId(pregled.getId())).getId()) ;
+		/*List<AdministratorKlinike> adminiklinike = adminKlinikeService.getAdminiKlinikeByIdKlinike((preglediService.findKlinikaByPregledId(pregled.getId())).getId()) ;
 		
 		try {
 			emailService.obavestiAdmine(adminiklinike);
 		} catch (Exception e) {
 			System.out.println("Greska prilikom slanja maila!\n" + e.getMessage());
-		}
+		}*/
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
